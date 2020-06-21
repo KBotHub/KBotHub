@@ -1,5 +1,8 @@
 # KBotHub
 
+
+
+
 scripts/debug.js
 
 에서 레거시 api에 있는 스크립트를 정의
