@@ -105,12 +105,6 @@ Api.makeNoti = function(){return;};
 papagoTranslate(String sourceLanguage, String targetLanguage, String content, Boolean errorToString = false)	String	번역 결과를 제공합니다.
 errorToString이 true일 경우 에러를 throw하지 않고 String으로 반환합니다.
 */
-const BufferedReader = java.io.BufferedReader;
-const DataOutputStream = java.io.DataOutputStream;
-const InputStreamReader = java.io.InputStreamReader;
-const HttpURLConnection = java.net.HttpURLConnection;
-const URL = java.net.URL;
-const URLEncoder = java.net.URLEncoder;
 Api.papagoTranslate = function(source, target, text){
 clientId = "rKCvcA2N5Djbw2eqTP3W";
 clientSecret = "pmfSez5oBS";
