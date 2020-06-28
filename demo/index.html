@@ -1,29 +1,86 @@
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="http://kboteditor.kro.kr">
-    <meta property="og:title" content="KakaotalkBot Hub">
-    <meta property="og:description" content="카카오톡 봇 온라인 시뮬레이터 입니다.">
-    <meta property="og:image" content="http://kboteditor.kro.kr/img/no_bg.jpg">
-    <link rel="shortcut icon" href="/img/icon.ico">
-    <title>KBotHub</title>
-<style>
-body {
-  background-image: url('img/background.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed; 
-  background-size: cover;
-}
-</style>
-    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
-<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-</head>
+<html lang="en"><head>
+	<meta charset="utf-8">
+	<title>Toast.js</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Source+Code+Pro" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="../css/Toast.min.css">
 <body>
-  <img src="img/no_bg.png" style="width:5%;height:width;">
-<h1>Get Started!</h1>
-<p>Finally, link to <a href="page2.html">another page</a> in your own Web site.</p>
-<p>&#169; franknoh, 2020</p>
-</body>
-</html>
+	<div class="container">
+		
+		
+
+
+		
+
+
+		
+
+		<section class="site-section">
+			
+
+			
+
+			
+
+
+			<section>
+				
+
+				<button id="trigger-example-3">Try it!</button>
+
+
+			</section>
+
+
+
+
+		</section>
+
+	</div>
+
+
+
+    <script src="../js/Toast.min.js"></script>
+    <script>
+    	new Toast({message: 'Welcome to Toast.js!'})
+
+
+    	document.querySelector('#trigger-example-2').addEventListener('click', function() {
+    		new Toast({
+			    message: 'This is a danger message. You can use this for errors etc',
+			    type: 'danger'
+			});
+    	});
+
+
+    	document.querySelector('#trigger-example-3').addEventListener('click', function() {
+    		new Toast({
+			    message: 'This is an example with custom buttons',
+			    type: 'success',
+			    customButtons: [
+			    	{
+			    		text: 'Refresh the page',
+			    		onClick: function() {
+			    			window.location.reload();
+			    		}
+			    	},
+			    	{
+			    		text: 'go to reference',
+			    		onClick: function() {
+			    			window.open('https://kboteditor.kro.kr/reference/');
+			    		}
+			    	}
+			    ]
+			});
+    	});
+    </script><div class="toastjs-container" role="alert" aria-hidden="true"><div class="toastjs"></div></div>
+
+    <script>
+    window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+    </script> 
+
+</body></html>
