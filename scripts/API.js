@@ -100,7 +100,7 @@ Api.showToast = function(msg){new Toast({message: msg});};
 makeNoti(String title, String content, int id)	String[]	알림을 띄웁니다. id값은 알림의 고유 아이디로,
 같은 아이디로 makeNoti를 다시 한번 호출하면 알림이 새로 뜨지 않고 내용이 수정됩니다.
 */
-Api.makeNoti = function(){return;};
+Api.makeNoti = function(msg){alert(msg);};
 /*
 papagoTranslate(String sourceLanguage, String targetLanguage, String content, Boolean errorToString = false)	String	번역 결과를 제공합니다.
 errorToString이 true일 경우 에러를 throw하지 않고 String으로 반환합니다.
