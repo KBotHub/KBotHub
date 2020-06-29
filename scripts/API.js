@@ -174,4 +174,7 @@ const replier = {};
 
 const imageDB = {};
 
+/*
+getImage()	null	호환성을 위해 존재하기 때문에 기능이 없는 메소드입니다. 이는 항상 null을 반환합니다.
+*/
 imageDB.getImage = function() {return null;};
