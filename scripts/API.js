@@ -15,6 +15,9 @@ data["Base64code"]["type : blockly or 단자응 or js", ".js or .xml or .txt 의
 저장시 사용함
 
 /*************************************************************************************************************/
+var isOn = false;
+var botName = "봇이름";
+/*************************************************************************************************************/
 
 const scriptName = "";
 
@@ -42,8 +45,29 @@ compile(String scriptName, Boolean throwOnError = false)	Boolean	특정 스크�
 throwOnError가 true라면, 컴파일 에러시 예외를 throw합니다.
 에러 발생시, 또는 스크립트가 존재하지 않을 시 false를 반환하고, 컴파일 성공시 true를 반환합니다.
 */
-Api.reload = function(){return true;};
-Api.compile = function(){return true;};
+Api.reload = function(srcName, throwErr){
+  if(srcName == botName){
+     try{
+       eval(code);
+       function onCreate();
+       function onStart();
+       function onResume();
+       function onPause();
+       function onStop();
+     }catch(e){
+       if(throwErr == true){
+         return e;
+       }
+       new Toast({
+       message: '에러 발생!!\n'+e,
+       type: 'danger'
+       });
+     }
+  }else{
+  return false;   
+  }
+};
+Api.compile = function(srcName, throwErr){return true;};
 /*prepare(String scriptName)	int	해당 스크립트가 한번도 컴파일 된 적이 없을 경우에만 컴파일합니다.
 컴파일 실패시 에러를 throw하고, 스크립트가 존재하지 않을 시 0, 컴파일 성공시 1, 한번이라도 컴파일 된 적이 있을 시 2를 반환합니다.
 */
