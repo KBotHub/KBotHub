@@ -17,6 +17,7 @@ data["Base64code"]["type : blockly or 단자응 or js", ".js or .xml or .txt 의
 /*************************************************************************************************************/
 var isOn = false;
 var botName = "봇이름";
+var code = alert("1");
 /*************************************************************************************************************/
 
 const scriptName = "";
@@ -49,11 +50,11 @@ Api.reload = function(srcName, throwErr){
   if(srcName == botName){
      try{
        eval(code);
-       function onCreate();
-       function onStart();
-       function onResume();
-       function onPause();
-       function onStop();
+       onCreate();
+       onStart();
+       onResume();
+       onPause();
+       onStop();
      }catch(e){
        if(throwErr == true){
          return e;
