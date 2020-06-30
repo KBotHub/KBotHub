@@ -20,7 +20,7 @@ var botName = "봇이름";
 var code = "";
 /*************************************************************************************************************/
 
-const scriptName = "";
+const scriptName = botName;
 
 function response(room, msg, sender, isGroupChat, replier, imageDB, packageName) {}
 
@@ -83,19 +83,33 @@ off()	Boolean	모든 스크립트의 전원을 끕니다. 반환값은 항상 tr
 off(String scriptName)	Boolean	해당 스크립트의 전원을 끕니다.
 스크립트가 존재하지 않거나, 스크립트의 설정에서 Api.off를 무시하도록 설정했을 경우 false를 반환하고, 그렇지 않은 경우에는 true를 반환합니다.
 */
-Api.off = function(){return true;};
+Api.off = function(name){
+  if(name != botName || name != null){
+    isOn = true;   
+  }else{
+    isOn = false;
+  }
+  return true;
+};
 /*
 on()	Boolean	모든 스크립트의 전원을 켭니다. 반환값은 항상 true입니다.
 on(String scriptName)	Boolean	해당 스크립트의 전원을 켭니다.
 스크립트가 존재하지 않을 시 false, 존재할 시 true를 반환합니다.
 */
-Api.on = function(){return true;};
+Api.on = function(name){
+  if(name == botName || name == null){
+    isOn = true;   
+  }else{
+    isOn = false;
+  }
+  return true;
+};
 /*
 isOn(String scriptName)	Boolean	해당 스크립트의 전원 상태를 반환합니다.
 isCompiled(String scriptName)	Boolean	해당 스크립트의 컴파일 완료 여부를 반환합니다.
 isCompiling(String scriptName)	Boolean	해당 스크립트가 컴파일 진행 중 인지 여부를 반환합니다.
 */
-Api.isOn = function(){return true;};
+Api.isOn = function(){return isOn;};
 Api.isCompiled = function(){return true;};
 Api.isCompiling = function(){return false;};
 /*
