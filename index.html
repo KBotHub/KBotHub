@@ -15,30 +15,6 @@
     <script>
     	new Toast({message: '에디터가 정상적으로 로드되었습니다!'})
 
-
-
-
-
-    	document.querySelector('#trigger-example-3').addEventListener('click', function() {
-    		new Toast({
-			    message: 'This is an example with custom buttons',
-			    type: 'success',
-			    customButtons: [
-			    	{
-			    		text: 'Refresh the page',
-			    		onClick: function() {
-			    			window.location.reload();
-			    		}
-			    	},
-			    	{
-			    		text: 'go to reference',
-			    		onClick: function() {
-			    			window.open('https://kboteditor.kro.kr/reference/');
-			    		}
-			    	}
-			    ]
-			});
-    	});
     </script><div class="toastjs-container" role="alert" aria-hidden="true"><div class="toastjs"></div></div>
 
 
