@@ -13,8 +13,24 @@
 
     <script src="js/Toast.min.js"></script>
     <script>
-    	new Toast({message: '에디터가 정상적으로 로드되었습니다!'})
-
+    	new Toast({
+  message: '외부 링크',
+  type: 'success',
+  customButtons: [
+    {
+      text: 'reference  사이트 가기',
+      onClick: function() {
+        window.open('https://kkotbot-reference.kro.kr/');
+      }
+    },
+    {
+      text: '카페 가기',
+      onClick: function() {
+        window.open('https://cafe.naver.com/responsecafe');
+      }
+    }
+  ]
+});
     </script><div class="toastjs-container" role="alert" aria-hidden="true"><div class="toastjs"></div></div>
 
 
