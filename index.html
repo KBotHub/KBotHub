@@ -1,95 +1,45 @@
 <!DOCTYPE html>
-<html>
-<head>
-<style>
-body, html {
-  height: 100%;
-  margin: 0;
-}
-
-.bgimg {
-  background-image: url('/img/background.jpg');
-  height: 100%;
-  background-position: center;
-  background-size: cover;
-  position: relative;
-  color: white;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 25px;
-}
-
-.topleft {
-  position: absolute;
-  top: 0;
-  left: 16px;
-}
-
-.bottomleft {
-  position: absolute;
-  bottom: 0;
-  left: 16px;
-}
-
-.middle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-hr {
-  margin: auto;
-  width: 40%;
-}
-</style>
-<link rel="shortcut icon" type="image/jpg" href="../img/icon.ico"/>
-</head>
+<html lang="en"><head>
+	<meta charset="utf-8">
+	<title>editor-demo</title>
+	<link rel="shortcut icon" type="image/jpg" href="img/output-onlinepngtools.ico"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="봇 허브 입니다">
+	<meta name="keywords" content="온라인 메신저봇">
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Source+Code+Pro" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="css/Toast.min.css">
+	</head>
 <body>
-<div class="bgimg">
-  <div class="topleft">
-    <p>KBotHub</p>
-  </div>
-  <div class="middle">
-    <h1>COMING SOON</h1>
-    <hr>
-    <p id="demo" style="font-size:30px"></p>
-  </div>
-  <div class="bottomleft">
-    <p>서비스 준비중입니다</p>
-  </div>
-</div>
 
-<script>
-// Set the date we're counting down to
-var countDownDate = new Date("Jan 10, 2021 17:00:00").getTime();
+    <script src="js/Toast.min.js"></script>
+    <script>
+    	new Toast({message: '에디터가 정상적으로 로드되었습니다!'})
 
-// Update the count down every 1 second
-var countdownfunction = setInterval(function() {
 
-  // Get todays date and time
-  var now = new Date().getTime();
-  
-  // Find the distance between now an the count down date
-  var distance = countDownDate - now;
-  
-  // Time calculations for days, hours, minutes and seconds
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  
-  // Output the result in an element with id="demo"
-  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-  + minutes + "m " + seconds + "s ";
-  
-  // If the count down is over, write some text 
-  if (distance < 0) {
-    clearInterval(countdownfunction);
-    document.getElementById("demo").innerHTML = "서비스가 준비되었습니다.";
-  }
-}, 1000);
-</script>
 
-</body>
-</html>
+
+
+    	document.querySelector('#trigger-example-3').addEventListener('click', function() {
+    		new Toast({
+			    message: 'This is an example with custom buttons',
+			    type: 'success',
+			    customButtons: [
+			    	{
+			    		text: 'Refresh the page',
+			    		onClick: function() {
+			    			window.location.reload();
+			    		}
+			    	},
+			    	{
+			    		text: 'go to reference',
+			    		onClick: function() {
+			    			window.open('https://kboteditor.kro.kr/reference/');
+			    		}
+			    	}
+			    ]
+			});
+    	});
+    </script><div class="toastjs-container" role="alert" aria-hidden="true"><div class="toastjs"></div></div>
+
+
+</body></html>
