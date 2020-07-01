@@ -1,7 +1,7 @@
-var request = require('request'),
-    cheerio = require('cheerio');
+var request = require(['request']),
+    cheerio = require(['cheerio']);
 
-var url = "http://codenamu.org/blog/";
+var url = "https://kboteditor.kro.kr/";
  
 
 request(url, function (err, res, html) {
