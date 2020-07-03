@@ -1,11 +1,12 @@
 <html lang="en"><head>
 	<meta charset="utf-8">
 	<title>editor-demo</title>
-	<link rel="shortcut icon" type="image/jpg" href="../img/output-onlinepngtools.ico"/>
+	<link rel="shortcut icon" type="image/x-icon" href="../img/output-onlinepngtools.ico"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="봇 허브 입니다">
 	<meta name="keywords" content="온라인 메신저봇">
 	<script data-main="scripts/main" src="../scripts/require.js"></script>
+	<script src="../js/Toast.min.js"></script>
 	<script src="../scripts/web.js"></script>
 	<script src="../scripts/API.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Source+Code+Pro" rel="stylesheet" type="text/css">
@@ -18,11 +19,10 @@
 			
 			<section>
 
-				<button id="trigger-example-3">Try it!</button>
+				<button id="trigger1">외부링크</button>
 
 
 			</section>
-
 
 
 
@@ -30,19 +30,13 @@
 
 	</div>
 
-
-
-    <script src="../js/Toast.min.js"></script>
     <script>
     	new Toast({message: '에디터가 정상적으로 로드되었습니다!'})
 
 
-
-
-
-    	document.querySelector('#trigger-example-3').addEventListener('click', function() {
+    	document.querySelector('#trigger1').addEventListener('click', function() {
     		new Toast({
-			    message: 'This is an example with custom buttons',
+			    message: '외부링크',
 			    type: 'success',
 			    customButtons: [
 			    	{
