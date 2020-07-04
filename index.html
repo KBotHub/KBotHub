@@ -3,35 +3,39 @@
 	<meta charset="utf-8">
 	<title>KBotHub</title>
 	<link rel="shortcut icon" type="image/jpg" href="img/output-onlinepngtools.ico"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kboteditor.kro.kr/">
+  <meta property="og:title" content="KakaotalkBot Hub">
+  <meta property="og:description" content="카카오톡 봇 허브입니다.">
+  <meta property="og:image" content="https://github.com/franknoh/KBotHub/blob/master/img/grp_img.jpg">
 	<meta name="description" content="봇 허브 입니다">
 	<meta name="keywords" content="온라인 메신저봇">
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Source+Code+Pro" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="css/Toast.min.css">
 	</head>
 <body>
-
-    <script src="js/Toast.min.js"></script>
-    <script>
-    	new Toast({
-  message: '외부 링크',
-  type: 'success',
-  customButtons: [
-    {
-      text: 'reference  사이트 가기',
-      onClick: function() {
-        window.open('https://kkotbot-reference.kro.kr/');
-      }
-    },
-    {
-      text: '카페 가기',
-      onClick: function() {
-        window.open('https://cafe.naver.com/responsecafe');
-      }
-    }
-  ]
-});
-    </script><div class="toastjs-container" role="alert" aria-hidden="true"><div class="toastjs"></div></div>
-
-
-</body></html>
+  <script src="js/Toast.min.js"></script>
+  <script>
+    new Toast({
+      message: '외부 링크',
+      type: 'success',
+      customButtons: [
+        {
+          text: 'reference  사이트 가기',
+          onClick: function() {
+            window.open('https://kkotbot-reference.kro.kr/');
+          }
+        },
+        {
+          text: '카페 가기',
+          onClick: function() {
+            window.open('https://cafe.naver.com/responsecafe');
+          }
+        }
+      ] 
+    });
+  </script>
+  <div class="toastjs-container" role="alert" aria-hidden="true"><div class="toastjs"></div></div>
+</body>
+</html>
