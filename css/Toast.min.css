@@ -27,8 +27,16 @@
     border-left-color:#AAA;
 }
 
-.toastjs.success{
+.toastjs.mint{
     border-left-color:#00ffc8;
+}
+
+.toastjs.success{
+    border-left-color:#47bf26;
+}
+
+.toastjs.purple{
+    border-left-color:#8c27c2;
 }
 
 .toastjs.warning{
