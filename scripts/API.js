@@ -186,8 +186,10 @@ const Utils = {};
 getWebText(String url)	String	웹사이트의 HTML을 로드하여 문자열로 반환합니다. (동기적)
 */
 Utils.getWebText = function(url){
-  fetch('https://api.codetabs.com/v1/proxy?quest='+url).then((response) => response.text()).then((text) => console.log(text); var data = text;);
+  var data;
+  fetch('https://api.codetabs.com/v1/proxy?quest='+url).then((response) => response.text()).then((text) => data = text;);
   return data;
+  console.log(data);
 }
 /*
 parse(String url)	org.jsoup.nodes	웹사이트의 HTML을 get하여 org.jsoup.nodes.Document로 반환합니다. (동기적)
