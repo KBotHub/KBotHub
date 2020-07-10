@@ -187,7 +187,7 @@ getWebText(String url)	String	웹사이트의 HTML을 로드하여 문자열로 
 */
 Utils.getWebText = function(url){
   var data;
-  fetch('https://api.codetabs.com/v1/proxy?quest='+url).then((response) => response.text()).then((text) => data = text;);
+  fetch('https://api.codetabs.com/v1/proxy?quest='+url).then((response) => response.text()).then((text) => data = text);
   return data;
   console.log(data);
 }
