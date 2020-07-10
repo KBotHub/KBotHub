@@ -13,6 +13,7 @@ replier 이랑 Api.replyRoom 에서 다룸
 
 data["Base64code"]["type : blockly or 단자응 or js", ".js or .xml or .txt 의 base64 인코딩된 문자열"]
 저장시 사용함
+*/
 
 /*************************************************************************************************************/
 var isOn = false;
@@ -181,6 +182,32 @@ Api.UIThread = function(func, onCompile){return;};
 
 const Utils = {};
 
+/*
+getWebText(String url)	String	웹사이트의 HTML을 로드하여 문자열로 반환합니다. (동기적)
+*/
+Utils.getWebText = function(url){
+  fetch('https://api.codetabs.com/v1/proxy?quest='+url).then((response) => response.text()).then((text) => console.log(text));
+  return text;
+}
+/*
+parse(String url)	org.jsoup.nodes	웹사이트의 HTML을 get하여 org.jsoup.nodes.Document로 반환합니다. (동기적)
+*/
+
+/*
+getAndroidVersionCode()	int	앱 구동 환경의 안드로이드 버전 코드를 반환합니다.
+*/
+
+/*
+getAndroidVersionName()	String	앱 구동 환경의 안드로이드 버전 이름을 반환합니다.
+*/
+
+/*
+getPhoneBrand()	String	앱 구동 환경의 휴대폰 브랜드명을 반환합니다.
+*/
+
+/*
+getPhoneModel()	String	앱 구동 환경의 휴대폰 모델명을 반환합니다.
+*/
 
 
 const FileStream = {};
