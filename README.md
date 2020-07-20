@@ -10,7 +10,7 @@ https://kboteditor.kro.kr
 
 # 기본양식
 
-```
+```html
 <!DOCTYPE html>
 <html lang="kr"><head>
 	<meta charset="utf-8">
