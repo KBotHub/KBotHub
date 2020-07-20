@@ -10,7 +10,7 @@ https://kboteditor.kro.kr
 
 # 기본양식
 
-,,,
+```
 <!DOCTYPE html>
 <html lang="kr"><head>
 	<meta charset="utf-8">
@@ -31,4 +31,4 @@ https://kboteditor.kro.kr
   <div class="toastjs-container" role="alert" aria-hidden="true"><div class="toastjs"></div></div>
 </body>
 </html>
-,,,
+```
