@@ -24,6 +24,16 @@
 	<script src="https://kboteditor.kro.kr/js/Toast.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<link rel="stylesheet" href="https://kboteditor.kro.kr/fonts/fonts.css">
+	<link rel="stylesheet" href="https://uicdn.toast.com/tui.chart/latest/tui-chart.min.css">
+	<script src="https://uicdn.toast.com/tui.chart/latest/tui-chart-all.min.js"></script>
+	<script src="https://uicdn.toast.com/tui.chart/latest/maps/china.js"></script>
+	<script src="https://uicdn.toast.com/tui.chart/latest/maps/japan.js"></script>
+	<script src="https://uicdn.toast.com/tui.chart/latest/maps/singapore.js"></script>
+	<script src="https://uicdn.toast.com/tui.chart/latest/maps/south-korea.js"></script>
+	<script src="https://uicdn.toast.com/tui.chart/latest/maps/taiwan.js"></script>
+	<script src="https://uicdn.toast.com/tui.chart/latest/maps/thailand.js"></script>
+	<script src="https://uicdn.toast.com/tui.chart/latest/maps/use.js"></script>
+	<script src="https://uicdn.toast.com/tui.chart/latest/maps/world.js"></script>
 </head>
 <body>
 	<div class="toastjs-container" role="alert" aria-hidden="true"><div class="toastjs"></div></div>
