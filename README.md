@@ -1,11 +1,9 @@
-# KBotHub
-
-https://kboteditor.kro.kr
+# [KBotHub](https://kboteditor.kro.kr)
 
 
 
-* nolbo
-* franknoh
+* @nolbo
+* @franknoh
 
 
 # 기본양식
@@ -32,3 +30,9 @@ https://kboteditor.kro.kr
 </body>
 </html>
 ```
+
+* 로고
+
+![](https://kboteditor.kro.kr/img/grpimg.jpg)
+
+![](https://kboteditor.kro.kr/img/logo.png)
