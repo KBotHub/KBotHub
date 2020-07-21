@@ -2,8 +2,7 @@
 
 
 
-* @nolbo
-* @franknoh
+@nolbo
 
 
 # 기본양식
@@ -33,6 +32,6 @@
 
 * 로고
 
-![](https://kboteditor.kro.kr/img/grpimg.jpg)
+![](https://kboteditor.kro.kr/img/grp_img.jpg)
 
 ![](https://kboteditor.kro.kr/img/logo.png)
