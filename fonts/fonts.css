@@ -53,3 +53,59 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: "JetBrainsMono-SemiLight-Italic";
+
+  src: url("https://kboteditor.kro.kr/fonts/JetBrainsMono-SemiLight.woff") format("woff"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "JetBrainsMono-Bold-Italic";
+
+  src: url("https://kboteditor.kro.kr/fonts/JetBrainsMono-Bold.woff") format("woff"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "JetBrainsMono-ExtraBold-Italic";
+
+  src: url("https://kboteditor.kro.kr/fonts/JetBrainsMono-ExtraBold.woff") format("woff"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "JetBrainsMono-ExtraLight-Italic";
+
+  src: url("https://kboteditor.kro.kr/fonts/JetBrainsMono-ExtraLight.woff") format("woff"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "JetBrainsMono-Light-Italic";
+
+  src: url("https://kboteditor.kro.kr/fonts/JetBrainsMono-Light.woff") format("woff"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "JetBrainsMono-Medium-Italic";
+
+  src: url("https://kboteditor.kro.kr/fonts/JetBrainsMono-Medium.woff") format("woff"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "JetBrainsMono-Italic";
+
+  src: url("https://kboteditor.kro.kr/fonts/JetBrainsMono-Italic.woff") format("woff"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
