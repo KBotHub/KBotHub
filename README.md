@@ -60,6 +60,7 @@
 	  // Initialize Firebase
 	  firebase.initializeApp(firebaseConfig);
 	  firebase.analytics();
+	  firebase.auth();
 	</script>
 </body>
 </html>
