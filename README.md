@@ -34,6 +34,8 @@
 	<script src="https://uicdn.toast.com/tui.chart/latest/maps/thailand.js"></script>
 	<script src="https://uicdn.toast.com/tui.chart/latest/maps/use.js"></script>
 	<script src="https://uicdn.toast.com/tui.chart/latest/maps/world.js"></script>
+	<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 </head>
 <body>
 	<div class="toastjs-container" role="alert" aria-hidden="true"><div class="toastjs"></div></div>
