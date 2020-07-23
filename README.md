@@ -22,6 +22,7 @@
 	<meta name="description" content="봇 허브 입니다">
 	<meta name="keywords" content="온라인 메신저봇">
 	<script src="https://kboteditor.kro.kr/js/Toast.min.js"></script>
+	<link rel="stylesheet" href="https://kboteditor.kro.kr/css/Toast.min.css">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<link rel="stylesheet" href="https://kboteditor.kro.kr/fonts/fonts.css">
 	<link rel="stylesheet" href="https://uicdn.toast.com/tui.chart/latest/tui-chart.min.css">
