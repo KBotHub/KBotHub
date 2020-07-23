@@ -32,7 +32,7 @@
 	<script src="https://uicdn.toast.com/tui.chart/latest/maps/south-korea.js"></script>
 	<script src="https://uicdn.toast.com/tui.chart/latest/maps/taiwan.js"></script>
 	<script src="https://uicdn.toast.com/tui.chart/latest/maps/thailand.js"></script>
-	<script src="https://uicdn.toast.com/tui.chart/latest/maps/use.js"></script>
+	<script src="https://uicdn.toast.com/tui.chart/latest/maps/usa.js"></script>
 	<script src="https://uicdn.toast.com/tui.chart/latest/maps/world.js"></script>
 	<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
 	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
@@ -64,8 +64,6 @@
 	
 	  firebase.analytics();
 	  firebase.auth();
-	  // Get a reference to the storage service, which is used to create references in your storage bucket
-	  var storage = firebase.storage();
 	  // Initialize the FirebaseUI Widget using Firebase.
 	  var ui = new firebaseui.auth.AuthUI(firebase.auth());
 	</script>
