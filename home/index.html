@@ -1,21 +1,45 @@
 <!DOCTYPE html>
-<html lang="kr"><head>
-	<meta charset="utf-8">
-	<title>KBotHub</title>
-	<link rel="shortcut icon" type="image/jpg" href="https://kboteditor.kro.kr/img/output-onlinepngtools.ico">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta property="og:type" content="website">
-	<meta property="og:url" content="https://kboteditor.kro.kr/">
-	<meta property="og:title" content="KakaotalkBot Hub">
-	<meta property="og:description" content="카카오톡 봇 허브입니다.">
-	<meta property="og:image" content="https://kboteditor.kro.kr/img/grp_img.jpg">
-	<meta name="description" content="봇 허브 입니다">
-	<meta name="keywords" content="온라인 메신저봇">
-	<script src="https://kboteditor.kro.kr/js/Toast.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<link rel="stylesheet" href="https://kboteditor.kro.kr/fonts/fonts.css">
-</head>
-<body>
-	<div class="toastjs-container" role="alert" aria-hidden="true"><div class="toastjs"></div></div>
-</body>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Sample FirebaseUI App</title>
+    <!-- *******************************************************************************************
+       * TODO(DEVELOPER): Paste the initialization snippet from:
+       * Firebase Console > Overview > Add Firebase to your web app. *
+       ***************************************************************************************** -->
+    <script src="https://www.gstatic.com/firebasejs/ui/4.6.0/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.0/firebase-ui-auth.css" />
+    <script type="text/javascript">
+      // FirebaseUI config.
+      var uiConfig = {
+        signInSuccessUrl: '<url-to-redirect-to-on-success>',
+        signInOptions: [
+          // Leave the lines as is for the providers you want to offer your users.
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          firebase.auth.GithubAuthProvider.PROVIDER_ID,
+          firebase.auth.EmailAuthProvider.PROVIDER_ID,
+          firebase.auth.PhoneAuthProvider.PROVIDER_ID
+        ],
+        // tosUrl and privacyPolicyUrl accept either url string or a callback
+        // function.
+        // Terms of service url/callback.
+        tosUrl: '<your-tos-url>',
+        // Privacy policy url/callback.
+        privacyPolicyUrl: function() {
+          window.location.assign('<your-privacy-policy-url>');
+        }
+      };
+
+      // Initialize the FirebaseUI Widget using Firebase.
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      // The start method will wait until the DOM is loaded.
+      ui.start('#firebaseui-auth-container', uiConfig);
+    </script>
+  </head>
+  <body>
+    <!-- The surrounding HTML is left untouched by FirebaseUI.
+         Your app may use that space for branding, controls and other customizations.-->
+    <h1>Welcome to My Awesome App</h1>
+    <div id="firebaseui-auth-container"></div>
+  </body>
 </html>
