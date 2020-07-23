@@ -37,6 +37,28 @@
 </head>
 <body>
 	<div class="toastjs-container" role="alert" aria-hidden="true"><div class="toastjs"></div></div>
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+
+	<!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries -->
+	<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-analytics.js"></script>
+
+	<script>
+	  // Your web app's Firebase configuration
+	  var firebaseConfig = {
+	    apiKey: "AIzaSyBsvjuWiZBTEoBJWMvih4q7JHH6gmHF1X0",
+	    authDomain: "editor-280309.firebaseapp.com",
+	    databaseURL: "https://editor-280309.firebaseio.com",
+	    projectId: "editor-280309",
+	    storageBucket: "editor-280309.appspot.com",
+	    messagingSenderId: "836598450292",
+	    appId: "1:836598450292:web:35d0ab7d3e13faf7bba921",
+	    measurementId: "G-RJNBM8TLLK"
+	  };
+	  // Initialize Firebase
+	  firebase.initializeApp(firebaseConfig);
+	  firebase.analytics();
+	</script>
 </body>
 </html>
 ```
