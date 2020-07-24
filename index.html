@@ -207,20 +207,24 @@ body{
 var i = 0;
 var speed = 100;
 var txt = 'happy coding :)';
-
+function typeWriter(){
   if (i < txt.length) {
     document.getElementById("demo").innerHTML += txt.charAt(i);
     i++;
     setTimeout(typeWriter, speed);
   }
-i = 0;
+}
+typeWriter();
+j = 0;
 var txt2 = '-KBotHub';
-
-  if (i < txt2.length) {
-    document.getElementById("demo2").innerHTML += txt2.charAt(i);
-    i++;
-    setTimeout(typeWriter, speed);
+function typeWriter2(){
+  if (j < txt2.length) {
+    document.getElementById("demo2").innerHTML += txt2.charAt(j);
+    j++;
+    setTimeout(typeWriter2, speed);
   }
+}
+typeWriter2();
 </script>
     </div>
 
