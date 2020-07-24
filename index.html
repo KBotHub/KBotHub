@@ -92,5 +92,28 @@
   </script>
 
   <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+<a id="github-button" class="btn btn-block btn-social btn-github">
+  <i class="fa fa-github"></i> Sign in with Github
+</a>
+	<script>
+	$('#github-button').on('click', function() {
+firebase.auth().signInWithPopup(new firebase.auth.GithubAuthProvider()).then(function(result) {
+  // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+  var token = result.credential.accessToken;
+  // The signed-in user info.
+  var user = result.user;
+  // ...
+}).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  // ...
+});
+})
+	</script>
 </body>
 </html>
