@@ -14,8 +14,8 @@
   font-style: normal;
 }
 @font-face{
-    font-family: 'D2Coding';
-    src:url("https://kboteditor.kro.kr/fonts/font/D2Coding.woff") format('woff');
+    font-family: "D2Coding";
+    src:url("https://kboteditor.kro.kr/fonts/font/D2Coding.woff") format("woff");
 }
 @font-face {
   font-family: "JetBrainsMono-ExtraBold";
