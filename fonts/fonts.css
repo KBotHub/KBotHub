@@ -112,3 +112,7 @@
   font-weight: normal;
   font-style: normal;
 }
+
+body {
+  font-famliy: "JetBrainsMono-Bold", D2Coding;
+}
