@@ -201,33 +201,26 @@ body{
 }
 </style>
 	<div class="context">
-        <h1 id="demo">start coding :)</h1>
+        <h1 id="demo"></h1>
 	<h3 id="demo2"></h3>
 	<script>
 var i = 0;
-var txt = 'happy coding :)';
 var speed = 100;
+var txt = 'happy coding :)';
 
-function typeWriter() {
   if (i < txt.length) {
     document.getElementById("demo").innerHTML += txt.charAt(i);
     i++;
     setTimeout(typeWriter, speed);
   }
-}
-typeWriter();
-var i = 0;
-var txt = '-KBotHub';
-var speed = 100;
+i = 0;
+var txt2 = '-KBotHub';
 
-function typeWriter() {
-  if (i < txt.length) {
-    document.getElementById("demo2").innerHTML += txt.charAt(i);
+  if (i < txt2.length) {
+    document.getElementById("demo2").innerHTML += txt2.charAt(i);
     i++;
     setTimeout(typeWriter, speed);
   }
-}
-typeWriter();
 </script>
     </div>
 
