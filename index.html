@@ -202,11 +202,10 @@ body{
 </style>
 	<div class="context">
         <h1 id="demo"></h1>
-	<h3 id="demo2"></h3>
 	<script>
 var i = 0;
 var speed = 100;
-var txt = 'happy coding :)';
+var txt = 'happy coding :)\n-KBotHub';
 function typeWriter(){
   if (i < txt.length) {
     document.getElementById("demo").innerHTML += txt.charAt(i);
@@ -215,16 +214,6 @@ function typeWriter(){
   }
 }
 typeWriter();
-j = 0;
-var txt2 = '-KBotHub';
-function typeWriter2(){
-  if (j < txt2.length) {
-    document.getElementById("demo2").innerHTML += txt2.charAt(j);
-    j++;
-    setTimeout(typeWriter2, speed);
-  }
-}
-typeWriter2();
 </script>
     </div>
 
