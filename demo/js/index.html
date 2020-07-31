@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<script src="../../editor/codemirror.js"></script>
+<link rel="stylesheet" href="../../editor/codemirror.css">
+<script src="../../editor/javascript.js"></script>
+
+<textarea id="codearea">
+</textarea>
+<script>
+const codemirrorEditor = CodeMirror.fromTextArea(document.getElementById('codearea'), {
+  lineNumbers: true,
+  mode: "javascript",
+  theme: "base16-dark"
+});
+</script>
+
+</body>
+</html>
