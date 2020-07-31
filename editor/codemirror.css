@@ -2,7 +2,6 @@
 
 .CodeMirror {
   /* Set height, width, borders, and global font properties here */
-  font-famliy : 'JetBrainsMono-Bold', sans-serif;
   height: 300px;
   color: black;
   direction: ltr;
