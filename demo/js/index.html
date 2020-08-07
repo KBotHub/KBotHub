@@ -30,7 +30,7 @@ const codemirrorEditor = CodeMirror.fromTextArea(document.getElementById('codear
   theme: "base16-dark"
 });
 function run(){
-eval(document.getElementById("codearea").value)
+eval(codemirrorEditor.getValue())
 }
 </script>
 
