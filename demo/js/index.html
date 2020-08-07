@@ -29,9 +29,12 @@ const codemirrorEditor = CodeMirror.fromTextArea(document.getElementById('codear
   mode: "javascript",
   theme: "base16-dark"
 });
+function run(){
+eval(document.getElementById("codearea").value)
+}
 </script>
 
-<button type="button" onclick="eval(document.getElementById("codearea").value)">RUN</button>
+<button type="button" onclick="run()">RUN</button>
 
 </body>
 </html>
