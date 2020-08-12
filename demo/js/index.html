@@ -69,20 +69,20 @@ Log.debug = function(a, b){
 };
 
 Log.e = function(a, b){
-	if(b) new Toast({message:a});
+	if(b) new Toast({message:a, type:danger});
 	document.getElementById("log").innerHTML+=a;
 };
 Log.error = function(a, b){
-	if(b) new Toast({message:a});
+	if(b) new Toast({message:a, type:danger});
 	document.getElementById("log").innerHTML+=a;
 };
 
 Log.i = function(a, b){
-	if(b) new Toast({message:a});
+	if(b) new Toast({message:a, type:purple});
 	document.getElementById("log").innerHTML+=a;
 };
 Log.info = function(a, b){
-	if(b) new Toast({message:a});
+	if(b) new Toast({message:a, type:purple});
 	document.getElementById("log").innerHTML+=a;
 };
 
@@ -93,7 +93,7 @@ function run(){
 try{
 document.getElementById("log").innerHTML=eval(codemirrorEditor.getValue())
 }catch(e){
-new Toast({message:e,type:error});
+new Toast({message:e,type:danger});
 document.getElementById("log").innerHTML=e;
 }
 }
