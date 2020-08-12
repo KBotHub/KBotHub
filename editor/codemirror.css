@@ -15,7 +15,7 @@
 /* PADDING */
 
 .CodeMirror-lines {
-  padding: 4px 0 4px 4px; /* Vertical padding around content */
+  padding: 4px 0; /* Vertical padding around content */
 }
 .CodeMirror pre.CodeMirror-line,
 .CodeMirror pre.CodeMirror-line-like {
@@ -33,7 +33,7 @@
   background-color: #f7f7f7;
   white-space: nowrap;
 }
-.CodeMirror-linenumbers { }
+.CodeMirror-linenumbers { padding: 10px; }
 .CodeMirror-linenumber {
   padding: 0 3px 0 5px;
   min-width: 20px;
