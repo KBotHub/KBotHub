@@ -39,11 +39,11 @@
 		.button1 {
 		  background-color: white; 
 		  color: black; 
-		  border: 2px solid #4CAF50;
+		  border: 2px solid #b92bff;
 		}
 		
 		.button1:hover {
-		  background-color: #4CAF50;
+		  background-color: #b92bff;
 		  color: white;
 		}
 </style>
@@ -51,7 +51,7 @@
 
 <textarea id="codearea"></textarea>
 <button type="button" class="button button1" onclick="run()">RUN</button>
-<textarea id="log"></textarea>
+<textarea id="log" rows="4" cols="50" resize=none readonly></textarea>
 <script>
 const codemirrorEditor = CodeMirror.fromTextArea(document.getElementById('codearea'), {
   lineNumbers: true,
@@ -61,29 +61,29 @@ const codemirrorEditor = CodeMirror.fromTextArea(document.getElementById('codear
 Log ={};
 Log.d = function(a, b){
 	if(b) new Toast({message:a});
-	document.getElementById("log").innerHTML+=a;
+	document.getElementById("log").innerHTML+=a+'\n';
 };
 Log.debug = function(a, b){
 	if(b) new Toast({message:a});
-	document.getElementById("log").innerHTML+=a;
+	document.getElementById("log").innerHTML+=a+'\n';
 };
 
 Log.e = function(a, b){
-	if(b) new Toast({message:a, type:danger});
-	document.getElementById("log").innerHTML+=a;
+	if(b) new Toast({message:a, type:'danger'});
+	document.getElementById("log").innerHTML+=a+'\n';
 };
 Log.error = function(a, b){
-	if(b) new Toast({message:a, type:danger});
-	document.getElementById("log").innerHTML+=a;
+	if(b) new Toast({message:a, type:'danger'});
+	document.getElementById("log").innerHTML+=a+'\n';
 };
 
 Log.i = function(a, b){
-	if(b) new Toast({message:a, type:purple});
-	document.getElementById("log").innerHTML+=a;
+	if(b) new Toast({message:a, type:'purple'});
+	document.getElementById("log").innerHTML+=a+'\n';
 };
 Log.info = function(a, b){
-	if(b) new Toast({message:a, type:purple});
-	document.getElementById("log").innerHTML+=a;
+	if(b) new Toast({message:a, type:'purple'});
+	document.getElementById("log").innerHTML+=a+'\n';
 };
 
 Log.clear = function(){
@@ -93,7 +93,7 @@ function run(){
 try{
 document.getElementById("log").innerHTML=eval(codemirrorEditor.getValue())
 }catch(e){
-new Toast({message:e,type:danger});
+new Toast({message:e,type:'danger'});
 document.getElementById("log").innerHTML=e;
 }
 }
