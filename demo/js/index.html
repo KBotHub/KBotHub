@@ -14,27 +14,90 @@
 	<meta name="keywords" content="온라인 메신저봇">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<link rel="stylesheet" href="https://kboteditor.kro.kr/fonts/fonts.css">
-	<script src="../../editor/codemirror.js"></script>
-	<link rel="stylesheet" href="../../editor/codemirror.css">
-	<script src="../../editor/javascript.js"></script>
-	<link rel="stylesheet" href="../../editor/base16-dark.css">
+	<script src="https://kboteditor.kro.kr/editor/codemirror.js"></script>
+	<link rel="stylesheet" href="https://kboteditor.kro.kr/editor/codemirror.css">
+	<script src="https://kboteditor.kro.kr/editor/javascript.js"></script>
+	<link rel="stylesheet" href="https://kboteditor.kro.kr/editor/monokai.css">
+	<script src="https://kboteditor.kro.kr/js/Toast.min.js"></script>
+	<link rel="stylesheet" href="https://kboteditor.kro.kr/css/Toast.min.css">
 </head>
 <body>
+	<style>
+		.button {
+		  border: none;
+		  color: white;
+		  padding: 16px 32px;
+		  text-align: center;
+		  text-decoration: none;
+		  display: inline-block;
+		  font-size: 16px;
+		  margin: 4px 2px;
+		  transition-duration: 0.4s;
+		  cursor: pointer;
+		}
+		
+		.button1 {
+		  background-color: white; 
+		  color: black; 
+		  border: 2px solid #4CAF50;
+		}
+		
+		.button1:hover {
+		  background-color: #4CAF50;
+		  color: white;
+		}
+</style>
+<div class="toastjs-container" role="alert" aria-hidden="true"><div class="toastjs"></div></div>
 
-<textarea id="codearea">
-</textarea>
+<textarea id="codearea"></textarea>
+<button type="button" class="button button1" onclick="run()">RUN</button>
+<textarea id="log"></textarea>
 <script>
 const codemirrorEditor = CodeMirror.fromTextArea(document.getElementById('codearea'), {
   lineNumbers: true,
   mode: "javascript",
-  theme: "base16-dark"
+  theme: "monokai"
 });
+Log ={};
+Log.d = function(a, b){
+	if(b) new Toast({message:a});
+	document.getElementById("log").innerHTML+=a;
+};
+Log.debug = function(a, b){
+	if(b) new Toast({message:a});
+	document.getElementById("log").innerHTML+=a;
+};
+
+Log.e = function(a, b){
+	if(b) new Toast({message:a});
+	document.getElementById("log").innerHTML+=a;
+};
+Log.error(); = function(a, b){
+	if(b) new Toast({message:a});
+	document.getElementById("log").innerHTML+=a;
+};
+
+Log.i = function(a, b){
+	if(b) new Toast({message:a});
+	document.getElementById("log").innerHTML+=a;
+};
+Log.info = function(a, b){
+	if(b) new Toast({message:a});
+	document.getElementById("log").innerHTML+=a;
+};
+
+Log.clear = function(){
+	document.getElementById("log").innerHTML='';
+};
 function run(){
-eval(codemirrorEditor.getValue())
+try{
+document.getElementById("log").innerHTML=eval(codemirrorEditor.getValue())
+}catch(e){
+new Toast({message:e,type:error});
+document.getElementById("log").innerHTML=e;
+}
 }
 </script>
-
-<button type="button" onclick="run()">RUN</button>
 
 </body>
 </html>
