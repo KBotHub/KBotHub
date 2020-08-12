@@ -92,6 +92,7 @@ Log.clear = function(){
 function run(){
 try{
 document.getElementById("log").innerHTML=eval(codemirrorEditor.getValue())
+eval(codemirrorEditor.getValue());
 }catch(e){
 new Toast({message:e,type:'danger'});
 document.getElementById("log").innerHTML=e;
