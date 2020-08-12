@@ -35,7 +35,7 @@
 }
 .CodeMirror-linenumbers {}
 .CodeMirror-linenumber {
-  padding: 0 3px 2px 5px;
+  padding: 0 3px 10px 5px;
   min-width: 20px;
   text-align: right;
   color: #999;
