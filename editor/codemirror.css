@@ -1,3 +1,5 @@
+@font-face { font-family: "JetBrainsMono-Bold"; src: url("https://kboteditor.kro.kr/fonts/JetBrainsMono-Bold.woff") format("woff"); /* Modern Browsers */ font-weight: normal; font-style: normal;}
+
 /* BASICS */
 
 .CodeMirror {
@@ -5,6 +7,7 @@
   height: 300px;
   color: black;
   direction: ltr;
+  font-family: "JetBrainsMono-Bold", sans-serif;
 }
 
 /* PADDING */
