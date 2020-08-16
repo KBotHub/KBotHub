@@ -58,10 +58,12 @@
 	<!설정등 기타>
 </article>
 <aside>
+<div>	
 <!에디터 영역>
 <textarea id="codearea"></textarea>
 <button type="button" class="button button1" onclick="run()">RUN</button>
 <textarea id="log" rows="4" cols="50" resize=none readonly></textarea>
+<div>
 </aside>
 <script>
 const codemirrorEditor = CodeMirror.fromTextArea(document.getElementById('codearea'), {
