@@ -51,10 +51,18 @@
                 }
 </style>
 <div class="toastjs-container" role="alert" aria-hidden="true"><div class="toastjs"></div></div>
-
+<section>
+	<!디버그룸 영역>
+</section>
+<article>
+	<!설정등 기타>
+</article>
+<aside>
+<!에디터 영역>
 <textarea id="codearea"></textarea>
 <button type="button" class="button button1" onclick="run()">RUN</button>
 <textarea id="log" rows="4" cols="50" resize=none readonly></textarea>
+</aside>
 <script>
 const codemirrorEditor = CodeMirror.fromTextArea(document.getElementById('codearea'), {
   lineNumbers: true,
