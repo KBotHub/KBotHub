@@ -1,5 +1,18 @@
 @font-face { font-family: "JetBrainsMono-Bold"; src: url("https://kboteditor.kro.kr/fonts/JetBrainsMono-Bold.woff") format("woff"); /* Modern Browsers */ font-weight: normal; font-style: normal;}
 
+.CodeMirror::-webkit-scrollbar {
+    width: 0.7em;
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+}
+
+.CodeMirror::-webkit-scrollbar-thumb {
+    background-color: #4b4b4b33;
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+}
+.CodeMirror::-webkit-scrollbar-track {
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+}
+
 /* BASICS */
 
 .CodeMirror {
