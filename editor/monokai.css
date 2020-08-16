@@ -1,5 +1,18 @@
 /* Based on Sublime Text's Monokai theme */
 
+*::-webkit-scrollbar {
+    width: 0.7em;
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #4b4b4b33;
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+}
+*::-webkit-scrollbar-track {
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+}
+
 .cm-s-monokai.CodeMirror { background: #272822; color: #f8f8f2; }
 .cm-s-monokai div.CodeMirror-selected { background: #49483E; }
 .cm-s-monokai .CodeMirror-line::selection, .cm-s-monokai .CodeMirror-line > span::selection, .cm-s-monokai .CodeMirror-line > span > span::selection { background: rgba(73, 72, 62, .99); }
