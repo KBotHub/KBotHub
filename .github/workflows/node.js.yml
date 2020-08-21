@@ -25,4 +25,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm init -y
+    - name: ready firebase
+      run: |
+        npm install firebase-admin --save
     - run: node node_js/custom_oauth.js
