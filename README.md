@@ -71,7 +71,15 @@
 </body>
 </html>
 ```
-
+커스텀 oauth
+```javascript
+firebase.auth().signInWithCustomToken(token).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // ...
+});
+```
 * 로고
 
 ![](https://kboteditor.kro.kr/img/grp_img.jpg)
