@@ -1,9 +1,7 @@
 var admin = require("firebase-admin");
 
-var refreshToken; // Get refresh token from OAuth2 flow
-
 admin.initializeApp({
-  credential: admin.credential.refreshToken(refreshToken),
+  credential: admin.credential.applicationDefault(),
   databaseURL: "https://editor-280309.firebaseio.com"
 });
 
