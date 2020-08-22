@@ -28,5 +28,7 @@ jobs:
     - name: ready firebase
       run: |
         npm install firebase-admin --save
+    - name: ready server
+      run: |
         GOOGLE_APPLICATION_CREDENTIALS=${{secrets.OAUTH_NAVER}}
     - run: node node_js/custom_oauth.js
