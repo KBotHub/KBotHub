@@ -84,7 +84,7 @@
             }
         });
         require(['vs/editor/editor.main'], function() {
-            editor = monaco.editor.create(document.getElementById('monaco'), {
+            editor = monaco.editor.create(document.getElementById('monaco_container'), {
                 value: _data.value,
                 language: 'javascript',
                 theme: 'vs-dark',
