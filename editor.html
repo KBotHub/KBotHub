@@ -90,6 +90,10 @@
 	  editor.addListener('didType', () => {
 	  	console.log(editor.getValue());
   	});
+	
+	editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, function() {
+		//저장 소스
+	});
   }
   
   require(["vs/editor/editor.main"], function () {
