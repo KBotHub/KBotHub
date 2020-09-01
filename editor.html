@@ -92,17 +92,20 @@
                 automaticLayout: true
             });
 
-            editor.addListener('didType', () => {
-                //저장 소스
+            editor.onDidChangeModelContent((d)=>{
+                //editor.getValue() 를 저장
+                //새로고침 신호 전송
             });
 
             editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, function() {
                 //여기도 저장 소스
+                //새로고침 신호 전송
             });
-        });
-
-        require(["vs/editor/editor.main"], function() {
-            init_monaco();
+            
+            editor.onDidChangeCursorSelection((d)=>{
+                //d.selection, 시간, 유저 자장
+                //새로고침 신호 전송
+            });
         });
     </script>
 </body>
