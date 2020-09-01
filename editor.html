@@ -13,7 +13,8 @@
 	<meta name="keywords" content="온라인 메신저봇">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<link rel="stylesheet" href="https://kboteditor.kro.kr/fonts/fonts.css">
-	<script src="https://requirejs.org/docs/release/2.3.6/comments/require.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs/loader.js"></script>
 </head>
 <body>
   <div id="monaco_container"></div>
@@ -35,24 +36,8 @@
   var _data = {
     'project': {
       'scriptName': '스크립트 이름'
-    }
-  }
-  
-  require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@0.8.3/min/vs' }});
-  window.MonacoEnvironment = { getWorkerUrl: () => proxy };
-  
-  let proxy = URL.createObjectURL(new Blob([`
-  	self.MonacoEnvironment = {
-  		baseUrl: 'https://unpkg.com/monaco-editor@0.8.3/min/'
-  	};
-  	importScripts('https://unpkg.com/monaco-editor@0.8.3/min/vs/base/worker/workerMain.js');
-  `], { type: 'text/javascript' }));
-
-  var editor;
-
-  function init_monaco(){
-	editor = monaco.editor.create(document.getElementById('monaco_container'), {
-		  value: [
+    },
+    value = [
         'const scriptName = \"'+_data.project.scriptName+'\";',
         '/**',
         ' * (string) room',
@@ -82,9 +67,20 @@
         'function onPause(activity) {}',
         '',
         'function onStop(activity) {}'
-		  ].join('\n'),
+    ].join('\n')
+  };
+  
+  
+    var editor;
+    
+    require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs' }});
+    require(['vs/editor/editor.main'], function() {
+      editor = monaco.editor.create(document.getElementById('monaco'), {
+        	  value: _data.value,
 		  language: 'javascript',
-		  theme: 'vs-dark'
+		  theme: 'vs-dark',
+	          fontFamily: 'JetBrainsMono-Regular',
+        	  automaticLayout: true
 	  });
 	  
 	  editor.addListener('didType', () => {
