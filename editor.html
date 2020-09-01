@@ -47,9 +47,11 @@
   	};
   	importScripts('https://unpkg.com/monaco-editor@0.8.3/min/vs/base/worker/workerMain.js');
   `], { type: 'text/javascript' }));
-  
-  require(["vs/editor/editor.main"], function () {
-	  var editor = monaco.editor.create(document.getElementById('monaco_container'), {
+
+  var editor;
+
+  function init_monaco(){
+	editor = monaco.editor.create(document.getElementById('monaco_container'), {
 		  value: [
         'const scriptName = \"'+_data.project.scriptName+'\";',
         '/**',
@@ -88,6 +90,10 @@
 	  editor.addListener('didType', () => {
 	  	console.log(editor.getValue());
   	});
+  }
+  
+  require(["vs/editor/editor.main"], function () {
+	  init_monaco();
   });
   </script>
 </body>
