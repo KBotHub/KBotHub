@@ -20,7 +20,7 @@
     <!--script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script-->
 </head>
 
-<body>
+<body onload="init()">
     <div id="firebaseui-auth-container"></div>
 
     <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
@@ -31,33 +31,38 @@
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
     <!-- Previously loaded Firebase SDKs -->
+    <!-- Firepad -->
+    <link rel="stylesheet" href="https://firepad.io/releases/v1.5.10/firepad.css" />
+    <script src="https://firepad.io/releases/v1.5.10/firepad.min.js"></script>
     <script>
-      // TODO: Replace the following with your app's Firebase project configuration
-	  var firebaseConfig = {
-	    apiKey: "AIzaSyBsvjuWiZBTEoBJWMvih4q7JHH6gmHF1X0",
-	    authDomain: "editor-280309.firebaseapp.com",
-	    databaseURL: "https://editor-280309.firebaseio.com",
-	    projectId: "editor-280309",
-	    storageBucket: "editor-280309.appspot.com",
-	    messagingSenderId: "836598450292",
-	    appId: "1:836598450292:web:35d0ab7d3e13faf7bba921",
-	    measurementId: "G-RJNBM8TLLK",
-            signInSuccessUrl: "https://editor-280309.firebaseapp.com/__/auth/handler"
-	  };
+	function init(){
+      		// TODO: Replace the following with your app's Firebase project configuration
+	  	var firebaseConfig = {
+	    		apiKey: "AIzaSyBsvjuWiZBTEoBJWMvih4q7JHH6gmHF1X0",
+	    		authDomain: "editor-280309.firebaseapp.com",
+	    		databaseURL: "https://editor-280309.firebaseio.com",
+	    		projectId: "editor-280309",
+	    		storageBucket: "editor-280309.appspot.com",
+	    		messagingSenderId: "836598450292",
+	    		appId: "1:836598450292:web:35d0ab7d3e13faf7bba921",
+	    		measurementId: "G-RJNBM8TLLK",
+            		signInSuccessUrl: "https://editor-280309.firebaseapp.com/__/auth/handler"
+	  	};
 
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      var database = firebase.database();
-      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      		// Initialize Firebase
+      		firebase.initializeApp(firebaseConfig);
+      		var firepadRef = firebase.database().ref();
+      		var ui = new firebaseui.auth.AuthUI(firebase.auth());
 	    
-      ui.start('#firebaseui-auth-container', {
-        signInOptions: [
-          firebase.auth.EmailAuthProvider.PROVIDER_ID,
-          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-          firebase.auth.GithubAuthProvider.PROVIDER_ID
-        ],
-        // Other config options...
-      });
+      		ui.start('#firebaseui-auth-container', {
+        		signInOptions: [
+          		firebase.auth.EmailAuthProvider.PROVIDER_ID,
+          		firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          		firebase.auth.GithubAuthProvider.PROVIDER_ID
+        		],
+        		// Other config options...
+      		});
+	}
     </script>
     </body>
 </html>
