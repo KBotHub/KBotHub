@@ -109,6 +109,31 @@
             });
         });
     </script>
-</body>
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+      <!-- Previously loaded Firebase SDKs -->
+
+    <script>
+      // TODO: Replace the following with your app's Firebase project configuration
+	  var firebaseConfig = {
+	    apiKey: "AIzaSyBsvjuWiZBTEoBJWMvih4q7JHH6gmHF1X0",
+	    authDomain: "editor-280309.firebaseapp.com",
+	    databaseURL: "https://editor-280309.firebaseio.com",
+	    projectId: "editor-280309",
+	    storageBucket: "editor-280309.appspot.com",
+	    messagingSenderId: "836598450292",
+	    appId: "1:836598450292:web:35d0ab7d3e13faf7bba921",
+	    measurementId: "G-RJNBM8TLLK"
+	  };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    </body>
 </html>
