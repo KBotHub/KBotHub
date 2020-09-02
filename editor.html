@@ -21,8 +21,78 @@
 </head>
 
 <body onload="init()">
+    <div id="monaco_container"></div>
     <div id="firebaseui-auth-container"></div>
+    <style>
+        html,
+        body,
+        #monaco_container {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        var _data = {
+            'project': {
+                'scriptName': '스크립트 이름'
+            },
+        };
+        _data.value= [
+                'const scriptName = \"' + _data.project.scriptName + '\";',
+                '/**',
+                ' * (string) room',
+                ' * (string) sender',
+                ' * (boolean) isGroupChat',
+                ' * (void) replier.reply(message)',
+                ' * (boolean) replier.reply(room, message, hideErrorToast = false) // 전송 성공시 true, 실패시 false 반환',
+                ' * (string) imageDB.getProfileBase64()',
+                ' * (string) packageName',
+                ' */',
+                'function response(room, msg, sender, isGroupChat, replier, imageDB, packageName) {',
+                '\t//여기에 코드를 입력',
+                '}',
+                '',
+                '//아래 4개의 메소드는 액티비티 화면을 수정할때 사용됩니다.',
+                'function onCreate(savedInstanceState, activity) {',
+                '\tvar textView = new android.widget.TextView(activity);',
+                '\ttextView.setText("Hello, World!");',
+                '\ttextView.setTextColor(android.graphics.Color.DKGRAY);',
+                '\tactivity.setContentView(textView);',
+                '}',
+                '',
+                'function onStart(activity) {}',
+                '',
+                'function onResume(activity) {}',
+                '',
+                'function onPause(activity) {}',
+                '',
+                'function onStop(activity) {}'
+        ].join('\n')
 
+
+        var editor;
+
+        require.config({
+            paths: {
+                'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs'
+            }
+        });
+        require(['vs/editor/editor.main'], function() {
+            editor = monaco.editor.create(document.getElementById('monaco_container'), {
+                value: _data.value,
+                language: 'javascript',
+                theme: 'vs-dark',
+                fontFamily: 'JetBrainsMono-Regular',
+                automaticLayout: true
+            });
+	});
+    </script>
     <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
