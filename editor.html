@@ -15,9 +15,18 @@
     <meta name="keywords" content="온라인 메신저봇">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="https://kboteditor.kro.kr/fonts/fonts.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+    <!-- Previously loaded Firebase SDKs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs/loader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.nls.ko.min.js" integrity="sha512-U8YelzjWDfaIsBOsxt74prIl1r1BSvuDlGg++0EDlTE23cLfzFc8c26rMCPhbk9SmGDoWzDJEnDLYU0Cj8jXKQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
 </head>
 
 <body>
@@ -109,16 +118,6 @@
             });
         });
     </script>
-    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
-
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
-
-    <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
-      <!-- Previously loaded Firebase SDKs -->
-
     <script>
       // TODO: Replace the following with your app's Firebase project configuration
 	  var firebaseConfig = {
