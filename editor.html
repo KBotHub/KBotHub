@@ -15,12 +15,10 @@
     <meta name="keywords" content="온라인 메신저봇">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="https://kboteditor.kro.kr/fonts/fonts.css">
-    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
 </head>
 
-<body onload="/*firepad_init();*/">
+<body>
     <div id="monaco_container"></div>
     <style>
         html,
@@ -94,40 +92,6 @@
 		});
 	    }
 	    monaco_init();
-    </script>
-    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
-    <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
-    <!-- Previously loaded Firebase SDKs -->
-    <!-- Firepad -->
-    <link rel="stylesheet" href="https://firepad.io/releases/v1.5.10/firepad.css" />
-    <script src="https://firepad.io/releases/v1.5.10/firepad.min.js"></script>
-    <script>
-	    /*
-	function firepad_init(){
-      		// TODO: Replace the following with your app's Firebase project configuration
-	  	var firebaseConfig = {
-	    		apiKey: "AIzaSyBsvjuWiZBTEoBJWMvih4q7JHH6gmHF1X0",
-	    		authDomain: "editor-280309.firebaseapp.com",
-	    		databaseURL: "https://editor-280309.firebaseio.com",
-	    		projectId: "editor-280309",
-	    		storageBucket: "editor-280309.appspot.com",
-	    		messagingSenderId: "836598450292",
-	    		appId: "1:836598450292:web:35d0ab7d3e13faf7bba921",
-	    		measurementId: "G-RJNBM8TLLK",
-            		signInSuccessUrl: "https://editor-280309.firebaseapp.com/__/auth/handler"
-	  	};
-
-      		// Initialize Firebase
-      		firebase.initializeApp(firebaseConfig);
-      		var firepadRef = firebase.database().ref();
-      		var ui = new firebaseui.auth.AuthUI(firebase.auth());
-	    
-	}*/
     </script>
     </body>
 </html>
