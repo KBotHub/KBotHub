@@ -17,9 +17,9 @@
     <link rel="stylesheet" href="https://kboteditor.kro.kr/fonts/fonts.css">
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs/loader.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.nls.ko.min.js" integrity="sha512-U8YelzjWDfaIsBOsxt74prIl1r1BSvuDlGg++0EDlTE23cLfzFc8c26rMCPhbk9SmGDoWzDJEnDLYU0Cj8jXKQ==" crossorigin="anonymous"></script>-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs/loader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.nls.ko.min.js" integrity="sha512-U8YelzjWDfaIsBOsxt74prIl1r1BSvuDlGg++0EDlTE23cLfzFc8c26rMCPhbk9SmGDoWzDJEnDLYU0Cj8jXKQ==" crossorigin="anonymous"></script>
+    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script-->
 </head>
 
 <body>
@@ -80,13 +80,13 @@
 
 
         var editor;
-
+/*
         require.config({
             paths: {
                 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs'
             }
         });
-        require(['vs/editor/editor.main'], function() {
+        require(['vs/editor/editor.main'], function() {*/
             editor = monaco.editor.create(document.getElementById('monaco_container'), {
                 value: _data.value,
                 language: 'javascript',
@@ -109,7 +109,7 @@
                 //d.selection, 시간, 유저 자장
                 //새로고침 신호 전송
             });
-        });
+        //});
     </script>
     <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
