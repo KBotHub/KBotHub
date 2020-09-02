@@ -20,9 +20,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
 </head>
 
-<body onload="//firepad_init();">
+<body onload="/*firepad_init();*/">
     <div id="monaco_container"></div>
-    <div id="firebaseui-auth-container"></div>
     <style>
         html,
         body,
@@ -128,14 +127,6 @@
       		var firepadRef = firebase.database().ref();
       		var ui = new firebaseui.auth.AuthUI(firebase.auth());
 	    
-      		ui.start('#firebaseui-auth-container', {
-        		signInOptions: [
-          		firebase.auth.EmailAuthProvider.PROVIDER_ID,
-          		firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-          		firebase.auth.GithubAuthProvider.PROVIDER_ID
-        		],
-        		// Other config options...
-      		});
 	}*/
     </script>
     </body>
