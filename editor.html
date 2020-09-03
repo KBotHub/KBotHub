@@ -61,8 +61,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
     <script>
         var editor;
-        function init() {
-            var _data = {};
+        var _data = {};
+        function init_firebase() {
             if (!location.href.startsWith('https://kboteditor.kro.kr/editor?id=')) {
                 _data = {
                     'project': {
@@ -100,13 +100,10 @@
                     '',
                     'function onStop(activity) {}'
                 ].join('\n')
-                return;
             } else if (location.href.substring('https://kboteditor.kro.kr/editor?id='.length).length != 10 || !(!isNaN(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && isFinite(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && Math.floor(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) == location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])) {
                 _data.value = '/*\ninvalid project id\n*/';
-                return;
             } else if ( !firebase.database().ref("project_data").child(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) ) {
                 _data.value = '/*\nproject does\'t exist\n*/';
-                return;
             } else {
                 try {
                     _data.editor_id=location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0];
@@ -122,7 +119,8 @@
                     return;
                 }
             }
-
+        }
+        function init_editor(){
             require.config({
                 paths: {
                     'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs'
@@ -144,7 +142,8 @@
                 }
             });
         }
-        init();
+        init_firebase()
+        init_editor();
     </script>
 </body>
 
