@@ -92,9 +92,9 @@
                 		automaticLayout: true
             		});
 			console.log('loaded monaco');
+			firebase.initializeApp(firebaseConfig);
 		});
 	    }
-	    init();
     </script>
 	<!-- The core Firebase JS SDK is always required and must be listed first -->
 	<script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
@@ -119,7 +119,7 @@
 	  };
 	  // Initialize Firebase
 	  try{
-	    firebase.initializeApp(firebaseConfig);
+	    init();
 	  }catch(e){
 	    console.log(e)
 	  }
