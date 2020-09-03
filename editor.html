@@ -61,7 +61,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
     <script>
         var editor;
-        var _data = {};
+        var _data = {firebase: false};
         function init_firebase() {
             if (!location.href.startsWith('https://kboteditor.kro.kr/editor?id=')) {
                 _data = {
@@ -116,6 +116,8 @@
                     _data.project.db=firebase.database().ref("project_data").child(_data.editor_id);
                     _data.project.db.once("value", function (database) {data.project.value=database.value()});
                     _data.value = '/*\nproject data\n*/';
+                    _data.firebase=true;
+                    return;
                 } catch (e) {
                     _data.value = '/*\nunknown error\n'+e+'\n*/';
                     return;
@@ -137,7 +139,7 @@
                     automaticLayout: true
                 });
                 console.log('loaded monaco');
-                if( firebase.database().ref("project_data").child(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) ){
+                if( _data.firebase ){
                     editor.onDidChangeModelContent(function (editor_value) {
                         
                     });
