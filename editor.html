@@ -17,7 +17,9 @@
     <link rel="stylesheet" href="https://kboteditor.kro.kr/fonts/fonts.css">
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-firestore.js"></script>
 </head>
 
 <body>
@@ -37,6 +39,22 @@
             overflow: hidden;
         }
     </style>
+	<script>
+	  // Your web app's Firebase configuration
+	  var firebaseConfig = {
+	    apiKey: "AIzaSyBsvjuWiZBTEoBJWMvih4q7JHH6gmHF1X0",
+	    authDomain: "editor-280309.firebaseapp.com",
+	    databaseURL: "https://editor-280309.firebaseio.com",
+	    projectId: "editor-280309",
+	    storageBucket: "editor-280309.appspot.com",
+	    messagingSenderId: "836598450292",
+	    appId: "1:836598450292:web:35d0ab7d3e13faf7bba921",
+	    measurementId: "G-RJNBM8TLLK"
+	  };
+	  
+	  firebase.initializeApp(firebaseConfig);
+	</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
     <script>
 	
 	    function init() {
@@ -96,25 +114,7 @@
 			console.log('loaded monaco');
 		});
 	    }
+	    init();
     </script>
-	<script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-database.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-firestore.js"></script>
-
-	<script>
-	  // Your web app's Firebase configuration
-	  var firebaseConfig = {
-	    apiKey: "AIzaSyBsvjuWiZBTEoBJWMvih4q7JHH6gmHF1X0",
-	    authDomain: "editor-280309.firebaseapp.com",
-	    databaseURL: "https://editor-280309.firebaseio.com",
-	    projectId: "editor-280309",
-	    storageBucket: "editor-280309.appspot.com",
-	    messagingSenderId: "836598450292",
-	    appId: "1:836598450292:web:35d0ab7d3e13faf7bba921",
-	    measurementId: "G-RJNBM8TLLK"
-	  };
-	  
-	  firebase.initializeApp(firebaseConfig);
-	</script>
     </body>
 </html>
