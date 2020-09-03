@@ -60,6 +60,7 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
     <script>
+        var editor;
         function init() {
             var _data = {};
             if (!location.href.startsWith('https://kboteditor.kro.kr/editor?id=')) {
@@ -101,20 +102,21 @@
                 ].join('\n')
             } else if (location.href.substring('https://kboteditor.kro.kr/editor?id='.length).length != 10 || !(!isNaN(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && isFinite(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && Math.floor(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) == location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])) {
                 _data.value = '/*\ninvalid project id\n*/'
-            } else if ( /*project doesn't exist*/ true) {
-                _data.value = '/*\nproject does\'t exist\n*/'
+            } else if ( !firebase.database().ref("project_data").child(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) ) {
+                _data.value = '/*\nproject does\'t exist\n*/';
             } else {
                 try {
-                    _data.editor_id=location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]
+                    _data.editor_id=location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0];
                     if(location.href.substring(location.href.split('#')[0].length).startsWith('#L')&&isFinite(location.href.substring(location.href.split('#')[0].length+2))&&!isNaN(location.href.substring(location.href.split('#')[0].length+2))){
                        //L111 or L1-12 일때 이동, 하이라이팅
                     }
-                    _data.value = '/*\nproject data\n*/'
+                    _data.project.db=firebase.database().ref("project_data").child(_data.editor_id);
+                    _data.project.db.once("value", function (database) {data.project.value=database.value()});
+                    _data.value = '/*\nproject data\n*/';
                 } catch (e) {
-                    _data.value = '/*\nunknown error\n*/'
+                    _data.value = '/*\nunknown error\n'+e+'\n*/';
                 }
             }
-            var editor;
 
             require.config({
                 paths: {
@@ -130,6 +132,11 @@
                     automaticLayout: true
                 });
                 console.log('loaded monaco');
+                if( firebase.database().ref("project_data").child(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) ){
+                    editor.onDidChangeModelContent(function (editor_value) {
+                        
+                    });
+                }
             });
         }
         init();
