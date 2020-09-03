@@ -61,7 +61,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
     <script>
         var editor;
-        var _data = {firebase: false};
+        var _data = {firebase: false, queueRef: {}};
+        var applyingDeltas = false;
         function init_firebase() {
             if (!location.href.startsWith('https://kboteditor.kro.kr/editor?id=')) {
                 _data = {
@@ -117,6 +118,7 @@
                     _data.project.db.once("value", function (database) {data.project.value=database.value()});
                     _data.value = '/*\nproject data\n*/';
                     _data.firebase=true;
+                    _data.queueRef = _data.project.db.child("queue");
                     return;
                 } catch (e) {
                     _data.value = '/*\nunknown error\n'+e+'\n*/';
@@ -139,9 +141,57 @@
                     automaticLayout: true
                 });
                 console.log('loaded monaco');
-                if( _data.firebase ){
-                    editor.onDidChangeModelContent(function (editor_value) {
+                if( _data.firebase&&!!firebase.auth().currentUser ){
+                    if(_data.project.db.owners.indexOf(firebase.auth().currentUser.uid)!=-1){
+                        editor.onDidChangeModelContent(function (editor_value) {
+                            if (applyingDeltas) {
+                                return;
+                            }
+                            _data.project.db.update({
+                                content: editor.getValue()
+                            });
                         
+                            _data.queueRef.child(Date.now().toString() + ":" + Math.random().toString().slice(2)).set({
+                                // Store the data we get from monaco editor
+                                event: editor_value,
+                                // Store the editor value
+                                value: editor.getValue(),
+                                // Store the firebase-user id
+                                by: firebase.auth().currentUser.uid
+                            }).catch(function(e) {
+                                // In case of errors, we want to see them in the console
+                                console.error(e)
+                            });
+                        });
+                    }
+                    _data.queueRef.on("child_added", function (ref) {
+
+                        // Get the timestamp
+                        var timestamp = ref.key.split(":")[0];
+
+                        // Do not apply changes from the past
+                        if (openPageTimestamp > timestamp) {
+                            return;
+                        }
+
+                        // Get the snapshot value
+                        var value = ref.val();
+                        
+                        // In case it's me who changed the value, I am
+                        // not interested to see twice what I'm writing.
+                        // So, if the update is made by me, it doesn't
+                        // make sense to apply the update
+                        if (value.by === firebase.auth().currentUser.uid) { return; }
+                    
+                        // We're going to apply the changes by somebody else in our editor
+                        //  1. We turn applyingDeltas on
+                        applyingDeltas = true;
+                        //  2. Update the editor value with the event data
+                        editor.setVale(value.value);
+                        //  3. Turn off the applyingDeltas
+                        applyingDeltas = false;
+                        //  4. Log the event to console
+                        console.log(value.event);
                     });
                 }
             });
