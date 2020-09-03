@@ -91,27 +91,6 @@
                 		automaticLayout: true
             		});
 			console.log('loaded monaco');
-			
-			require(['https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js'], function(){
-				console.log('loaded firebase-app');
-				
-				require(['https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js'], function(){
-					console.log('loaded firebase-analytics');
-					
-					require(['https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js'], function(){
-						console.log('loaded firebase-auth');
-						
-						require(['https://www.gstatic.com/firebasejs/7.2.0/firebase-database.js'], function(){
-							console.log('loaded firebase-database');
-							
-							require(['https://www.gstatic.com/firebasejs/7.2.0/firebase-firestore.js'], function(){
-								console.log('loaded firebase-firestore');
-								console.log('loaded firebase');
-							});
-						});
-					});
-				});
-			});
 		});
 	    }
 	    init();
