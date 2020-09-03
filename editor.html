@@ -35,25 +35,6 @@
         }
     </style>
     <script>
-	    function loadScript( url, callback ) {
-  		var script = document.createElement( "script" )
-  		script.type = "text/javascript";
-  			if(script.readyState) {  // only required for IE <9
-    				script.onreadystatechange = function() {
-      					if ( script.readyState === "loaded" || script.readyState === "complete" ) {
-        					script.onreadystatechange = null;
-        					callback();
-      					}
-    				};
-  			} else {  //Others
-    				script.onload = function() {
-      					callback();
-    				};
-  			}
-
-  			script.src = url;
-  			document.getElementsByTagName( "head" )[0].appendChild( script );
-		}
 	
 	    function monaco_init() {
         	var _data = {
@@ -109,11 +90,6 @@
                 		fontFamily: 'JetBrainsMono-Regular',
                 		automaticLayout: true
             		});
-			loadScript('https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js', function() {console.log('script ready!'); });
-			loadScript('https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js', function() {console.log('script ready!'); });
-			loadScript('https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js', function() {console.log('script ready!'); });
-			loadScript('https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js', function() {console.log('script ready!'); });
-			loadScript('https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js', function() {console.log('script ready!'); });
 		});
 	    }
 	    monaco_init();
