@@ -23,7 +23,9 @@
 </head>
 
 <body>
-    <div class="toastjs-container" role="alert" aria-hidden="true"><div class="toastjs"></div></div>
+    <div class="toastjs-container" role="alert" aria-hidden="true">
+        <div class="toastjs"></div>
+    </div>
     <div id="monaco_container"></div>
     <style>
         html,
@@ -39,87 +41,94 @@
             overflow: hidden;
         }
     </style>
-	<script>
-	  // Your web app's Firebase configuration
-	  var firebaseConfig = {
-	    apiKey: "AIzaSyBsvjuWiZBTEoBJWMvih4q7JHH6gmHF1X0",
-	    authDomain: "editor-280309.firebaseapp.com",
-	    databaseURL: "https://editor-280309.firebaseio.com",
-	    projectId: "editor-280309",
-	    storageBucket: "editor-280309.appspot.com",
-	    messagingSenderId: "836598450292",
-	    appId: "1:836598450292:web:35d0ab7d3e13faf7bba921",
-	    measurementId: "G-RJNBM8TLLK"
-	  };
-	  
-	  firebase.initializeApp(firebaseConfig);
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBsvjuWiZBTEoBJWMvih4q7JHH6gmHF1X0",
+            authDomain: "editor-280309.firebaseapp.com",
+            databaseURL: "https://editor-280309.firebaseio.com",
+            projectId: "editor-280309",
+            storageBucket: "editor-280309.appspot.com",
+            messagingSenderId: "836598450292",
+            appId: "1:836598450292:web:35d0ab7d3e13faf7bba921",
+            measurementId: "G-RJNBM8TLLK"
+        };
 
- 	  console.log('loaded firebase');
-	</script>
+        firebase.initializeApp(firebaseConfig);
+
+        console.log('loaded firebase');
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
     <script>
-	
-	    function init(!location.href.startsWith('https://kboteditor.kro.kr/editor?id=')) {
-		    if(locaiton){
-        	var _data = {
-            		'project': {
-                		'scriptName': '스크립트 이름'
-            		},
-        	};
-        	_data.value= [
-                	'const scriptName = \"' + _data.project.scriptName + '\";',
-                	'/**',
-                	' * (string) room',
-                	' * (string) sender',
-                	' * (boolean) isGroupChat',
-                	' * (void) replier.reply(message)',
-                	' * (boolean) replier.reply(room, message, hideErrorToast = false) // 전송 성공시 true, 실패시 false 반환',
-                	' * (string) imageDB.getProfileBase64()',
-                	' * (string) packageName',
-                	' */',
-                	'function response(room, msg, sender, isGroupChat, replier, imageDB, packageName) {',
-                	'\t//여기에 코드를 입력',
-                	'}',
-                	'',
-                	'//아래 4개의 메소드는 액티비티 화면을 수정할때 사용됩니다.',
-                	'function onCreate(savedInstanceState, activity) {',
-                	'\tvar textView = new android.widget.TextView(activity);',
-                	'\ttextView.setText("Hello, World!");',
-                	'\ttextView.setTextColor(android.graphics.Color.DKGRAY);',
-                	'\tactivity.setContentView(textView);',
-                	'}',
-                	'',
-                	'function onStart(activity) {}',
-                	'',
-                	'function onResume(activity) {}',
-                	'',
-                	'function onPause(activity) {}',
-                	'',
-                	'function onStop(activity) {}'
-        	].join('\n')
-	    } else if(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).length!=10||(!isNaN(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])&&isFinite(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])&&Math.floor(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])==location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])){
-		      
-	}
+        function init() {
+            if (!location.href.startsWith('https://kboteditor.kro.kr/editor?id=')) {
+                var _data = {
+                    'project': {
+                        'scriptName': '스크립트 이름'
+                    },
+                };
+                _data.value = [
+                    'const scriptName = \"' + _data.project.scriptName + '\";',
+                    '/**',
+                    ' * (string) room',
+                    ' * (string) sender',
+                    ' * (boolean) isGroupChat',
+                    ' * (void) replier.reply(message)',
+                    ' * (boolean) replier.reply(room, message, hideErrorToast = false) // 전송 성공시 true, 실패시 false 반환',
+                    ' * (string) imageDB.getProfileBase64()',
+                    ' * (string) packageName',
+                    ' */',
+                    'function response(room, msg, sender, isGroupChat, replier, imageDB, packageName) {',
+                    '\t//여기에 코드를 입력',
+                    '}',
+                    '',
+                    '//아래 4개의 메소드는 액티비티 화면을 수정할때 사용됩니다.',
+                    'function onCreate(savedInstanceState, activity) {',
+                    '\tvar textView = new android.widget.TextView(activity);',
+                    '\ttextView.setText("Hello, World!");',
+                    '\ttextView.setTextColor(android.graphics.Color.DKGRAY);',
+                    '\tactivity.setContentView(textView);',
+                    '}',
+                    '',
+                    'function onStart(activity) {}',
+                    '',
+                    'function onResume(activity) {}',
+                    '',
+                    'function onPause(activity) {}',
+                    '',
+                    'function onStop(activity) {}'
+                ].join('\n')
+            } else if (location.href.substring('https://kboteditor.kro.kr/editor?id='.length).length != 10 || !(!isNaN(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && isFinite(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && Math.floor(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) == location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])) {
+                _data.value = '/*\ninvalid project id\n*/'
+            } else if ( /*project doesn't exist*/ ) {
 
-        	var editor;
+            } else {
+                try {
 
-        	require.config({
-            		paths: {
-                		'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs'
-            		}
-        	});
-        	require(['vs/editor/editor.main'], function() {
-            		editor = monaco.editor.create(document.getElementById('monaco_container'), {
-                		value: _data.value,
-                		language: 'javascript',
-                		theme: 'vs-dark',
-                		fontFamily: 'JetBrainsMono-Regular',
-                		automaticLayout: true
-            		});
-			console.log('loaded monaco');
-		});
-	    }
-	    init();
+                } catch (e) {
+                    _data.value = '/*\nunknown error\n*/'
+                }
+            }
+            var editor;
+
+            require.config({
+                paths: {
+                    'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs'
+                }
+            });
+            require(['vs/editor/editor.main'], function() {
+                editor = monaco.editor.create(document.getElementById('monaco_container'), {
+                    value: _data.value,
+                    language: 'javascript',
+                    theme: 'vs-dark',
+                    fontFamily: 'JetBrainsMono-Regular',
+                    automaticLayout: true
+                });
+                console.log('loaded monaco');
+            });
+        }
+        init();
     </script>
-    </body>
+</body>
+
 </html>
