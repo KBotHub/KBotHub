@@ -16,9 +16,10 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="https://kboteditor.kro.kr/fonts/fonts.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
 </head>
 
-<body>
+<body onLoad='init();'>
     <div class="toastjs-container" role="alert" aria-hidden="true"><div class="toastjs"></div></div>
     <div id="monaco_container"></div>
     <style>
@@ -94,7 +95,6 @@
 			console.log('loaded monaco');
 		});
 	    }
-	    init();
     </script>
 	<!-- The core Firebase JS SDK is always required and must be listed first -->
 	<!--script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
