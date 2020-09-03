@@ -36,7 +36,7 @@
     </style>
     <script>
 	
-	    function monaco_init() {
+	    function init() {
         	var _data = {
             		'project': {
                 		'scriptName': '스크립트 이름'
@@ -79,7 +79,8 @@
 
         	require.config({
             	paths: {
-                	'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs'
+                	'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs',
+			'firebasejs': 'https://www.gstatic.com/firebasejs'
             	}
         	});
         	require(['vs/editor/editor.main'], function() {
@@ -90,9 +91,31 @@
                 		fontFamily: 'JetBrainsMono-Regular',
                 		automaticLayout: true
             		});
+			console.log('loaded monaco');
+			
+			require(['firebasejs/7.2.0/firebase-app.js'], function(){
+				console.log('loaded firebase-app');
+				
+				require(['firebasejs/7.2.0/firebase-analytics.js'], function(){
+					console.log('loaded firebase-analytics');
+					
+					require(['firebasejs/7.2.0/firebase-auth.js'], function(){
+						console.log('loaded firebase-auth');
+						
+						require(['firebasejs/7.2.0/firebase-database.js'], function(){
+							console.log('loaded firebase-database');
+							
+							require(['firebasejs/7.2.0/firebase-firestore.js'], function(){
+								console.log('loaded firebase-firestore');
+								console.log('loaded firebase');
+							});
+						});
+					});
+				});
+			});
 		});
 	    }
-	    monaco_init();
+	    init();
     </script>
     </body>
 </html>
