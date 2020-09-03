@@ -101,10 +101,10 @@
             } else if (location.href.substring('https://kboteditor.kro.kr/editor?id='.length).length != 10 || !(!isNaN(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && isFinite(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && Math.floor(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) == location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])) {
                 _data.value = '/*\ninvalid project id\n*/'
             } else if ( /*project doesn't exist*/ true) {
-
+                _data.value = '/*\nproject does\'t exist\n*/'
             } else {
                 try {
-
+                    _data.value = '/*\nproject data\n*/'
                 } catch (e) {
                     _data.value = '/*\nunknown error\n*/'
                 }
