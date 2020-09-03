@@ -63,6 +63,7 @@
         var editor;
         var _data = {firebase: false, queueRef: {}};
         var applyingDeltas = false;
+        var lastRef;
         function init_firebase() {
             if (!location.href.startsWith('https://kboteditor.kro.kr/editor?id=')) {
                 _data = {
@@ -170,7 +171,7 @@
                         var timestamp = ref.key.split(":")[0];
 
                         // Do not apply changes from the past
-                        if (openPageTimestamp > timestamp) {
+                        if (lastRef < timestamp) {
                             return;
                         }
 
@@ -192,6 +193,8 @@
                         applyingDeltas = false;
                         //  4. Log the event to console
                         console.log(value.event);
+                        
+                        lastRef = Date.now().toString()
                     });
                 }
             });
