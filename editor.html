@@ -99,11 +99,14 @@
                     'function onPause(activity) {}',
                     '',
                     'function onStop(activity) {}'
-                ].join('\n')
+                ].join('\n');
+                return;
             } else if (location.href.substring('https://kboteditor.kro.kr/editor?id='.length).length != 10 || !(!isNaN(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && isFinite(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && Math.floor(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) == location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])) {
                 _data.value = '/*\ninvalid project id\n*/';
+                return;
             } else if ( !firebase.database().ref("project_data").child(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) ) {
                 _data.value = '/*\nproject does\'t exist\n*/';
+                return;
             } else {
                 try {
                     _data.editor_id=location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0];
@@ -113,7 +116,6 @@
                     _data.project.db=firebase.database().ref("project_data").child(_data.editor_id);
                     _data.project.db.once("value", function (database) {data.project.value=database.value()});
                     _data.value = '/*\nproject data\n*/';
-                    return;
                 } catch (e) {
                     _data.value = '/*\nunknown error\n'+e+'\n*/';
                     return;
