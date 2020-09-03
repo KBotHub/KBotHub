@@ -59,7 +59,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
     <script>
 	
-	    function init() {
+	    function init(!location.href.startsWith('https://kboteditor.kro.kr/editor?id=')) {
+		    if(locaiton){
         	var _data = {
             		'project': {
                 		'scriptName': '스크립트 이름'
@@ -96,7 +97,9 @@
                 	'',
                 	'function onStop(activity) {}'
         	].join('\n')
-
+	    } else if(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).length!=10||(!isNaN(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])&&isFinite(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])&&Math.floor(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])==location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])){
+		      
+	}
 
         	var editor;
 
