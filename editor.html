@@ -105,6 +105,10 @@
                 _data.value = '/*\nproject does\'t exist\n*/'
             } else {
                 try {
+                    _data.editor_id=location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]
+                    if(location.href.substring(location.href.split('#')[0].length).startsWith('#L')&&isFinite(location.href.substring(location.href.split('#')[0].length+2))&&!isNaN(location.href.substring(location.href.split('#')[0].length+2))){
+                       //L111 or L1-12 일때 이동, 하이라이팅
+                    }
                     _data.value = '/*\nproject data\n*/'
                 } catch (e) {
                     _data.value = '/*\nunknown error\n*/'
