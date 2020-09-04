@@ -77,9 +77,9 @@
             user: {}
         };
         var applyingDeltas = false;
-        var lastRef = "1599195147344";
-        var lastCursor = "1599195147344";
-        var lastUser = "1599195147344";
+        var lastRef = Date.now().toString();
+        var lastCursor = Date.now().toString();
+        var lastUser = Date.now().toString();
 
         function init_firebase() {
             if (!location.href.startsWith('https://kboteditor.kro.kr/editor?id=')) {
