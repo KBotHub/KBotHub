@@ -180,7 +180,10 @@
                                 content: encodeURIComponent(editor.getValue())
                             });
 
-                            _data.queueRef.child(Date.now().toString() + ":" + Math.random().toString().slice(2)).set({
+                            _data.queueRef.update({
+                                
+                                //timestamp
+                                ts: Date.now().toString() + ":" + Math.random().toString().slice(2),
                                 // Store the data we get from monaco editor
                                 event: editor_value,
                                 // Store the editor value
@@ -196,7 +199,9 @@
                             if (applyingDeltas) {
                                 return;
                             }
-                            _data.cursor.child(Date.now().toString() + ":" + Math.random().toString().slice(2)).set({
+                            _data.cursor.update({
+                                //timestamp
+                                ts: Date.now().toString() + ":" + Math.random().toString().slice(2),
                                 // Store the data we get from monaco editor
                                 event: value,
                                 // Store the editor value
@@ -214,18 +219,19 @@
                             });
                         }
                     }
-                    _data.queueRef.on("child_added", function(ref) {
-
-                        // Get the timestamp
-                        var timestamp = ref.key.split(":")[0];
-
-                        // Do not apply changes from the past
-                        if (lastRef > timestamp) {
-                            return;
-                        }
+                    _data.queueRef.on("child_changed", function(ref) {
 
                         // Get the snapshot value
                         var value = ref.val();
+                        
+                        // Get the timestamp
+                        var timestamp = value.ts.split(":")[0];
+
+                        // Do not apply changes from the past
+                        if (lastCursor > timestamp) {
+                            return;
+                        }
+
                         // In case it's me who changed the value, I am
                         // not interested to see twice what I'm writing.
                         // So, if the update is made by me, it doesn't
@@ -252,18 +258,19 @@
 
                         lastRef = Date.now().toString()
                     });
-                    _data.cursor.on("child_added", function(ref) {
+                    _data.cursor.on("child_changed", function(ref) {
 
+                        // Get the snapshot value
+                        var value = ref.val();
+                        
                         // Get the timestamp
-                        var timestamp = ref.key.split(":")[0];
+                        var timestamp = value.ts.split(":")[0];
 
                         // Do not apply changes from the past
                         if (lastCursor > timestamp) {
                             return;
                         }
 
-                        // Get the snapshot value
-                        var value = ref.val();
                         // In case it's me who changed the value, I am
                         // not interested to see twice what I'm writing.
                         // So, if the update is made by me, it doesn't
