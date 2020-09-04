@@ -157,7 +157,7 @@
                                 return;
                             }
                             _data.project.db.update({
-                                content: editor.getValue()
+                                content: encodeURIComponent(editor.getValue())
                             });
                         
                             _data.queueRef.child(Date.now().toString() + ":" + Math.random().toString().slice(2)).set({
