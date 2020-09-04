@@ -229,43 +229,44 @@
                         }
                     }
                     _data.queueRef.on("child_changed", function(ref) {
+                        _data.queueRef.once('value').then(function(d) {
+                            // Get the snapshot value
+                            var value = d.val();
 
-                        // Get the snapshot value
-                        var value = ref.val();
+                            // Get the timestamp
+                            var timestamp = value.ts.split(":")[0];
 
-                        // Get the timestamp
-                        var timestamp = value.ts.split(":")[0];
+                            // Do not apply changes from the past
+                            if (lastCursor > timestamp) {
+                                return;
+                            }
 
-                        // Do not apply changes from the past
-                        if (lastCursor > timestamp) {
-                            return;
-                        }
+                            // In case it's me who changed the value, I am
+                            // not interested to see twice what I'm writing.
+                            // So, if the update is made by me, it doesn't
+                            // make sense to apply the update
+                            if (value.by === firebase.auth().currentUser.uid) {
+                                return;
+                            }
 
-                        // In case it's me who changed the value, I am
-                        // not interested to see twice what I'm writing.
-                        // So, if the update is made by me, it doesn't
-                        // make sense to apply the update
-                        if (value.by === firebase.auth().currentUser.uid) {
-                            return;
-                        }
+                            // We're going to apply the changes by somebody else in our editor
+                            //  1. We turn applyingDeltas on
+                            applyingDeltas = true;
+                            //  2. Update the editor value with the event data
+                            //editor.setValue(decodeURIComponent(value.value));
+                            //value.event.changes.0.range.endColumn
+                            value = value.event.changes[0]
+                            editor.executeEdits("", [{
+                                range: new monaco.Range(value.range.startLineNumber, value.range.startColumn, value.range.endLineNumber, value.range.endColumn),
+                                text: value.text
+                            }]);
+                            //  3. Turn off the applyingDeltas
+                            applyingDeltas = false;
+                            //  4. Log the event to console
+                            console.log(value.event);
 
-                        // We're going to apply the changes by somebody else in our editor
-                        //  1. We turn applyingDeltas on
-                        applyingDeltas = true;
-                        //  2. Update the editor value with the event data
-                        //editor.setValue(decodeURIComponent(value.value));
-                        //value.event.changes.0.range.endColumn
-                        value = value.event.changes[0]
-                        editor.executeEdits("", [{
-                            range: new monaco.Range(value.range.startLineNumber, value.range.startColumn, value.range.endLineNumber, value.range.endColumn),
-                            text: value.text
-                        }]);
-                        //  3. Turn off the applyingDeltas
-                        applyingDeltas = false;
-                        //  4. Log the event to console
-                        console.log(value.event);
-
-                        lastRef = Date.now().toString()
+                            lastRef = Date.now().toString();
+                        });
                     });
                     _data.cursor.on("child_changed", function(ref) {
                         _data.cursor.once('value').then(function(d) {
