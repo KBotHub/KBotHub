@@ -136,6 +136,7 @@
                     _data.project.db.once('value').then(function(d) {
                         _data.db = d.val();
                         _data.value = decodeURIComponent(_data.db.content);
+                        document.title = decodeURIComponent(_data.db.title);
                         init_editor();
                     });
                     _data.firebase = true;
