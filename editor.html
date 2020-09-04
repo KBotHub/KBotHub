@@ -231,10 +231,10 @@
                     _data.queueRef.on("child_changed", function(ref) {
 
                         // Get the snapshot value
-                        var ed_value = ref.val();
+                        var value = ref.val();
 
                         // Get the timestamp
-                        var timestamp = ed_value.ts.split(":")[0];
+                        var timestamp = value.ts.split(":")[0];
 
                         // Do not apply changes from the past
                         if (lastCursor > timestamp) {
@@ -269,10 +269,10 @@
                     });
                     _data.cursor.on("child_changed", function(ref) {
                         _data.cursor.once('value').then(function(d) {
-                            var ed_value = d.val();
+                            var value = d.val();
 
                             // Get the timestamp
-                            var timestamp = ed_value.ts.split(":")[0];
+                            var timestamp = value.ts.split(":")[0];
 
                             // Do not apply changes from the past
                             if (lastCursor > timestamp) {
