@@ -172,6 +172,10 @@
                             "name": firebase.auth().currentUser.displayName,
                             "by": firebase.auth().currentUser.uid
                         });
+                        _data.user.update({
+                            online:_data.db.owners.online.push(firebase.auth().currentUser.uid)
+                        });
+
                         editor.onDidChangeModelContent(function(editor_value) {
                             if (applyingDeltas) {
                                 return;
@@ -215,6 +219,10 @@
                             _data.user.child(firebase.auth().currentUser.uid).update({
                                 "online": false
                             });
+                            _data.user.update({
+                                online:_data.db.owners.online.filter(uid => uid!=firebase.auth().currentUser.uid)
+                            });
+
                         }
                     }
                     _data.queueRef.on("child_changed", function(ref) {
