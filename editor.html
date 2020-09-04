@@ -117,12 +117,10 @@
                        //L111 or L1-12 일때 이동, 하이라이팅
                     }
                     _data.project.db=firebase.database().ref("project_data").child(_data.editor_id);
-                    _data.project.db.once('value').then(function(d) {_data.db=d.val();});
+                    _data.project.db.once('value').then(function(d) {_data.db=d.val();_data.value=decodeURIComponent(_data.db.content);init_editor();});
                     _data.firebase=true;
                     _data.queueRef = _data.project.db.child("queue");
                     _data.cursor = _data.project.db.child("cursor");
-                    _data.value=_data.db.content;
-                    init_editor();
                 } catch (e) {
                     _data.value = '/*\nunknown error\n'+e+'\n*/';
                     init_editor();
