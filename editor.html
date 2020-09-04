@@ -278,7 +278,7 @@
                         var decorations = editor.deltaDecorations([], [
                             //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
                             {
-                                range: new monaco.Range(value.value.startLineNumber, value.value.startColumn, 7, 24),
+                                range: new monaco.Range(value.value.startLineNumber, value.value.startColumn, value.value.endLineNumber, value.value.endColumn),
                                 options: {
                                     inlineClassName: 'userDecoration'
                                 }
