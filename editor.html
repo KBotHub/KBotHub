@@ -117,7 +117,7 @@
                        //L111 or L1-12 일때 이동, 하이라이팅
                     }
                     _data.project.db=firebase.database().ref("project_data").child(_data.editor_id);
-                    _data.value = decodeURIComponent(_data.project.db.content);
+                    _data.project.db.once('value').then(function(d) {_data.value=decodeURIComponent(d.node_.children_.root_.left.value.value_)});
                     _data.firebase=true;
                     _data.queueRef = _data.project.db.child("queue");
                     _data.cursor = _data.project.db.child("cursor");
