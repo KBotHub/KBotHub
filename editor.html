@@ -176,7 +176,7 @@
                             "by": firebase.auth().currentUser.uid
                         });
                         _data.user.update({
-                            online:_data.db.owners.online+","+firebase.auth().currentUser.uid
+                            online: _data.db.owners.online + "," + firebase.auth().currentUser.uid
                         });
 
                         editor.onDidChangeModelContent(function(editor_value) {
@@ -188,7 +188,7 @@
                             });
 
                             _data.queueRef.update({
-                                
+
                                 //timestamp
                                 ts: Date.now().toString() + ":" + Math.random().toString().slice(2),
                                 // Store the data we get from monaco editor
@@ -223,7 +223,7 @@
                                 "online": false
                             });
                             _data.user.update({
-                                online:_data.db.owners.online.replace(/","+firebase.auth().currentUser.uid/g,"")
+                                online: _data.db.owners.online.replace(/","+firebase.auth().currentUser.uid/g, "")
                             });
 
                         }
@@ -232,7 +232,7 @@
 
                         // Get the snapshot value
                         var ed_value = ref.val();
-                        
+
                         // Get the timestamp
                         var timestamp = ed_value.ts.split(":")[0];
 
@@ -268,46 +268,48 @@
                         lastRef = Date.now().toString()
                     });
                     _data.cursor.on("child_changed", function(ref) {
-                        _data.cursor.once('value').then(function(d) {var ed_value=d.val();})
-                        
-                        // Get the timestamp
-                        var timestamp = ed_value.ts.split(":")[0];
+                        _data.cursor.once('value').then(function(d) {
+                            var ed_value = d.val();
 
-                        // Do not apply changes from the past
-                        if (lastCursor > timestamp) {
-                            return;
-                        }
+                            // Get the timestamp
+                            var timestamp = ed_value.ts.split(":")[0];
 
-                        // In case it's me who changed the value, I am
-                        // not interested to see twice what I'm writing.
-                        // So, if the update is made by me, it doesn't
-                        // make sense to apply the update
-                        if (value.by === firebase.auth().currentUser.uid) {
-                            return;
-                        }
+                            // Do not apply changes from the past
+                            if (lastCursor > timestamp) {
+                                return;
+                            }
 
-                        // We're going to apply the changes by somebody else in our editor
-                        //  1. We turn applyingDeltas on
-                        applyingDeltas = true;
-                        //  2. Update the editor value with the event data
-                        var decorations = editor.deltaDecorations([], [
-                            //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
-                            {
-                                range: new monaco.Range(value.value.startLineNumber, value.value.startColumn, value.value.endLineNumber, value.value.endColumn),
-                                options: {
-                                    inlineClassName: 'userDecoration'
-                                }
+                            // In case it's me who changed the value, I am
+                            // not interested to see twice what I'm writing.
+                            // So, if the update is made by me, it doesn't
+                            // make sense to apply the update
+                            if (value.by === firebase.auth().currentUser.uid) {
+                                return;
+                            }
 
-                                //    2. show cursor at value.value.positionLineNumber, value.value.positionColumn
-                                //    3. show a name tag over it when it moves
-                            },
-                        ]);
-                        //  3. Turn off the applyingDeltas
-                        applyingDeltas = false;
-                        //  4. Log the event to console
-                        console.log(value.event);
+                            // We're going to apply the changes by somebody else in our editor
+                            //  1. We turn applyingDeltas on
+                            applyingDeltas = true;
+                            //  2. Update the editor value with the event data
+                            var decorations = editor.deltaDecorations([], [
+                                //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
+                                {
+                                    range: new monaco.Range(value.value.startLineNumber, value.value.startColumn, value.value.endLineNumber, value.value.endColumn),
+                                    options: {
+                                        inlineClassName: 'userDecoration'
+                                    }
 
-                        lastCursor = Date.now().toString()
+                                    //    2. show cursor at value.value.positionLineNumber, value.value.positionColumn
+                                    //    3. show a name tag over it when it moves
+                                },
+                            ]);
+                            //  3. Turn off the applyingDeltas
+                            applyingDeltas = false;
+                            //  4. Log the event to console
+                            console.log(value.event);
+
+                            lastCursor = Date.now().toString();
+                        });
                     });
                     _data.user.on("child_changed", function(ref) {
 
