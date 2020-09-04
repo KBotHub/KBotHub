@@ -217,7 +217,7 @@
                         //  1. We turn applyingDeltas on
                         applyingDeltas = true;
                         //  2. Update the editor value with the event data
-                        editor.setValue(value.value);
+                        editor.setValue(decodeURIComponent(value.value));
                         //  3. Turn off the applyingDeltas
                         applyingDeltas = false;
                         //  4. Log the event to console
