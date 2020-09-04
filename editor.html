@@ -150,7 +150,8 @@
                     if(!!_data.db.owners[firebase.auth().currentUser.uid]){
                         firebase.database().ref("project_data").child(_data.editor_id).child("owners").child(firebase.auth().currentUser.uid).update({
                             "online":true,
-                            "name":firebase.auth().currentUser.displayName
+                            "name":firebase.auth().currentUser.displayName,
+			    "by":firebase.auth().currentUser.uid
                         });
                         editor.onDidChangeModelContent(function (editor_value) {
                             if (applyingDeltas) {
@@ -277,10 +278,10 @@
                         // make sense to apply the update
                         if (value.by === firebase.auth().currentUser.uid) { return; }
                     
-                        if(true){
-                           
-                        }else{
-                           
+                        if(value.online == true){
+                           new Toast({message:value.name+" joined"})
+                        }else if(value.online == false){
+                           new Toast({message:value.name+" joined"})
                         }
                         
                         console.log(value)
