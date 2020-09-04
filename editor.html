@@ -268,11 +268,7 @@
                         lastRef = Date.now().toString()
                     });
                     _data.cursor.on("child_changed", function(ref) {
-
-                        // Get the snapshot value
-                        var ed_value = ref.val();
-                        
-                        console.log(ref)
+                        _data.cursor.once('value').then(function(d) {var ed_value=d.val();})
                         
                         // Get the timestamp
                         var timestamp = ed_value.ts.split(":")[0];
