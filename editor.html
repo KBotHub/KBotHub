@@ -27,7 +27,6 @@
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-performance.js"></script>
     <div id="monaco_container"></div>
     <style>
@@ -63,7 +62,8 @@
         };
 
         firebase.initializeApp(firebaseConfig);
-
+        firebase.performance();
+        firebase.analytics();
         console.log('loaded firebase');
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
