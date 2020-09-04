@@ -184,7 +184,9 @@
                             });
                         });
                         window.onbeforeunload = function () {
-                            _data.db.owners[firebase.auth().currentUser.uid]["online"]=false;
+                            firebase.database().ref("project_data").child(_data.editor_id).child("owners").child(firebase.auth().currentUser.uid).update({
+                                "online":false
+                            });
                         }
                     }
                     _data.queueRef.on("child_added", function (ref) {
