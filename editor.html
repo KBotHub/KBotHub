@@ -20,8 +20,8 @@
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-firestore.js"></script>
-	<link rel="stylesheet" href="https://kboteditor.kro.kr/css/Toast.min.css">
-	<script src="https://kboteditor.kro.kr/js/Toast.min.js"></script>
+    <link rel="stylesheet" href="https://kboteditor.kro.kr/css/Toast.min.css">
+    <script src="https://kboteditor.kro.kr/js/Toast.min.js"></script>
 </head>
 
 <body>
@@ -41,6 +41,11 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
+        }
+
+        .userDecoration {
+            background-color: rgba(100, 209, 86, 0.61);
+            color: white;
         }
     </style>
     <script>
@@ -63,11 +68,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
     <script>
         var editor;
-        var _data = {firebase: false, queueRef: {}, cursor: {}, 'project': {}, db: {}, user: {}};
+        var _data = {
+            firebase: false,
+            queueRef: {},
+            cursor: {},
+            'project': {},
+            db: {},
+            user: {}
+        };
         var applyingDeltas = false;
         var lastRef = "1599195147344";
         var lastCursor = "1599195147344";
         var lastUser = "1599195147344";
+
         function init_firebase() {
             if (!location.href.startsWith('https://kboteditor.kro.kr/editor?id=')) {
                 _data = {
@@ -110,28 +123,33 @@
             } else if (location.href.substring('https://kboteditor.kro.kr/editor?id='.length).length != 10 || !(!isNaN(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && isFinite(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && Math.floor(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) == location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])) {
                 _data.value = '/*\ninvalid project id\n*/';
                 init_editor();
-            } else if ( !firebase.database().ref("project_data").child(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) ) {
+            } else if (!firebase.database().ref("project_data").child(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])) {
                 _data.value = '/*\nproject does\'t exist\n*/';
                 init_editor();
             } else {
                 try {
-                    _data.editor_id=location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0];
-                    if(location.href.substring(location.href.split('#')[0].length).startsWith('#L')&&isFinite(location.href.substring(location.href.split('#')[0].length+2))&&!isNaN(location.href.substring(location.href.split('#')[0].length+2))){
-                       //L111 or L1-12 일때 이동, 하이라이팅
+                    _data.editor_id = location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0];
+                    if (location.href.substring(location.href.split('#')[0].length).startsWith('#L') && isFinite(location.href.substring(location.href.split('#')[0].length + 2)) && !isNaN(location.href.substring(location.href.split('#')[0].length + 2))) {
+                        //L111 or L1-12 일때 이동, 하이라이팅
                     }
-                    _data.project.db=firebase.database().ref("project_data").child(_data.editor_id);
-                    _data.project.db.once('value').then(function(d) {_data.db=d.val();_data.value=decodeURIComponent(_data.db.content);init_editor();});
-                    _data.firebase=true;
+                    _data.project.db = firebase.database().ref("project_data").child(_data.editor_id);
+                    _data.project.db.once('value').then(function(d) {
+                        _data.db = d.val();
+                        _data.value = decodeURIComponent(_data.db.content);
+                        init_editor();
+                    });
+                    _data.firebase = true;
                     _data.queueRef = _data.project.db.child("queue");
                     _data.cursor = _data.project.db.child("cursor");
                     _data.user = _data.project.db.child("owners");
                 } catch (e) {
-                    _data.value = '/*\nunknown error\n'+e+'\n*/';
+                    _data.value = '/*\nunknown error\n' + e + '\n*/';
                     init_editor();
                 }
             }
         }
-        function init_editor(){
+
+        function init_editor() {
             require.config({
                 paths: {
                     'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs'
@@ -146,21 +164,21 @@
                     automaticLayout: true
                 });
                 console.log('loaded monaco');
-                if( _data.firebase&&!!firebase.auth().currentUser ){
-                    if(!!_data.db.owners[firebase.auth().currentUser.uid]){
+                if (_data.firebase && !!firebase.auth().currentUser) {
+                    if (!!_data.db.owners[firebase.auth().currentUser.uid]) {
                         _data.user.child(firebase.auth().currentUser.uid).update({
-                            "online":true,
-                            "name":firebase.auth().currentUser.displayName,
-			    "by":firebase.auth().currentUser.uid
+                            "online": true,
+                            "name": firebase.auth().currentUser.displayName,
+                            "by": firebase.auth().currentUser.uid
                         });
-                        editor.onDidChangeModelContent(function (editor_value) {
+                        editor.onDidChangeModelContent(function(editor_value) {
                             if (applyingDeltas) {
                                 return;
                             }
                             _data.project.db.update({
                                 content: encodeURIComponent(editor.getValue())
                             });
-                        
+
                             _data.queueRef.child(Date.now().toString() + ":" + Math.random().toString().slice(2)).set({
                                 // Store the data we get from monaco editor
                                 event: editor_value,
@@ -173,7 +191,7 @@
                                 console.error(e)
                             });
                         });
-                        editor.onDidChangeCursorSelection((value)=>{
+                        editor.onDidChangeCursorSelection((value) => {
                             if (applyingDeltas) {
                                 return;
                             }
@@ -189,13 +207,13 @@
                                 console.error(e)
                             });
                         });
-                        window.onbeforeunload = function () {
+                        window.onbeforeunload = function() {
                             _data.user.child(firebase.auth().currentUser.uid).update({
-                                "online":false
+                                "online": false
                             });
                         }
                     }
-                    _data.queueRef.on("child_added", function (ref) {
+                    _data.queueRef.on("child_added", function(ref) {
 
                         // Get the timestamp
                         var timestamp = ref.key.split(":")[0];
@@ -211,26 +229,29 @@
                         // not interested to see twice what I'm writing.
                         // So, if the update is made by me, it doesn't
                         // make sense to apply the update
-                        if (value.by === firebase.auth().currentUser.uid) { return; }
-                    
+                        if (value.by === firebase.auth().currentUser.uid) {
+                            return;
+                        }
+
                         // We're going to apply the changes by somebody else in our editor
                         //  1. We turn applyingDeltas on
                         applyingDeltas = true;
                         //  2. Update the editor value with the event data
                         //editor.setValue(decodeURIComponent(value.value));
-			    //value.event.changes.0.range.endColumn
-			    value = value.event.changes[0]
-			editor.executeEdits("", [
-     				{ range: new monaco.Range(value.range.startLineNumber,value.range.startColumn,value.range.endLineNumber,value.range.endColumn), text: value.text }
-			]);
+                        //value.event.changes.0.range.endColumn
+                        value = value.event.changes[0]
+                        editor.executeEdits("", [{
+                            range: new monaco.Range(value.range.startLineNumber, value.range.startColumn, value.range.endLineNumber, value.range.endColumn),
+                            text: value.text
+                        }]);
                         //  3. Turn off the applyingDeltas
                         applyingDeltas = false;
                         //  4. Log the event to console
                         console.log(value.event);
-                        
+
                         lastRef = Date.now().toString()
                     });
-                    _data.cursor.on("child_added", function (ref) {
+                    _data.cursor.on("child_added", function(ref) {
 
                         // Get the timestamp
                         var timestamp = ref.key.split(":")[0];
@@ -246,23 +267,34 @@
                         // not interested to see twice what I'm writing.
                         // So, if the update is made by me, it doesn't
                         // make sense to apply the update
-                        if (value.by === firebase.auth().currentUser.uid) { return; }
-                    
+                        if (value.by === firebase.auth().currentUser.uid) {
+                            return;
+                        }
+
                         // We're going to apply the changes by somebody else in our editor
                         //  1. We turn applyingDeltas on
                         applyingDeltas = true;
                         //  2. Update the editor value with the event data
-                        //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
-                        //    2. show cursor at value.value.positionLineNumber, value.value.positionColumn
-                        //    3. show a name tag over it when it moves
+                        var decorations = editor.deltaDecorations([], [
+                            //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
+                            {
+                                range: new monaco.Range(7, 1, 7, 24),
+                                options: {
+                                    inlineClassName: 'userDecoration'
+                                }
+
+                                //    2. show cursor at value.value.positionLineNumber, value.value.positionColumn
+                                //    3. show a name tag over it when it moves
+                            },
+                        ]);
                         //  3. Turn off the applyingDeltas
                         applyingDeltas = false;
                         //  4. Log the event to console
                         console.log(value.event);
-                        
+
                         lastCursor = Date.now().toString()
                     });
-                    _data.user.on("child_changed", function (ref) {
+                    _data.user.on("child_changed", function(ref) {
 
                         // Get the timestamp
                         var timestamp = ref.key.split(":")[0];
@@ -274,19 +306,25 @@
 
                         // Get the snapshot value
                         var value = ref.val();
-                        
+
                         // In case it's me who changed the value, I am
                         // not interested to see twice what I'm writing.
                         // So, if the update is made by me, it doesn't
                         // make sense to apply the update
-                        if (value.by === firebase.auth().currentUser.uid) { return; }
-                    
-                        if(value.online == true){
-                           new Toast({message:value.name+" joined"})
-                        }else if(value.online == false){
-                           new Toast({message:value.name+" left"})
+                        if (value.by === firebase.auth().currentUser.uid) {
+                            return;
                         }
-                        
+
+                        if (value.online == true) {
+                            new Toast({
+                                message: value.name + " joined"
+                            })
+                        } else if (value.online == false) {
+                            new Toast({
+                                message: value.name + " left"
+                            })
+                        }
+
                         console.log(value)
                         lastUser = Date.now().toString()
                     });
