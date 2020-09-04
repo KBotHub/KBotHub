@@ -103,12 +103,15 @@
                     '',
                     'function onStop(activity) {}'
                 ].join('\n');
+                init_editor();
                 return;
             } else if (location.href.substring('https://kboteditor.kro.kr/editor?id='.length).length != 10 || !(!isNaN(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && isFinite(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && Math.floor(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) == location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])) {
                 _data.value = '/*\ninvalid project id\n*/';
+                init_editor();
                 return;
             } else if ( !firebase.database().ref("project_data").child(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) ) {
                 _data.value = '/*\nproject does\'t exist\n*/';
+                init_editor();
                 return;
             } else {
                 try {
@@ -121,13 +124,14 @@
                     _data.firebase=true;
                     _data.queueRef = _data.project.db.child("queue");
                     _data.cursor = _data.project.db.child("cursor");
+                    init_editor();
                     return;
                 } catch (e) {
                     _data.value = '/*\nunknown error\n'+e+'\n*/';
+                    init_editor();
                     return;
                 }
             }
-            init_editor();
         }
         function init_editor(){
             require.config({
