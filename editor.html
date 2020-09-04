@@ -164,6 +164,8 @@
                     fontFamily: 'JetBrainsMono-Regular',
                     automaticLayout: true
                 });
+                editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_B, function() {editor.getAction('editor.action.formatDocument').run()}, 'beautifier');
+                beautifier.set(true);
                 console.log('loaded monaco');
                 if (!!firebase.auth().currentUser) {
                     if (_data.db.type == "private") {
