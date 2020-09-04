@@ -61,10 +61,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
     <script>
         var editor;
-        var _data = {firebase: false, queueRef: {}, cursor: {}, 'project': {}, db: {}};
+        var _data = {firebase: false, queueRef: {}, cursor: {}, 'project': {}, db: {}, user: {}};
         var applyingDeltas = false;
         var lastRef = "1599195147344";
         var lastCursor = "1599195147344";
+        var lastUser = "1599195147344";
         function init_firebase() {
             if (!location.href.startsWith('https://kboteditor.kro.kr/editor?id=')) {
                 _data = {
@@ -121,6 +122,7 @@
                     _data.firebase=true;
                     _data.queueRef = _data.project.db.child("queue");
                     _data.cursor = _data.project.db.child("cursor");
+                    _data.user = _data.project.db.child("user");
                 } catch (e) {
                     _data.value = '/*\nunknown error\n'+e+'\n*/';
                     init_editor();
@@ -145,7 +147,8 @@
                 if( _data.firebase&&!!firebase.auth().currentUser ){
                     if(!!_data.db.owners[firebase.auth().currentUser.uid]){
                         firebase.database().ref("project_data").child(_data.editor_id).child("owners").child(firebase.auth().currentUser.uid).update({
-                            "online":true
+                            "online":true,
+                            "name":firebase.auth().currentUser.displayName
                         });
                         editor.onDidChangeModelContent(function (editor_value) {
                             if (applyingDeltas) {
@@ -195,7 +198,7 @@
                         var timestamp = ref.key.split(":")[0];
 
                         // Do not apply changes from the past
-                        if (lastRef < timestamp) {
+                        if (lastRef > timestamp) {
                             return;
                         }
 
@@ -226,7 +229,7 @@
                         var timestamp = ref.key.split(":")[0];
 
                         // Do not apply changes from the past
-                        if (lastCursor < timestamp) {
+                        if (lastCursor > timestamp) {
                             return;
                         }
 
@@ -252,6 +255,34 @@
                         console.log(value.event);
                         
                         lastCursor = Date.now().toString()
+                    });
+                    _data.user.on("child_changed", function (ref) {
+
+                        // Get the timestamp
+                        var timestamp = ref.key.split(":")[0];
+
+                        // Do not apply changes from the past
+                        if (lastUser > timestamp) {
+                            return;
+                        }
+
+                        // Get the snapshot value
+                        var value = ref.val();
+                        
+                        // In case it's me who changed the value, I am
+                        // not interested to see twice what I'm writing.
+                        // So, if the update is made by me, it doesn't
+                        // make sense to apply the update
+                        if (value.by === firebase.auth().currentUser.uid) { return; }
+                    
+                        if(true){
+                           
+                        }else{
+                           
+                        }
+                        
+                        console.log(value)
+                        lastUser = Date.now().toString()
                     });
                 }
             });
