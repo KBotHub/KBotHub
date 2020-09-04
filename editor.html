@@ -173,7 +173,7 @@
                             "by": firebase.auth().currentUser.uid
                         });
                         _data.user.update({
-                            online:_data.db.owners.online.push(firebase.auth().currentUser.uid)
+                            online:_data.db.owners.online+","+firebase.auth().currentUser.uid
                         });
 
                         editor.onDidChangeModelContent(function(editor_value) {
@@ -220,7 +220,7 @@
                                 "online": false
                             });
                             _data.user.update({
-                                online:_data.db.owners.online.filter(uid => uid!=firebase.auth().currentUser.uid)
+                                online:_data.db.owners.online.replace(/","+firebase.auth().currentUser.uid/g,"")
                             });
 
                         }
