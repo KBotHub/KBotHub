@@ -20,6 +20,8 @@
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-firestore.js"></script>
+	<link rel="stylesheet" href="https://kboteditor.kro.kr/css/Toast.min.css">
+	<script src="https://kboteditor.kro.kr/js/Toast.min.js"></script>
 </head>
 
 <body>
@@ -204,7 +206,7 @@
 
                         // Get the snapshot value
                         var value = ref.val();
-                        
+                        console.log(value)
                         // In case it's me who changed the value, I am
                         // not interested to see twice what I'm writing.
                         // So, if the update is made by me, it doesn't
@@ -235,7 +237,7 @@
 
                         // Get the snapshot value
                         var value = ref.val();
-                        
+                        console.log(value)
                         // In case it's me who changed the value, I am
                         // not interested to see twice what I'm writing.
                         // So, if the update is made by me, it doesn't
