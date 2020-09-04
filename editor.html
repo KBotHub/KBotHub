@@ -159,7 +159,7 @@
                                 // Store the data we get from monaco editor
                                 event: editor_value,
                                 // Store the editor value
-                                value: editor.getValue(),
+                                value: encodeURIComponent(editor.getValue()),
                                 // Store the firebase-user id
                                 by: firebase.auth().currentUser.uid
                             }).catch(function(e) {
