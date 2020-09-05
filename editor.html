@@ -241,7 +241,7 @@
                                         });
                                         _data.user.once('value').then(function(d) {
                                             _data.user.update({
-                                                online: d.val().owners.online.replace(/","+firebase.auth().currentUser.uid/g, "")
+                                                online: d.val().online.replaceAll(","+firebase.auth().currentUser.uid, "")
                                             });
                                         });
                                         _data.project.db.update({
@@ -454,7 +454,7 @@
                                     });
                                     _data.user.once('value').then(function(d) {
                                         _data.user.update({
-                                            online: d.val().users.online.replace(/","+firebase.auth().currentUser.uid/g, "")
+                                            online: d.val().online.replaceAll(","+firebase.auth().currentUser.uid, "")
                                         });
                                     });
                                     _data.project.db.update({
