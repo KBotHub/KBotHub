@@ -2,54 +2,54 @@
 <html lang="kr">
 
 <head>
-    <meta charset="utf-8">
-    <title>KBotHub</title>
-    <link rel="shortcut icon" type="image/jpg" href="https://kboteditor.kro.kr/img/output-onlinepngtools.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://kboteditor.kro.kr/">
-    <meta property="og:title" content="KakaotalkBot Hub">
-    <meta property="og:description" content="카카오톡 봇 허브입니다.">
-    <meta property="og:image" content="https://kboteditor.kro.kr/img/grp_img.jpg">
-    <meta name="description" content="봇 허브 입니다">
-    <meta name="keywords" content="온라인 메신저봇">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" href="https://kboteditor.kro.kr/fonts/fonts.css">
-    <link rel="stylesheet" href="https://kboteditor.kro.kr/css/Toast.min.css">
-    <script src="https://kboteditor.kro.kr/js/Toast.min.js"></script>
+	<meta charset="utf-8">
+	<title>KBotHub</title>
+	<link rel="shortcut icon" type="image/jpg" href="https://kboteditor.kro.kr/img/output-onlinepngtools.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://kboteditor.kro.kr/">
+	<meta property="og:title" content="KakaotalkBot Hub">
+	<meta property="og:description" content="카카오톡 봇 허브입니다.">
+	<meta property="og:image" content="https://kboteditor.kro.kr/img/grp_img.jpg">
+	<meta name="description" content="봇 허브 입니다">
+	<meta name="keywords" content="온라인 메신저봇">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<link rel="stylesheet" href="https://kboteditor.kro.kr/fonts/fonts.css">
+	<link rel="stylesheet" href="https://kboteditor.kro.kr/css/Toast.min.css">
+	<script src="https://kboteditor.kro.kr/js/Toast.min.js"></script>
 </head>
 
 <body>
-    <div class="toastjs-container" role="alert" aria-hidden="true">
-        <div class="toastjs"></div>
-    </div>
-    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-performance.js"></script>
-    <div id="monaco_container"></div>
-    <style>
-        html,
-        body,
-        #monaco_container {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
+	<div class="toastjs-container" role="alert" aria-hidden="true">
+		<div class="toastjs"></div>
+	</div>
+	<script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-database.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-performance.js"></script>
+	<div id="monaco_container"></div>
+	<style>
+		html,
+		body,
+		#monaco_container {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+		}
 
-        .userDecoration {
-            background-color: rgba(100, 209, 86, 0.61);
-            color: white;
-        }
-    </style>
-    <script>
-        // Your web app's Firebase configuration
+		.userDecoration {
+			background-color: rgba(100, 209, 86, 0.61);
+			color: white;
+		}
+	</style>
+	<script>
+		// Your web app's Firebase configuration
         var firebaseConfig = {
             apiKey: "AIzaSyBsvjuWiZBTEoBJWMvih4q7JHH6gmHF1X0",
             authDomain: "editor-280309.firebaseapp.com",
@@ -65,10 +65,10 @@
         firebase.performance();
         firebase.analytics();
         console.log('loaded firebase');
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
-    <script>
-        var editor;
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+	<script>
+		var editor;
         var _data = {
             firebase: false,
             queueRef: {},
@@ -290,6 +290,18 @@
                                         });
                                     }
                             });
+                            _data.update.on("child_changed", function(ref) {
+                                _data.update.once('value').then(function(d) {
+                                    if(d.val().active==true){
+                                        _data.project.db.update({
+                                            content: encodeURIComponent(editor.getValue())
+                                        });
+                                        _data.update.update({
+                                            active: false
+                                        });
+									}
+                                });
+                            });
                             _data.cursor.on("child_changed", function(ref) {
                                 _data.cursor.once('value').then(function(d) {
                                     var value = d.val();
@@ -476,6 +488,16 @@
                                     lastRef = Date.now().toString();
                                 });
                             });
+                            _data.update.once('value').then(function(d) {
+                                    if(d.val().active==true){
+                                        _data.project.db.update({
+                                            content: encodeURIComponent(editor.getValue())
+                                        });
+                                        _data.update.update({
+                                            active: false
+                                        });
+                                    }
+                            });
                             _data.update.on("child_changed", function(ref) {
                                 _data.update.once('value').then(function(d) {
                                     if(d.val().active==true){
@@ -485,7 +507,8 @@
                                         _data.update.update({
                                             active: false
                                         });
-                                    }
+									}
+                                });
                             });
                             _data.cursor.on("child_changed", function(ref) {
                                 _data.cursor.once('value').then(function(d) {
@@ -575,7 +598,7 @@
             });
         }
         init_firebase()
-    </script>
+	</script>
 </body>
 
 </html>
