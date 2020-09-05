@@ -157,6 +157,7 @@
         }
 
         function init_editor() {
+            if(!_data.language)_data.language="javascript";
             if (['javascript'].indexOf(_data.language) != -1) {
                 require.config({
                     paths: {
