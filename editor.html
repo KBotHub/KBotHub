@@ -545,11 +545,11 @@
                                         //  1. We turn applyingDeltas on
                                         applyingDeltas = true;
                                         //  2. Update the editor value with the event data
-                                        var decorations = editor.deltaDecorations(decorations, [{
+                                        editor.deltaDecorations(decorations, [{
                                             range: new monaco.Range(1, 1, 1, 1),
                                             options: {}
                                         }]);
-                                        decorations = editor.deltaDecorations([], [
+                                        editor.deltaDecorations([], [
                                             //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
                                             {
                                                 range: new monaco.Range(value.value.startLineNumber, value.value.startColumn, value.value.endLineNumber, value.value.endColumn),
