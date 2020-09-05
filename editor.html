@@ -76,7 +76,8 @@
             'project': {},
             db: {},
             user: {},
-            update: {}
+            update: {},
+	    language: ""
         };
         var applyingDeltas = false;
         var lastRef = Date.now().toString();
@@ -139,6 +140,9 @@
                         _data.db = d.val();
                         _data.value = decodeURIComponent(_data.db.content);
                         document.title = decodeURIComponent(_data.db.title);
+			if(_data.db.language=="js"){
+				_data.language='javascript';
+			}
                         init_editor();
                     });
                     _data.firebase = true;
@@ -153,6 +157,7 @@
         }
 
         function init_editor() {
+	    if(['javascript'].indexof(_data.language)!=-1){
             require.config({
                 paths: {
                     'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs'
@@ -161,7 +166,7 @@
             require(['vs/editor/editor.main'], function() {
                 editor = monaco.editor.create(document.getElementById('monaco_container'), {
                     value: _data.value,
-                    language: 'javascript',
+                    language: _data.language,
                     theme: 'vs-dark',
                     fontFamily: 'JetBrainsMono-Regular',
                     automaticLayout: true
