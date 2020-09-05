@@ -164,6 +164,7 @@
                     fontFamily: 'JetBrainsMono-Regular',
                     automaticLayout: true
                 });
+                editor.createContextKey(/*key name*/'beautifier', /*default value*/true);
                 editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_B, function() {editor.getAction('editor.action.formatDocument').run()}, 'beautifier');
                 beautifier.set(true);
                 console.log('loaded monaco');
