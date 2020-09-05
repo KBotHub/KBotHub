@@ -157,6 +157,7 @@
         }
 
         function init_editor() {
+            var decorations=[];
             if(!_data.language)_data.language="javascript";
             if (['javascript'].indexOf(_data.language) != -1) {
                 require.config({
@@ -334,11 +335,13 @@
                                         //  1. We turn applyingDeltas on
                                         applyingDeltas = true;
                                         //  2. Update the editor value with the event data
-                                        var decorations = editor.deltaDecorations(decorations, [{
+                                        decorations = editor.deltaDecorations(decorations, [{
                                             range: new monaco.Range(1, 1, 1, 1),
-                                            options: {}
+                                            options: {
+                                                inlineClassName: 'userDecoration'
+                                            }
                                         }]);
-                                        decorations = editor.deltaDecorations([], [
+                                        decorations = editor.deltaDecorations(decorations, [
                                             //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
                                             {
                                                 range: new monaco.Range(value.value.startLineNumber, value.value.startColumn, value.value.endLineNumber, value.value.endColumn),
@@ -545,11 +548,13 @@
                                         //  1. We turn applyingDeltas on
                                         applyingDeltas = true;
                                         //  2. Update the editor value with the event data
-                                        editor.deltaDecorations(decorations, [{
+                                        decorations = editor.deltaDecorations(decorations, [{
                                             range: new monaco.Range(1, 1, 1, 1),
-                                            options: {}
+                                            options: {
+                                                inlineClassName: 'userDecoration'
+                                            }
                                         }]);
-                                        editor.deltaDecorations([], [
+                                        decorations = editor.deltaDecorations(decorations, [
                                             //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
                                             {
                                                 range: new monaco.Range(value.value.startLineNumber, value.value.startColumn, value.value.endLineNumber, value.value.endColumn),
