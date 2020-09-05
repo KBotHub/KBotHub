@@ -85,6 +85,11 @@
         var lastUser = Date.now().toString();
 
         function init_firebase() {
+            if(window.innerWidth<350){
+                alert('mobile not supported');
+                history.back();
+                return;
+            }
             if (!location.href.startsWith('https://kboteditor.kro.kr/editor?id=')) {
                 _data = {
                     'project': {
