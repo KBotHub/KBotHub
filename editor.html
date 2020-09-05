@@ -400,6 +400,13 @@
                         } else if (_data.db.type == "public") {
                             if (_data.firebase) {
                                 _data.user = _data.project.db.child("users");
+                                if(!_data.db.users[firebase.auth().currentUser.uid]){_data.user.child.set({
+                                    "online": false,
+                                    "name": firebase.auth().currentUser.displayName,
+                                    "proflie": firebase.auth().currentUser.photoURL,
+                                    "email": firebase.auth().currentUser.email,
+                                    "by": firebase.auth().currentUser.uid
+                                });}
                                 if(_data.db.users[firebase.auth().currentUser.uid]["online"]==true){alert('동시 접속이 불가능합니다');history.back();}
                                 _data.user.child(firebase.auth().currentUser.uid).update({
                                     "online": true,
@@ -613,7 +620,7 @@
                             }
                         }
                     } else {
-                        alert('plz login');
+                        alert('plz login\nF1 >> login');
                     }
                 });
             }
