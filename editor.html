@@ -85,7 +85,7 @@
         var lastUser = Date.now().toString();
 
         function init_firebase() {
-            if(window.innerWidth<350){
+            if (window.innerWidth < 350) {
                 alert('mobile not supported');
                 history.back();
                 return;
@@ -162,8 +162,8 @@
         }
 
         function init_editor() {
-            var decorations=[];
-            if(!_data.language)_data.language="javascript";
+            var decorations = [];
+            if (!_data.language) _data.language = "javascript";
             if (['javascript'].indexOf(_data.language) != -1) {
                 require.config({
                     paths: {
@@ -188,7 +188,19 @@
                             if (_data.firebase) {
                                 if (!!_data.db.owners[firebase.auth().currentUser.uid]) {
                                     _data.user = _data.project.db.child("owners");
-                                    if(_data.db.owners[firebase.auth().currentUser.uid]["online"]==true){alert('동시 접속이 불가능합니다');history.back();}
+                                    if (!_data.db.users[firebase.auth().currentUser.uid]) {
+                                        _data.user.child(firebase.auth().currentUser.uid).set({
+                                            "online": false,
+                                            "name": firebase.auth().currentUser.displayName,
+                                            "proflie": firebase.auth().currentUser.photoURL,
+                                            "email": firebase.auth().currentUser.email,
+                                            "by": firebase.auth().currentUser.uid
+                                        });
+                                    }
+                                    if (_data.db.owners[firebase.auth().currentUser.uid]["online"] == true) {
+                                        alert('동시 접속이 불가능합니다');
+                                        history.back();
+                                    }
                                     _data.user.child(firebase.auth().currentUser.uid).update({
                                         "online": true,
                                         "name": firebase.auth().currentUser.displayName,
@@ -247,7 +259,7 @@
                                         });
                                         _data.user.once('value').then(function(d) {
                                             _data.user.update({
-                                                online: d.val().online.replaceAll(","+firebase.auth().currentUser.uid, "")
+                                                online: d.val().online.replaceAll("," + firebase.auth().currentUser.uid, "")
                                             });
                                         });
                                         _data.project.db.update({
@@ -405,14 +417,19 @@
                         } else if (_data.db.type == "public") {
                             if (_data.firebase) {
                                 _data.user = _data.project.db.child("users");
-                                if(!_data.db.users[firebase.auth().currentUser.uid]){_data.user.child.set({
-                                    "online": false,
-                                    "name": firebase.auth().currentUser.displayName,
-                                    "proflie": firebase.auth().currentUser.photoURL,
-                                    "email": firebase.auth().currentUser.email,
-                                    "by": firebase.auth().currentUser.uid
-                                });}
-                                if(_data.db.users[firebase.auth().currentUser.uid]["online"]==true){alert('동시 접속이 불가능합니다');history.back();}
+                                if (!_data.db.users[firebase.auth().currentUser.uid]) {
+                                    _data.user.child(firebase.auth().currentUser.uid).set({
+                                        "online": false,
+                                        "name": firebase.auth().currentUser.displayName,
+                                        "proflie": firebase.auth().currentUser.photoURL,
+                                        "email": firebase.auth().currentUser.email,
+                                        "by": firebase.auth().currentUser.uid
+                                    });
+                                }
+                                if (_data.db.users[firebase.auth().currentUser.uid]["online"] == true) {
+                                    alert('동시 접속이 불가능합니다');
+                                    history.back();
+                                }
                                 _data.user.child(firebase.auth().currentUser.uid).update({
                                     "online": true,
                                     "name": firebase.auth().currentUser.displayName,
@@ -468,7 +485,7 @@
                                     });
                                     _data.user.once('value').then(function(d) {
                                         _data.user.update({
-                                            online: d.val().online.replaceAll(","+firebase.auth().currentUser.uid, "")
+                                            online: d.val().online.replaceAll("," + firebase.auth().currentUser.uid, "")
                                         });
                                     });
                                     _data.project.db.update({
