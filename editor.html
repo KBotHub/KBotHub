@@ -170,6 +170,7 @@
 
         function init_editor() {
             var decorations = [];
+            var changes = [];
             if (!_data.language) {
                 _data.language = "javascript";
             }
@@ -424,7 +425,7 @@
                                     //editor.setValue(decodeURIComponent(value.value));
                                     //value.event.changes.0.range.endColumn
                                     value = value.event.changes[0]
-                                    editor.executeEdits("", [{
+                                    changes = editor.executeEdits(changes, [{
                                         range: new monaco.Range(value.range.startLineNumber, value.range.startColumn, value.range.endLineNumber, value.range.endColumn),
                                         text: value.text,
                                         identifier: {
