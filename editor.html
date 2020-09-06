@@ -199,16 +199,29 @@
                                 }
                             }, ]);
                         } else if (location.href.substring(location.href.split('#')[0].length + 2).split("-").length == 2 && isFinite(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1])) && !isNaN(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]))) {
-                            editor.revealPositionInCenter({
-                                lineNumber: Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]),
-                                column: 1
-                            });
-                            editor.deltaDecorations([], [{
-                                range: new monaco.Range(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]), 1, Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]), editor.getValue().split('\n')[Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]) - 1].length + 1),
-                                options: {
-                                    inlineClassName: 'lineHighlight'
-                                }
-                            }, ]);
+                            if (Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]) < Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1])) {
+                                editor.revealPositionInCenter({
+                                    lineNumber: Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]),
+                                    column: 1
+                                });
+                                editor.deltaDecorations([], [{
+                                    range: new monaco.Range(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]), 1, Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]), editor.getValue().split('\n')[Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]) - 1].length + 1),
+                                    options: {
+                                        inlineClassName: 'lineHighlight'
+                                    }
+                                }, ]);
+                            } else {
+                                editor.revealPositionInCenter({
+                                    lineNumber: Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]),
+                                    column: 1
+                                });
+                                editor.deltaDecorations([], [{
+                                    range: new monaco.Range(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]), 1, Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]), editor.getValue().split('\n')[Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]) - 1].length + 1),
+                                    options: {
+                                        inlineClassName: 'lineHighlight'
+                                    }
+                                }, ]);
+                            }
                         }
                     }
                     console.log('loaded monaco');
