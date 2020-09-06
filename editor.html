@@ -405,8 +405,6 @@
                             _data.queueRef.on("child_changed", function(ref) {
                                 _data.queueRef.once('value').then(function(d) {
                                     
-                                    if(applyingDeltas) return;
-                                    
                                     // Get the snapshot value
                                     var value = d.val();
 
@@ -431,11 +429,6 @@
                                     applyingDeltas = true;
                                     //  2. Update the editor value with the event data
                                     editor.executeEdits("", [value.event.changes[0]]);
-                                    _data.project.db.once('value').then(function(d) {
-                                        if(encodeURIComponent(editor.getValue)!=d.val().content){
-                                            editor.setValue(decodeURIComponent(d.val().content));
-                                        }
-                                    });
                                     //  3. Turn off the applyingDeltas
                                     applyingDeltas = false;
                                     //  4. Log the event to console
