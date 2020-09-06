@@ -185,7 +185,7 @@
                     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_B, function() {
                         editor.getAction('editor.action.formatDocument').run()
                     }, 'beautifier');
-                    if (location.href.substring(location.href.split('#')[0].length).startsWith('#L') && isFinite(location.href.substring(location.href.split('#')[0].length + 2)) && !isNaN(location.href.substring(location.href.split('#')[0].length + 2))) {
+                    if (location.href.substring(location.href.split('#')[0].length).startsWith('#L') && isFinite(Number(location.href.substring(location.href.split('#')[0].length + 2))) && !isNaN(Number(location.href.substring(location.href.split('#')[0].length + 2)))) {
                         //L111 or L1-12 일때 이동, 하이라이팅
                         if (location.href.substring(location.href.split('#')[0].length + 2).split("-").length == 1) {
                             editor.revealPositionInCenter({
