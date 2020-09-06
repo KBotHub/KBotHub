@@ -160,7 +160,6 @@
                     _data.firebase = true;
                     _data.queueRef = _data.project.db.child("queue");
                     _data.cursor = _data.project.db.child("cursor");
-                    _data.update = _data.project.db.child("update");
                 } catch (e) {
                     _data.value = '/*\nunknown error\n' + e + '\n*/';
                     init_editor();
@@ -257,9 +256,6 @@
                                     _data.user.update({
                                         online: _data.db.owners.online + "," + firebase.auth().currentUser.uid
                                     });
-                                    _data.update.update({
-                                        active: true
-                                    });
                                     editor.onDidChangeModelContent(function(editor_value) {
                                         if (applyingDeltas) {
                                             return;
@@ -267,7 +263,6 @@
                                         _data.project.db.update({
                                             content: encodeURIComponent(editor.getValue())
                                         });
-
                                         _data.queueRef.update({
 
                                             //timestamp
@@ -343,9 +338,6 @@
                                 });
                                 _data.user.update({
                                     online: _data.db.users.online + "," + firebase.auth().currentUser.uid
-                                });
-                                _data.update.update({
-                                    active: true
                                 });
                                 editor.onDidChangeModelContent(function(editor_value) {
                                     if (applyingDeltas) {
@@ -431,18 +423,6 @@
                                     console.log(value);
 
                                     lastRef = Date.now().toString();
-                                });
-                            });
-                            _data.update.on("child_changed", function(ref) {
-                                _data.update.once('value').then(function(d) {
-                                    if (d.val().active == true) {
-                                        _data.project.db.update({
-                                            content: encodeURIComponent(editor.getValue())
-                                        });
-                                        _data.update.update({
-                                            active: false
-                                        });
-                                    }
                                 });
                             });
                             _data.cursor.on("child_changed", function(ref) {
