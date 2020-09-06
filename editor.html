@@ -202,13 +202,14 @@
                                             alert('동시 접속이 불가능합니다');
                                             //history.back();
                                         }
-                                    });
-                                    _data.user.child(firebase.auth().currentUser.uid).update({
-                                        "online": true,
-                                        "name": firebase.auth().currentUser.displayName,
-                                        "proflie": firebase.auth().currentUser.photoURL,
-                                        "email": firebase.auth().currentUser.email,
-                                        "by": firebase.auth().currentUser.uid
+
+                                        _data.user.child(firebase.auth().currentUser.uid).update({
+                                            "online": true,
+                                            "name": firebase.auth().currentUser.displayName,
+                                            "proflie": firebase.auth().currentUser.photoURL,
+                                            "email": firebase.auth().currentUser.email,
+                                            "by": firebase.auth().currentUser.uid
+                                        });
                                     });
                                     _data.user.update({
                                         online: _data.db.owners.online + "," + firebase.auth().currentUser.uid
@@ -286,13 +287,14 @@
                                         alert('동시 접속이 불가능합니다');
                                         history.back();
                                     }
-                                });
-                                _data.user.child(firebase.auth().currentUser.uid).update({
-                                    "online": true,
-                                    "name": firebase.auth().currentUser.displayName,
-                                    "proflie": firebase.auth().currentUser.photoURL,
-                                    "email": firebase.auth().currentUser.email,
-                                    "by": firebase.auth().currentUser.uid
+
+                                    _data.user.child(firebase.auth().currentUser.uid).update({
+                                        "online": true,
+                                        "name": firebase.auth().currentUser.displayName,
+                                        "proflie": firebase.auth().currentUser.photoURL,
+                                        "email": firebase.auth().currentUser.email,
+                                        "by": firebase.auth().currentUser.uid
+                                    });
                                 });
                                 _data.user.update({
                                     online: _data.db.users.online + "," + firebase.auth().currentUser.uid
