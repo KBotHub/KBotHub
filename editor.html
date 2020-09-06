@@ -424,12 +424,11 @@
                                     //  2. Update the editor value with the event data
                                     //editor.setValue(decodeURIComponent(value.value));
                                     //value.event.changes.0.range.endColumn
-                                    value = value.event.changes[0]
-                                    changes = editor.executeEdits(changes, [value]);
+                                    changes = editor.executeEdits(changes, [value.event.changes[0]]);
                                     //  3. Turn off the applyingDeltas
                                     applyingDeltas = false;
                                     //  4. Log the event to console
-                                    console.log(value.event);
+                                    console.log(value);
 
                                     lastRef = Date.now().toString();
                                 });
