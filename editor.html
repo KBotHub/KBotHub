@@ -426,7 +426,12 @@
                                     value = value.event.changes[0]
                                     editor.executeEdits("", [{
                                         range: new monaco.Range(value.range.startLineNumber, value.range.startColumn, value.range.endLineNumber, value.range.endColumn),
-                                        text: value.text
+                                        text: value.text,
+                                        identifier: {
+                                            major: 1,
+                                            minor: 1
+                                        },
+                                        forceMoveMarkers: true
                                     }]);
                                     //  3. Turn off the applyingDeltas
                                     applyingDeltas = false;
