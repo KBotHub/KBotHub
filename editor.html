@@ -393,16 +393,18 @@
                                         "online": false
                                     });
                                     _data.user.once('value').then(function(d) {
+                                        if(d.val().online.replaceAll("," + firebase.auth().currentUser.uid, "").replaceAll(",", "").replaceAll("undefined", "")==""){
+                                            _data.project.db.update({
+                                                content: encodeURIComponent(editor.getValue())
+                                            });
+                                        }
                                         _data.user.update({
                                             online: d.val().online.replaceAll("," + firebase.auth().currentUser.uid, "")
                                         });
                                     });
-                                    _data.project.db.update({
-                                        content: encodeURIComponent(editor.getValue())
-                                    });
                                 }
                             }
-                            /*_data.queueRef.on("child_changed", function(ref) {
+                            _data.project.db.on("child_changed", function(ref) {
                                 _data.queueRef.once('value').then(function(d) {
                                     
                                     // Get the snapshot value
@@ -437,7 +439,7 @@
                                     lastRef = Date.now().toString();
                                 });
                             });
-                            */
+                            
                             _data.cursor.on("child_changed", function(ref) {
                                 _data.cursor.once('value').then(function(d) {
                                     var value = d.val();
