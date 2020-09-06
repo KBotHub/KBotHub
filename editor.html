@@ -56,6 +56,18 @@
             background: white;
             width: 2px !important;
             opacity: 50%;
+            animation: blink-animation 1s steps(5, start) infinite;
+            -webkit-animation: blink-animation 1s steps(5, start) infinite;
+        }
+        @keyframes blink-animation {
+            to {
+                visibility: hidden;
+            }
+        }
+        @-webkit-keyframes blink-animation {
+            to {
+                visibility: hidden;
+            }
         }
     </style>
     <script>
@@ -169,7 +181,6 @@
 
         function init_editor() {
             var decorations = [];
-            var changes = [];
             if (!_data.language) {
                 _data.language = "javascript";
             }
@@ -414,9 +425,7 @@
                                     //  1. We turn applyingDeltas on
                                     applyingDeltas = true;
                                     //  2. Update the editor value with the event data
-                                    //editor.setValue(decodeURIComponent(value.value));
-                                    //value.event.changes.0.range.endColumn
-                                    changes = editor.executeEdits(changes, [value.event.changes[0]]);
+                                    visualViewporteditor.executeEdits("", [value.event.changes[0]]);
                                     //  3. Turn off the applyingDeltas
                                     applyingDeltas = false;
                                     //  4. Log the event to console
