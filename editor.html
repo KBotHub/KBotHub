@@ -51,6 +51,12 @@
         .lineHighlight {
             background-color: rgb(229 255 0 / 15%) !important;
         }
+        
+        .other-cursor {
+            background: black;
+            width: 2px !important;
+            opacity: 50%;
+        }
     </style>
     <script>
         // Your web app's Firebase configuration
@@ -471,6 +477,7 @@
                                             inlineClassName: 'userDecoration'
                                         }
                                     }]);
+                                    if(value.value.startLineNumber<value.value.endLineNumber){
                                     decorations = editor.deltaDecorations(decorations, [
                                         //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
                                         {
@@ -478,11 +485,35 @@
                                             options: {
                                                 inlineClassName: 'userDecoration'
                                             }
-
-                                            //    2. show cursor at value.value.positionLineNumber, value.value.positionColumn
-                                            //    3. show a name tag over it when it moves
                                         },
+                                        //    2. show cursor at value.value.positionLineNumber, value.value.positionColumn
+                                        {
+                                            range: new monaco.Range(value.value.positionLineNumber, value.value.positionColumn, value.value.positionLineNumber, value.value.positionColumn),
+                                            options: {
+                                                className: 'other-cursor'
+                                            }
+                                        },
+                                        //    3. show a name tag over it when it moves
                                     ]);
+                                    }else{
+                                    decorations = editor.deltaDecorations(decorations, [
+                                        //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
+                                        {
+                                            range: new monaco.Range(value.value.endLineNumber, value.value.endColumn, value.value.startLineNumber, value.value.startColumn),
+                                            options: {
+                                                inlineClassName: 'userDecoration'
+                                            }
+                                        },
+                                        //    2. show cursor at value.value.positionLineNumber, value.value.positionColumn
+                                        {
+                                            range: new monaco.Range(value.value.positionLineNumber, value.value.positionColumn, value.value.positionLineNumber, value.value.positionColumn),
+                                            options: {
+                                                className: 'other-cursor'
+                                            }
+                                        },
+                                        //    3. show a name tag over it when it moves
+                                    ]);
+                                    }
                                     //  3. Turn off the applyingDeltas
                                     applyingDeltas = false;
                                     //  4. Log the event to console
