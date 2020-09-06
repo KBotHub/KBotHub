@@ -137,9 +137,6 @@
             } else {
                 try {
                     _data.editor_id = location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0];
-                    if (location.href.substring(location.href.split('#')[0].length).startsWith('#L') && isFinite(location.href.substring(location.href.split('#')[0].length + 2)) && !isNaN(location.href.substring(location.href.split('#')[0].length + 2))) {
-                        //L111 or L1-12 일때 이동, 하이라이팅
-                    }
                     _data.project.db = firebase.database().ref("project_data").child(_data.editor_id);
                     _data.project.db.once('value').then(function(d) {
                         _data.db = d.val();
@@ -163,7 +160,9 @@
 
         function init_editor() {
             var decorations = [];
-            if (!_data.language) _data.language = "javascript";
+            if (!_data.language) {
+                _data.language = "javascript";
+            }
             if (['javascript'].indexOf(_data.language) != -1) {
                 require.config({
                     paths: {
@@ -183,27 +182,27 @@
                         editor.getAction('editor.action.formatDocument').run()
                     }, 'beautifier');
                     console.log('loaded monaco');
-                    if (!!firebase.auth().currentUser) {
-                        if (_data.db.type == "private") {
-                            if (_data.firebase) {
+                    if (_data.firebase) {
+                        if (location.href.substring(location.href.split('#')[0].length).startsWith('#L') && isFinite(location.href.substring(location.href.split('#')[0].length + 2)) && !isNaN(location.href.substring(location.href.split('#')[0].length + 2))) {
+                            //L111 or L1-12 일때 이동, 하이라이팅
+                            if (location.href.substring(location.href.split('#')[0].length + 2).split("-").length == 1) {
+                                editor.revealLineInCenter(location.href.substring(location.href.split('#')[0].length + 2));
+                            } else if (location.href.substring(location.href.split('#')[0].length + 2).split("-").length == 2) {
+                                editor.revealLineInCenter(location.href.substring(location.href.split('#')[0].length + 2)[0]);
+                            }
+                        }
+                        if (!!firebase.auth().currentUser) {
+                            if (_data.db.type == "private") {
                                 if (!!_data.db.owners[firebase.auth().currentUser.uid]) {
                                     _data.user = _data.project.db.child("owners");
-                                    if (!_data.db.users[firebase.auth().currentUser.uid]) {
-                                        _data.user.child(firebase.auth().currentUser.uid).set({
-                                            "online": false,
-                                            "name": firebase.auth().currentUser.displayName,
-                                            "proflie": firebase.auth().currentUser.photoURL,
-                                            "email": firebase.auth().currentUser.email,
-                                            "by": firebase.auth().currentUser.uid
-                                        });
-                                    }
-                                        _data.project.db.once('value').then(function(d) {
-                                                _data.db = d.val();
-                                            if (_data.db.owners[firebase.auth().currentUser.uid]["online"] == true) {
-                                                alert('동시 접속이 불가능합니다');
-                                                history.back();
-                                            }
-                                        });
+
+                                    _data.project.db.once('value').then(function(d) {
+                                        _data.db = d.val();
+                                        if (_data.db.owners[firebase.auth().currentUser.uid]["online"] == true) {
+                                            alert('동시 접속이 불가능합니다');
+                                            history.back();
+                                        }
+                                    });
                                     _data.user.child(firebase.auth().currentUser.uid).update({
                                         "online": true,
                                         "name": firebase.auth().currentUser.displayName,
@@ -270,155 +269,7 @@
                                         });
                                     }
                                 }
-                                _data.queueRef.on("child_changed", function(ref) {
-                                    _data.queueRef.once('value').then(function(d) {
-                                        // Get the snapshot value
-                                        var value = d.val();
-
-                                        // Get the timestamp
-                                        var timestamp = value.ts.split(":")[0];
-
-                                        // Do not apply changes from the past
-                                        if (lastCursor > timestamp) {
-                                            return;
-                                        }
-
-                                        // In case it's me who changed the value, I am
-                                        // not interested to see twice what I'm writing.
-                                        // So, if the update is made by me, it doesn't
-                                        // make sense to apply the update
-                                        if (value.by === firebase.auth().currentUser.uid) {
-                                            return;
-                                        }
-
-                                        // We're going to apply the changes by somebody else in our editor
-                                        //  1. We turn applyingDeltas on
-                                        applyingDeltas = true;
-                                        //  2. Update the editor value with the event data
-                                        //editor.setValue(decodeURIComponent(value.value));
-                                        //value.event.changes.0.range.endColumn
-                                        value = value.event.changes[0]
-                                        editor.executeEdits("", [{
-                                            range: new monaco.Range(value.range.startLineNumber, value.range.startColumn, value.range.endLineNumber, value.range.endColumn),
-                                            text: value.text
-                                        }]);
-                                        //  3. Turn off the applyingDeltas
-                                        applyingDeltas = false;
-                                        //  4. Log the event to console
-                                        console.log(value.event);
-
-                                        lastRef = Date.now().toString();
-                                    });
-                                });
-                                _data.update.once('value').then(function(d) {
-                                    if (d.val().active == true) {
-                                        _data.project.db.update({
-                                            content: encodeURIComponent(editor.getValue())
-                                        });
-                                        _data.update.update({
-                                            active: false
-                                        });
-                                    }
-                                });
-                                _data.update.on("child_changed", function(ref) {
-                                    _data.update.once('value').then(function(d) {
-                                        if (d.val().active == true) {
-                                            _data.project.db.update({
-                                                content: encodeURIComponent(editor.getValue())
-                                            });
-                                            _data.update.update({
-                                                active: false
-                                            });
-                                        }
-                                    });
-                                });
-                                _data.cursor.on("child_changed", function(ref) {
-                                    _data.cursor.once('value').then(function(d) {
-                                        var value = d.val();
-
-                                        // Get the timestamp
-                                        var timestamp = value.ts.split(":")[0];
-
-                                        // Do not apply changes from the past
-                                        if (lastCursor > timestamp) {
-                                            return;
-                                        }
-
-                                        // In case it's me who changed the value, I am
-                                        // not interested to see twice what I'm writing.
-                                        // So, if the update is made by me, it doesn't
-                                        // make sense to apply the update
-                                        if (value.by === firebase.auth().currentUser.uid) {
-                                            return;
-                                        }
-
-                                        // We're going to apply the changes by somebody else in our editor
-                                        //  1. We turn applyingDeltas on
-                                        applyingDeltas = true;
-                                        //  2. Update the editor value with the event data
-                                        decorations = editor.deltaDecorations(decorations, [{
-                                            range: new monaco.Range(1, 1, 1, 1),
-                                            options: {
-                                                inlineClassName: 'userDecoration'
-                                            }
-                                        }]);
-                                        decorations = editor.deltaDecorations(decorations, [
-                                            //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
-                                            {
-                                                range: new monaco.Range(value.value.startLineNumber, value.value.startColumn, value.value.endLineNumber, value.value.endColumn),
-                                                options: {
-                                                    inlineClassName: 'userDecoration'
-                                                }
-
-                                                //    2. show cursor at value.value.positionLineNumber, value.value.positionColumn
-                                                //    3. show a name tag over it when it moves
-                                            },
-                                        ]);
-                                        //  3. Turn off the applyingDeltas
-                                        applyingDeltas = false;
-                                        //  4. Log the event to console
-                                        console.log(value.event);
-
-                                        lastCursor = Date.now().toString();
-                                    });
-                                });
-                                _data.user.on("child_changed", function(ref) {
-
-                                    // Get the timestamp
-                                    var timestamp = ref.key.split(":")[0];
-
-                                    // Do not apply changes from the past
-                                    if (lastUser > timestamp) {
-                                        return;
-                                    }
-
-                                    // Get the snapshot value
-                                    var value = ref.val();
-
-                                    // In case it's me who changed the value, I am
-                                    // not interested to see twice what I'm writing.
-                                    // So, if the update is made by me, it doesn't
-                                    // make sense to apply the update
-                                    if (value.by === firebase.auth().currentUser.uid) {
-                                        return;
-                                    }
-
-                                    if (value.online == true) {
-                                        new Toast({
-                                            message: value.name + " joined"
-                                        })
-                                    } else if (value.online == false) {
-                                        new Toast({
-                                            message: value.name + " left"
-                                        })
-                                    }
-
-                                    console.log(value)
-                                    lastUser = Date.now().toString()
-                                });
-                            }
-                        } else if (_data.db.type == "public") {
-                            if (_data.firebase) {
+                            } else if (_data.db.type == "public") {
                                 _data.user = _data.project.db.child("users");
                                 if (!_data.db.users[firebase.auth().currentUser.uid]) {
                                     _data.user.child(firebase.auth().currentUser.uid).set({
@@ -429,13 +280,13 @@
                                         "by": firebase.auth().currentUser.uid
                                     });
                                 }
-                                    _data.project.db.once('value').then(function(d) {
-                                            _data.db = d.val();
-                                        if (_data.db.users[firebase.auth().currentUser.uid]["online"] == true) {
-                                            alert('동시 접속이 불가능합니다');
-                                            history.back();
-                                        }
-                                    });
+                                _data.project.db.once('value').then(function(d) {
+                                    _data.db = d.val();
+                                    if (_data.db.users[firebase.auth().currentUser.uid]["online"] == true) {
+                                        alert('동시 접속이 불가능합니다');
+                                        history.back();
+                                    }
+                                });
                                 _data.user.child(firebase.auth().currentUser.uid).update({
                                     "online": true,
                                     "name": firebase.auth().currentUser.displayName,
@@ -498,47 +349,48 @@
                                         content: encodeURIComponent(editor.getValue())
                                     });
                                 }
+                            }
+                            _data.queueRef.on("child_changed", function(ref) {
+                                _data.queueRef.once('value').then(function(d) {
+                                    // Get the snapshot value
+                                    var value = d.val();
 
-                                _data.queueRef.on("child_changed", function(ref) {
-                                    _data.queueRef.once('value').then(function(d) {
-                                        // Get the snapshot value
-                                        var value = d.val();
+                                    // Get the timestamp
+                                    var timestamp = value.ts.split(":")[0];
 
-                                        // Get the timestamp
-                                        var timestamp = value.ts.split(":")[0];
+                                    // Do not apply changes from the past
+                                    if (lastCursor > timestamp) {
+                                        return;
+                                    }
 
-                                        // Do not apply changes from the past
-                                        if (lastCursor > timestamp) {
-                                            return;
-                                        }
+                                    // In case it's me who changed the value, I am
+                                    // not interested to see twice what I'm writing.
+                                    // So, if the update is made by me, it doesn't
+                                    // make sense to apply the update
+                                    if (value.by === firebase.auth().currentUser.uid) {
+                                        return;
+                                    }
 
-                                        // In case it's me who changed the value, I am
-                                        // not interested to see twice what I'm writing.
-                                        // So, if the update is made by me, it doesn't
-                                        // make sense to apply the update
-                                        if (value.by === firebase.auth().currentUser.uid) {
-                                            return;
-                                        }
+                                    // We're going to apply the changes by somebody else in our editor
+                                    //  1. We turn applyingDeltas on
+                                    applyingDeltas = true;
+                                    //  2. Update the editor value with the event data
+                                    //editor.setValue(decodeURIComponent(value.value));
+                                    //value.event.changes.0.range.endColumn
+                                    value = value.event.changes[0]
+                                    editor.executeEdits("", [{
+                                        range: new monaco.Range(value.range.startLineNumber, value.range.startColumn, value.range.endLineNumber, value.range.endColumn),
+                                        text: value.text
+                                    }]);
+                                    //  3. Turn off the applyingDeltas
+                                    applyingDeltas = false;
+                                    //  4. Log the event to console
+                                    console.log(value.event);
 
-                                        // We're going to apply the changes by somebody else in our editor
-                                        //  1. We turn applyingDeltas on
-                                        applyingDeltas = true;
-                                        //  2. Update the editor value with the event data
-                                        //editor.setValue(decodeURIComponent(value.value));
-                                        //value.event.changes.0.range.endColumn
-                                        value = value.event.changes[0]
-                                        editor.executeEdits("", [{
-                                            range: new monaco.Range(value.range.startLineNumber, value.range.startColumn, value.range.endLineNumber, value.range.endColumn),
-                                            text: value.text
-                                        }]);
-                                        //  3. Turn off the applyingDeltas
-                                        applyingDeltas = false;
-                                        //  4. Log the event to console
-                                        console.log(value.event);
-
-                                        lastRef = Date.now().toString();
-                                    });
+                                    lastRef = Date.now().toString();
                                 });
+                            });
+                            _data.update.on("child_changed", function(ref) {
                                 _data.update.once('value').then(function(d) {
                                     if (d.val().active == true) {
                                         _data.project.db.update({
@@ -549,80 +401,18 @@
                                         });
                                     }
                                 });
-                                _data.update.on("child_changed", function(ref) {
-                                    _data.update.once('value').then(function(d) {
-                                        if (d.val().active == true) {
-                                            _data.project.db.update({
-                                                content: encodeURIComponent(editor.getValue())
-                                            });
-                                            _data.update.update({
-                                                active: false
-                                            });
-                                        }
-                                    });
-                                });
-                                _data.cursor.on("child_changed", function(ref) {
-                                    _data.cursor.once('value').then(function(d) {
-                                        var value = d.val();
-
-                                        // Get the timestamp
-                                        var timestamp = value.ts.split(":")[0];
-
-                                        // Do not apply changes from the past
-                                        if (lastCursor > timestamp) {
-                                            return;
-                                        }
-
-                                        // In case it's me who changed the value, I am
-                                        // not interested to see twice what I'm writing.
-                                        // So, if the update is made by me, it doesn't
-                                        // make sense to apply the update
-                                        if (value.by === firebase.auth().currentUser.uid) {
-                                            return;
-                                        }
-
-                                        // We're going to apply the changes by somebody else in our editor
-                                        //  1. We turn applyingDeltas on
-                                        applyingDeltas = true;
-                                        //  2. Update the editor value with the event data
-                                        decorations = editor.deltaDecorations(decorations, [{
-                                            range: new monaco.Range(1, 1, 1, 1),
-                                            options: {
-                                                inlineClassName: 'userDecoration'
-                                            }
-                                        }]);
-                                        decorations = editor.deltaDecorations(decorations, [
-                                            //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
-                                            {
-                                                range: new monaco.Range(value.value.startLineNumber, value.value.startColumn, value.value.endLineNumber, value.value.endColumn),
-                                                options: {
-                                                    inlineClassName: 'userDecoration'
-                                                }
-
-                                                //    2. show cursor at value.value.positionLineNumber, value.value.positionColumn
-                                                //    3. show a name tag over it when it moves
-                                            },
-                                        ]);
-                                        //  3. Turn off the applyingDeltas
-                                        applyingDeltas = false;
-                                        //  4. Log the event to console
-                                        console.log(value.event);
-
-                                        lastCursor = Date.now().toString();
-                                    });
-                                });
-                                _data.user.on("child_changed", function(ref) {
+                            });
+                            _data.cursor.on("child_changed", function(ref) {
+                                _data.cursor.once('value').then(function(d) {
+                                    var value = d.val();
 
                                     // Get the timestamp
-                                    var timestamp = ref.key.split(":")[0];
+                                    var timestamp = value.ts.split(":")[0];
 
                                     // Do not apply changes from the past
-                                    if (lastUser > timestamp) {
+                                    if (lastCursor > timestamp) {
                                         return;
                                     }
-
-                                    // Get the snapshot value
-                                    var value = ref.val();
 
                                     // In case it's me who changed the value, I am
                                     // not interested to see twice what I'm writing.
@@ -632,23 +422,71 @@
                                         return;
                                     }
 
-                                    if (value.online == true) {
-                                        new Toast({
-                                            message: value.name + " joined"
-                                        })
-                                    } else if (value.online == false) {
-                                        new Toast({
-                                            message: value.name + " left"
-                                        })
-                                    }
+                                    // We're going to apply the changes by somebody else in our editor
+                                    //  1. We turn applyingDeltas on
+                                    applyingDeltas = true;
+                                    //  2. Update the editor value with the event data
+                                    decorations = editor.deltaDecorations(decorations, [{
+                                        range: new monaco.Range(1, 1, 1, 1),
+                                        options: {
+                                            inlineClassName: 'userDecoration'
+                                        }
+                                    }]);
+                                    decorations = editor.deltaDecorations(decorations, [
+                                        //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
+                                        {
+                                            range: new monaco.Range(value.value.startLineNumber, value.value.startColumn, value.value.endLineNumber, value.value.endColumn),
+                                            options: {
+                                                inlineClassName: 'userDecoration'
+                                            }
 
-                                    console.log(value)
-                                    lastUser = Date.now().toString()
+                                            //    2. show cursor at value.value.positionLineNumber, value.value.positionColumn
+                                            //    3. show a name tag over it when it moves
+                                        },
+                                    ]);
+                                    //  3. Turn off the applyingDeltas
+                                    applyingDeltas = false;
+                                    //  4. Log the event to console
+                                    console.log(value.event);
+
+                                    lastCursor = Date.now().toString();
                                 });
-                            }
+                            });
+                            _data.user.on("child_changed", function(ref) {
+
+                                // Get the timestamp
+                                var timestamp = ref.key.split(":")[0];
+
+                                // Do not apply changes from the past
+                                if (lastUser > timestamp) {
+                                    return;
+                                }
+
+                                // Get the snapshot value
+                                var value = ref.val();
+
+                                // In case it's me who changed the value, I am
+                                // not interested to see twice what I'm writing.
+                                // So, if the update is made by me, it doesn't
+                                // make sense to apply the update
+                                if (value.by === firebase.auth().currentUser.uid) {
+                                    return;
+                                }
+
+                                if (value.online == true) {
+                                    new Toast({
+                                        message: value.name + " joined"
+                                    })
+                                } else if (value.online == false) {
+                                    new Toast({
+                                        message: value.name + " left"
+                                    })
+                                }
+
+                                console.log(value)
+                                lastUser = Date.now().toString()
+                            });
                         }
-                    } else {
-                        alert('plz login\nF1 >> login');
                     }
                 });
             }
