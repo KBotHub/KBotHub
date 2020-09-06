@@ -435,8 +435,8 @@
 
                                     lastRef = Date.now().toString();
                                     _data.project.db.once('value').then(function(d) {
-                                        if(editor.getValue!=d.content){
-                                            editor.setValue(d.content);
+                                        if(encodeURIComponent(editor.getValue)!=d.val().content){
+                                            editor.setValue(decodeURIComponent(d.val().content));
                                         }
                                     });
                                 });
