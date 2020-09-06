@@ -428,17 +428,17 @@
                                     applyingDeltas = true;
                                     //  2. Update the editor value with the event data
                                     editor.executeEdits("", [value.event.changes[0]]);
+                                    _data.project.db.once('value').then(function(d) {
+                                        if(encodeURIComponent(editor.getValue)!=d.val().content){
+                                            editor.setValue(decodeURIComponent(d.val().content));
+                                        }
+                                    });
                                     //  3. Turn off the applyingDeltas
                                     applyingDeltas = false;
                                     //  4. Log the event to console
                                     console.log(value);
 
                                     lastRef = Date.now().toString();
-                                    _data.project.db.once('value').then(function(d) {
-                                        if(encodeURIComponent(editor.getValue)!=d.val().content){
-                                            editor.setValue(decodeURIComponent(d.val().content));
-                                        }
-                                    });
                                 });
                             });
                             _data.cursor.on("child_changed", function(ref) {
