@@ -404,6 +404,9 @@
                             }
                             _data.queueRef.on("child_changed", function(ref) {
                                 _data.queueRef.once('value').then(function(d) {
+                                    
+                                    if(applyingDeltas) return;
+                                    
                                     // Get the snapshot value
                                     var value = d.val();
 
