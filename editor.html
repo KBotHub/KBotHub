@@ -354,7 +354,9 @@
                                     if (applyingDeltas) {
                                         return;
                                     }
-
+                                    _data.project.db.update({
+                                        content: encodeURIComponent(editor.getValue())
+                                    });
                                     _data.queueRef.update({
 
                                         //timestamp
@@ -432,6 +434,11 @@
                                     console.log(value);
 
                                     lastRef = Date.now().toString();
+                                    _data.project.db.once('value').then(function(d) {
+                                        if(editor.getValue!=d.content){
+                                            editor.setValue(d.content);
+                                        }
+                                    });
                                 });
                             });
                             _data.cursor.on("child_changed", function(ref) {
