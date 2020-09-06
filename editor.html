@@ -51,7 +51,7 @@
         .lineHighlight {
             background-color: rgb(229 255 0/ 15%) !important;
         }
-        
+
         .other-cursor {
             background: white;
             width: 1px !important;
@@ -59,11 +59,13 @@
             animation: blink-animation 1s steps(5, start) infinite;
             -webkit-animation: blink-animation 1s steps(5, start) infinite;
         }
+
         @keyframes blink-animation {
             to {
                 visibility: hidden;
             }
         }
+
         @-webkit-keyframes blink-animation {
             to {
                 visibility: hidden;
@@ -205,45 +207,45 @@
                     console.log('loaded monaco');
                     if (_data.firebase) {
 
-                    if (location.href.substring(location.href.split('#')[0].length).startsWith('#L') && isFinite(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0])) && !isNaN(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]))) {
-                        //L111 or L1-12 일때 이동, 하이라이팅
-                        if (location.href.substring(location.href.split('#')[0].length + 2).split("-").length == 1) {
-                            editor.revealPositionInCenter({
-                                lineNumber: Number(location.href.substring(location.href.split('#')[0].length + 2)),
-                                column: 1
-                            });
-                            editor.deltaDecorations([], [{
-                                range: new monaco.Range(Number(location.href.substring(location.href.split('#')[0].length + 2)), 1, Number(location.href.substring(location.href.split('#')[0].length + 2)), editor.getValue().split('\n')[Number(location.href.substring(location.href.split('#')[0].length + 2) - 1)].length + 1),
-                                options: {
-                                    inlineClassName: 'lineHighlight'
+                        if (location.href.substring(location.href.split('#')[0].length).startsWith('#L') && isFinite(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0])) && !isNaN(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]))) {
+                            //L111 or L1-12 일때 이동, 하이라이팅
+                            if (location.href.substring(location.href.split('#')[0].length + 2).split("-").length == 1) {
+                                editor.revealPositionInCenter({
+                                    lineNumber: Number(location.href.substring(location.href.split('#')[0].length + 2)),
+                                    column: 1
+                                });
+                                editor.deltaDecorations([], [{
+                                    range: new monaco.Range(Number(location.href.substring(location.href.split('#')[0].length + 2)), 1, Number(location.href.substring(location.href.split('#')[0].length + 2)), editor.getValue().split('\n')[Number(location.href.substring(location.href.split('#')[0].length + 2) - 1)].length + 1),
+                                    options: {
+                                        inlineClassName: 'lineHighlight'
+                                    }
+                                }, ]);
+                            } else if (location.href.substring(location.href.split('#')[0].length + 2).split("-").length == 2 && isFinite(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1])) && !isNaN(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]))) {
+                                if (Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]) < Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1])) {
+                                    editor.revealPositionInCenter({
+                                        lineNumber: Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]),
+                                        column: 1
+                                    });
+                                    editor.deltaDecorations([], [{
+                                        range: new monaco.Range(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]), 1, Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]), editor.getValue().split('\n')[Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]) - 1].length + 1),
+                                        options: {
+                                            inlineClassName: 'lineHighlight'
+                                        }
+                                    }, ]);
+                                } else {
+                                    editor.revealPositionInCenter({
+                                        lineNumber: Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]),
+                                        column: 1
+                                    });
+                                    editor.deltaDecorations([], [{
+                                        range: new monaco.Range(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]), 1, Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]), editor.getValue().split('\n')[Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]) - 1].length + 1),
+                                        options: {
+                                            inlineClassName: 'lineHighlight'
+                                        }
+                                    }, ]);
                                 }
-                            }, ]);
-                        } else if (location.href.substring(location.href.split('#')[0].length + 2).split("-").length == 2 && isFinite(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1])) && !isNaN(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]))) {
-                            if (Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]) < Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1])) {
-                                editor.revealPositionInCenter({
-                                    lineNumber: Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]),
-                                    column: 1
-                                });
-                                editor.deltaDecorations([], [{
-                                    range: new monaco.Range(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]), 1, Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]), editor.getValue().split('\n')[Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]) - 1].length + 1),
-                                    options: {
-                                        inlineClassName: 'lineHighlight'
-                                    }
-                                }, ]);
-                            } else {
-                                editor.revealPositionInCenter({
-                                    lineNumber: Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]),
-                                    column: 1
-                                });
-                                editor.deltaDecorations([], [{
-                                    range: new monaco.Range(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]), 1, Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]), editor.getValue().split('\n')[Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]) - 1].length + 1),
-                                    options: {
-                                        inlineClassName: 'lineHighlight'
-                                    }
-                                }, ]);
                             }
                         }
-                    }
                         if (!!firebase.auth().currentUser) {
                             if (_data.db.type == "private") {
                                 if (!!_data.db.owners[firebase.auth().currentUser.uid]) {
@@ -393,7 +395,7 @@
                                         "online": false
                                     });
                                     _data.user.once('value').then(function(d) {
-                                        if(d.val().online.replaceAll("," + firebase.auth().currentUser.uid, "").replaceAll(",", "").replaceAll("undefined", "")==""){
+                                        if (d.val().online.replaceAll("," + firebase.auth().currentUser.uid, "").replaceAll(",", "").replaceAll("undefined", "") == "") {
                                             _data.project.db.update({
                                                 content: encodeURIComponent(editor.getValue())
                                             });
@@ -406,7 +408,7 @@
                             }
                             _data.project.db.on("child_changed", function(ref) {
                                 _data.queueRef.once('value').then(function(d) {
-                                    
+
                                     // Get the snapshot value
                                     var value = d.val();
 
@@ -439,7 +441,7 @@
                                     lastRef = Date.now().toString();
                                 });
                             });
-                            
+
                             _data.cursor.on("child_changed", function(ref) {
                                 _data.cursor.once('value').then(function(d) {
                                     var value = d.val();
@@ -470,42 +472,42 @@
                                             inlineClassName: 'userDecoration'
                                         }
                                     }]);
-                                    if(value.value.startLineNumber<value.value.endLineNumber){
-                                    decorations = editor.deltaDecorations(decorations, [
-                                        //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
-                                        {
-                                            range: new monaco.Range(value.value.startLineNumber, value.value.startColumn, value.value.endLineNumber, value.value.endColumn),
-                                            options: {
-                                                inlineClassName: 'userDecoration'
-                                            }
-                                        },
-                                        //    2. show cursor at value.value.positionLineNumber, value.value.positionColumn
-                                        {
-                                            range: new monaco.Range(value.value.positionLineNumber, value.value.positionColumn, value.value.positionLineNumber, value.value.positionColumn),
-                                            options: {
-                                                className: 'other-cursor'
-                                            }
-                                        },
-                                        //    3. show a name tag over it when it moves
-                                    ]);
-                                    }else{
-                                    decorations = editor.deltaDecorations(decorations, [
-                                        //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
-                                        {
-                                            range: new monaco.Range(value.value.endLineNumber, value.value.endColumn, value.value.startLineNumber, value.value.startColumn),
-                                            options: {
-                                                inlineClassName: 'userDecoration'
-                                            }
-                                        },
-                                        //    2. show cursor at value.value.positionLineNumber, value.value.positionColumn
-                                        {
-                                            range: new monaco.Range(value.value.positionLineNumber, value.value.positionColumn, value.value.positionLineNumber, value.value.positionColumn),
-                                            options: {
-                                                className: 'other-cursor'
-                                            }
-                                        },
-                                        //    3. show a name tag over it when it moves
-                                    ]);
+                                    if (value.value.startLineNumber < value.value.endLineNumber) {
+                                        decorations = editor.deltaDecorations(decorations, [
+                                            //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
+                                            {
+                                                range: new monaco.Range(value.value.startLineNumber, value.value.startColumn, value.value.endLineNumber, value.value.endColumn),
+                                                options: {
+                                                    inlineClassName: 'userDecoration'
+                                                }
+                                            },
+                                            //    2. show cursor at value.value.positionLineNumber, value.value.positionColumn
+                                            {
+                                                range: new monaco.Range(value.value.positionLineNumber, value.value.positionColumn, value.value.positionLineNumber, value.value.positionColumn),
+                                                options: {
+                                                    className: 'other-cursor'
+                                                }
+                                            },
+                                            //    3. show a name tag over it when it moves
+                                        ]);
+                                    } else {
+                                        decorations = editor.deltaDecorations(decorations, [
+                                            //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
+                                            {
+                                                range: new monaco.Range(value.value.endLineNumber, value.value.endColumn, value.value.startLineNumber, value.value.startColumn),
+                                                options: {
+                                                    inlineClassName: 'userDecoration'
+                                                }
+                                            },
+                                            //    2. show cursor at value.value.positionLineNumber, value.value.positionColumn
+                                            {
+                                                range: new monaco.Range(value.value.positionLineNumber, value.value.positionColumn, value.value.positionLineNumber, value.value.positionColumn),
+                                                options: {
+                                                    className: 'other-cursor'
+                                                }
+                                            },
+                                            //    3. show a name tag over it when it moves
+                                        ]);
                                     }
                                     //  3. Turn off the applyingDeltas
                                     applyingDeltas = false;
@@ -515,40 +517,42 @@
                                     lastCursor = Date.now().toString();
                                 });
                             });
-                            _data.user.on("child_changed", function(ref) {
+                            if (!!_data.user) {
+                                _data.user.on("child_changed", function(ref) {
 
-                                // Get the timestamp
-                                var timestamp = ref.key.split(":")[0];
+                                    // Get the timestamp
+                                    var timestamp = ref.key.split(":")[0];
 
-                                // Do not apply changes from the past
-                                if (lastUser > timestamp) {
-                                    return;
-                                }
+                                    // Do not apply changes from the past
+                                    if (lastUser > timestamp) {
+                                        return;
+                                    }
 
-                                // Get the snapshot value
-                                var value = ref.val();
+                                    // Get the snapshot value
+                                    var value = ref.val();
 
-                                // In case it's me who changed the value, I am
-                                // not interested to see twice what I'm writing.
-                                // So, if the update is made by me, it doesn't
-                                // make sense to apply the update
-                                if (value.by === firebase.auth().currentUser.uid) {
-                                    return;
-                                }
+                                    // In case it's me who changed the value, I am
+                                    // not interested to see twice what I'm writing.
+                                    // So, if the update is made by me, it doesn't
+                                    // make sense to apply the update
+                                    if (value.by === firebase.auth().currentUser.uid) {
+                                        return;
+                                    }
 
-                                if (value.online == true) {
-                                    new Toast({
-                                        message: value.name + " joined"
-                                    })
-                                } else if (value.online == false) {
-                                    new Toast({
-                                        message: value.name + " left"
-                                    })
-                                }
+                                    if (value.online == true) {
+                                        new Toast({
+                                            message: value.name + " joined"
+                                        })
+                                    } else if (value.online == false) {
+                                        new Toast({
+                                            message: value.name + " left"
+                                        })
+                                    }
 
-                                console.log(value)
-                                lastUser = Date.now().toString()
-                            });
+                                    console.log(value)
+                                    lastUser = Date.now().toString()
+                                });
+                            }
                         }
                     }
                 });
