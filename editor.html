@@ -47,6 +47,9 @@
             background-color: rgba(100, 209, 86, 0.61);
             color: white;
         }
+        .highlight {
+	        background-color: rgba(229, 255, 0, 0.37) !important;
+        }
     </style>
     <script>
         // Your web app's Firebase configuration
@@ -187,8 +190,10 @@
                             //L111 or L1-12 일때 이동, 하이라이팅
                             if (location.href.substring(location.href.split('#')[0].length + 2).split("-").length == 1) {
                                 editor.revealPositionInCenter({ lineNumber: location.href.substring(location.href.split('#')[0].length + 2), column: 1 });
+                                editor.deltaDecorations([], [{ range: new monaco.Range(location.href.substring(location.href.split('#')[0].length + 2),1,location.href.substring(location.href.split('#')[0].length + 2),editor.getValue().split('\n')[location.href.substring(location.href.split('#')[0].length + 2)-1].length+1), options: { inlineClassName: 'highlight' }},]);
                             } else if (location.href.substring(location.href.split('#')[0].length + 2).split("-").length == 2) {
                                 editor.revealPositionInCenter({ lineNumber: location.href.substring(location.href.split('#')[0].length + 2).split("-")[0], column: 1 });
+                                editor.deltaDecorations([], [{ range: new monaco.Range(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0],1,location.href.substring(location.href.split('#')[0].length + 2).split("-")[1],editor.getValue().split('\n')[location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]-1].length+1), options: { inlineClassName: 'highlight' }},]);
                             }
                         }
                         if (!!firebase.auth().currentUser) {
@@ -269,6 +274,8 @@
                                             content: encodeURIComponent(editor.getValue())
                                         });
                                     }
+                                } else {
+                                    editor.setValue("/*\nthis is a private project\n*/");
                                 }
                             } else if (_data.db.type == "public") {
                                 _data.user = _data.project.db.child("users");
