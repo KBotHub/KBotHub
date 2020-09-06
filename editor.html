@@ -273,13 +273,14 @@
                                         if (applyingDeltas) {
                                             return;
                                         }
+                                        var timeStamp = Date.now().toString() + ":" + Math.random().toString().slice(2);
                                         _data.project.db.update({
                                             content: encodeURIComponent(editor.getValue())
                                         });
-                                        _data.queueRef.update({
+                                        _data.queueRef.child(timeStamp).set({
 
                                             //timestamp
-                                            ts: Date.now().toString() + ":" + Math.random().toString().slice(2),
+                                            ts: timeStamp,
                                             // Store the data we get from monaco editor
                                             event: editor_value,
                                             // Store the firebase-user id
@@ -356,13 +357,14 @@
                                     if (applyingDeltas) {
                                         return;
                                     }
+                                    var timeStamp = Date.now().toString() + ":" + Math.random().toString().slice(2);
                                     _data.project.db.update({
                                         content: encodeURIComponent(editor.getValue())
                                     });
-                                    _data.queueRef.update({
+                                    _data.queueRef.child(timeStamp).set({
 
                                         //timestamp
-                                        ts: Date.now().toString() + ":" + Math.random().toString().slice(2),
+                                        ts: timeStamp,
                                         // Store the data we get from monaco editor
                                         event: editor_value,
                                         // Store the firebase-user id
@@ -406,11 +408,11 @@
                                     });
                                 }
                             }
-                            _data.project.db.on("child_changed", function(ref) {
+                            _data.queueRef.on("child_added", function (ref) {
                                 _data.queueRef.once('value').then(function(d) {
 
                                     // Get the snapshot value
-                                    var value = d.val();
+                                    var value = ref.val();
 
                                     // Get the timestamp
                                     var timestamp = value.ts.split(":")[0];
