@@ -402,7 +402,7 @@
                                     });
                                 }
                             }
-                            _data.queueRef.on("child_changed", function(ref) {
+                            /*_data.queueRef.on("child_changed", function(ref) {
                                 _data.queueRef.once('value').then(function(d) {
                                     
                                     // Get the snapshot value
@@ -420,7 +420,7 @@
                                     // not interested to see twice what I'm writing.
                                     // So, if the update is made by me, it doesn't
                                     // make sense to apply the update
-                                    if (value.by === firebase.auth().currentUser.uid) {
+                                    if (value.by === firebase.auth().currentUser.uid || applyingDeltas) {
                                         return;
                                     }
 
@@ -437,6 +437,7 @@
                                     lastRef = Date.now().toString();
                                 });
                             });
+                            */
                             _data.cursor.on("child_changed", function(ref) {
                                 _data.cursor.once('value').then(function(d) {
                                     var value = d.val();
