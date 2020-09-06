@@ -128,7 +128,7 @@
                     'function onStop(activity) {}'
                 ].join('\n');
                 init_editor();
-            } else if (location.href.substring('https://kboteditor.kro.kr/editor?id='.length).length != 10 || !(!isNaN(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && isFinite(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && Math.floor(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) == location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])) {
+            } else if (location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split("#")[0].length != 10 || !(!isNaN(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && isFinite(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && Math.floor(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) == location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])) {
                 _data.value = '/*\ninvalid project id\n*/';
                 init_editor();
             } else if (!firebase.database().ref("project_data").child(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])) {
