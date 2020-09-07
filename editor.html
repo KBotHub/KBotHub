@@ -183,6 +183,42 @@
 
         function init_editor() {
             var decorations = [];
+            if (_data.firebase) {
+                _data.project.scriptName = _data.db.title;
+            } else {
+                _data.project.scriptName = '스크립트 이름';
+            }
+            var default_data = [
+                'const scriptName = \"' + _data.project.scriptName + '\";',
+                '/**',
+                ' * (string) room',
+                ' * (string) sender',
+                ' * (boolean) isGroupChat',
+                ' * (void) replier.reply(message)',
+                ' * (boolean) replier.reply(room, message, hideErrorToast = false) // 전송 성공시 true, 실패시 false 반환',
+                ' * (string) imageDB.getProfileBase64()',
+                ' * (string) packageName',
+                ' */',
+                'function response(room, msg, sender, isGroupChat, replier, imageDB, packageName) {',
+                '\t//여기에 코드를 입력',
+                '}',
+                '',
+                '//아래 4개의 메소드는 액티비티 화면을 수정할때 사용됩니다.',
+                'function onCreate(savedInstanceState, activity) {',
+                '\tvar textView = new android.widget.TextView(activity);',
+                '\ttextView.setText("Hello, World!");',
+                '\ttextView.setTextColor(android.graphics.Color.DKGRAY);',
+                '\tactivity.setContentView(textView);',
+                '}',
+                '',
+                'function onStart(activity) {}',
+                '',
+                'function onResume(activity) {}',
+                '',
+                'function onPause(activity) {}',
+                '',
+                'function onStop(activity) {}'
+            ].join('\n');
             if (!_data.language) {
                 _data.language = "javascript";
             }
@@ -204,6 +240,10 @@
                     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_B, function() {
                         editor.getAction('editor.action.formatDocument').run()
                     }, 'beautifier');
+                    editor.createContextKey( /*key name*/ 'DEFAULT-JS', /*default value*/ true);
+                    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_D, function() {
+                        editor.setValue()
+                    }, 'DEFAULT-JS');
                     console.log('loaded monaco');
                     if (_data.firebase) {
 
@@ -416,7 +456,7 @@
                                     });
                                 }
                             }
-                            _data.queueRef.on("child_added", function (ref) {
+                            _data.queueRef.on("child_added", function(ref) {
                                 // Get the snapshot value
                                 var value = ref.val();
 
