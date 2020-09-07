@@ -121,7 +121,7 @@
                     },
                 };
                 _data.value = [
-                    'const scriptName = \"' + _data.project.scriptName + '\";',
+                    'const scriptName = \"' + decodeURIComponent(_data.project.scriptName) + '\";',
                     '/**',
                     ' * (string) room',
                     ' * (string) sender',
