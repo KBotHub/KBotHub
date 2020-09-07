@@ -244,15 +244,15 @@
         })();
     </script>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
-    <script>document.getElementById('loader_text').innerText="loading analytics";</script>
+    <script>setTimeout(function() {document.getElementById('loader_text').innerText="loading analytics"},1000)</script>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js"></script>
-    <script>document.getElementById('loader_text').innerText="loading auth";</script>
+    <script>setTimeout(function() {document.getElementById('loader_text').innerText="loading auth"},1000)</script>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js"></script>
-    <script>document.getElementById('loader_text').innerText="loading database";</script>
+    <script>setTimeout(function() {document.getElementById('loader_text').innerText="loading database"},1000)</script>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-database.js"></script>
-    <script>document.getElementById('loader_text').innerText="loading preformance";</script>
+    <script>setTimeout(function() {document.getElementById('loader_text').innerText="loading preformance"},1000)</script>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-performance.js"></script>
-    <script>document.getElementById('loader_text').innerText="loading editor";</script>
+    <script>setTimeout(function() {document.getElementById('loader_text').innerText="loading editor"},1000)</script>
     <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
@@ -786,7 +786,7 @@
             }
             document.getElementById('loader_text').innerText="almost done...";
             $("#loader").fadeOut()
-            $("#main").fadeOut()
+            $("#main").fadeIn()
             //document.getElementById("main").style.display = "block";
         }
         init_firebase()
