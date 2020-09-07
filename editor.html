@@ -121,7 +121,7 @@
                     },
                 };
                 _data.value = [
-                    'const scriptName = \"' + decodeURIComponent(_data.project.scriptName) + '\";',
+                    'const scriptName = \"' + _data.project.scriptName + '\";',
                     '/**',
                     ' * (string) room',
                     ' * (string) sender',
@@ -189,7 +189,7 @@
                 _data.project.scriptName = '스크립트 이름';
             }
             var default_data = [
-                'const scriptName = \"' + _data.project.scriptName + '\";',
+                'const scriptName = \"' + decodeURIComponent(_data.project.scriptName) + '\";',
                 '/**',
                 ' * (string) room',
                 ' * (string) sender',
