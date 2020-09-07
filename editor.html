@@ -417,9 +417,6 @@
                                 }
                             }
                             _data.queueRef.on("child_added", function (ref) {
-                                console.log(ref);
-                                console.log(ref.val());
-                                /*
                                 // Get the snapshot value
                                 var value = ref.val();
 
@@ -435,7 +432,7 @@
                                 // not interested to see twice what I'm writing.
                                 // So, if the update is made by me, it doesn't
                                 // make sense to apply the update
-                                if (value.by === firebase.auth().currentUser.uid || applyingDeltas) {
+                                if (value.by == firebase.auth().currentUser.uid) {
                                     return;
                                 }
 
@@ -447,8 +444,6 @@
                                 //  3. Turn off the applyingDeltas
                                 applyingDeltas = false;
                                 //  4. Log the event to console
-                                console.log(value);
-                                */
 
                                 lastRef = Date.now().toString();
                             });
