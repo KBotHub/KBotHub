@@ -313,12 +313,17 @@
                                             "online": false
                                         });
                                         _data.user.once('value').then(function(d) {
+                                            if (d.val().online.replaceAll("," + firebase.auth().currentUser.uid, "").replaceAll(",", "").replaceAll("undefined", "") == "") {
+                                                _data.project.db.update({
+                                                    content: encodeURIComponent(editor.getValue())
+                                                });
+                                                _data.project.db.update({
+                                                    queue: ""
+                                                });
+                                            }
                                             _data.user.update({
                                                 online: d.val().online.replaceAll("," + firebase.auth().currentUser.uid, "")
                                             });
-                                        });
-                                        _data.project.db.update({
-                                            content: encodeURIComponent(editor.getValue())
                                         });
                                     }
                                 } else {
@@ -401,6 +406,9 @@
                                             _data.project.db.update({
                                                 content: encodeURIComponent(editor.getValue())
                                             });
+                                            _data.project.db.update({
+                                                queue: ""
+                                            });
                                         }
                                         _data.user.update({
                                             online: d.val().online.replaceAll("," + firebase.auth().currentUser.uid, "")
@@ -409,39 +417,40 @@
                                 }
                             }
                             _data.queueRef.on("child_added", function (ref) {
-                                _data.queueRef.once('value').then(function(d) {
+                                console.log(ref);
+                                console.log(ref.val());
+                                /*
+                                // Get the snapshot value
+                                var value = ref.val();
 
-                                    // Get the snapshot value
-                                    var value = ref.val();
+                                // Get the timestamp
+                                var timestamp = value.ts.split(":")[0];
 
-                                    // Get the timestamp
-                                    var timestamp = value.ts.split(":")[0];
+                                // Do not apply changes from the past
+                                if (lastCursor > timestamp) {
+                                    return;
+                                }
 
-                                    // Do not apply changes from the past
-                                    if (lastCursor > timestamp) {
-                                        return;
-                                    }
+                                // In case it's me who changed the value, I am
+                                // not interested to see twice what I'm writing.
+                                // So, if the update is made by me, it doesn't
+                                // make sense to apply the update
+                                if (value.by === firebase.auth().currentUser.uid || applyingDeltas) {
+                                    return;
+                                }
 
-                                    // In case it's me who changed the value, I am
-                                    // not interested to see twice what I'm writing.
-                                    // So, if the update is made by me, it doesn't
-                                    // make sense to apply the update
-                                    if (value.by === firebase.auth().currentUser.uid || applyingDeltas) {
-                                        return;
-                                    }
+                                // We're going to apply the changes by somebody else in our editor
+                                //  1. We turn applyingDeltas on
+                                applyingDeltas = true;
+                                //  2. Update the editor value with the event data
+                                editor.executeEdits("", [value.event.changes[0]]);
+                                //  3. Turn off the applyingDeltas
+                                applyingDeltas = false;
+                                //  4. Log the event to console
+                                console.log(value);
+                                */
 
-                                    // We're going to apply the changes by somebody else in our editor
-                                    //  1. We turn applyingDeltas on
-                                    applyingDeltas = true;
-                                    //  2. Update the editor value with the event data
-                                    editor.executeEdits("", [value.event.changes[0]]);
-                                    //  3. Turn off the applyingDeltas
-                                    applyingDeltas = false;
-                                    //  4. Log the event to console
-                                    console.log(value);
-
-                                    lastRef = Date.now().toString();
-                                });
+                                lastRef = Date.now().toString();
                             });
 
                             _data.cursor.on("child_changed", function(ref) {
