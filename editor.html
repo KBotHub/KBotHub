@@ -242,7 +242,7 @@
                     }, 'beautifier');
                     editor.createContextKey( /*key name*/ 'DEFAULT-JS', /*default value*/ true);
                     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_D, function() {
-                        editor.setValue()
+                        editor.setValue(default_data)
                     }, 'DEFAULT-JS');
                     console.log('loaded monaco');
                     if (_data.firebase) {
