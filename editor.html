@@ -80,6 +80,7 @@
         }
 
         .sphere-animation {
+            text-align: right;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -245,17 +246,17 @@
 
         })();
     </script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
-    <script>setTimeout(function() {document.getElementById('loader_text').innerText="loading analytics"},1000)</script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js"></script>
-    <script>setTimeout(function() {document.getElementById('loader_text').innerText="loading auth"},1000)</script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js"></script>
-    <script>setTimeout(function() {document.getElementById('loader_text').innerText="loading database"},1000)</script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-database.js"></script>
-    <script>setTimeout(function() {document.getElementById('loader_text').innerText="loading preformance"},1000)</script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-performance.js"></script>
-    <script>setTimeout(function() {document.getElementById('loader_text').innerText="loading editor"},1000)</script>
-    <script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js" async></script>
+    <script async>setTimeout(function() {document.getElementById('loader_text').innerText="loading analytics"},1000)</script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js" async></script>
+    <script async>setTimeout(function() {document.getElementById('loader_text').innerText="loading auth"},1000)</script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js" async></script>
+    <script async>setTimeout(function() {document.getElementById('loader_text').innerText="loading database"},1000)</script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-database.js" async></script>
+    <script async>setTimeout(function() {document.getElementById('loader_text').innerText="loading preformance"},1000)</script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-performance.js" async></script>
+    <script async>setTimeout(function() {document.getElementById('loader_text').innerText="loading editor"},1000)</script>
+    <script async>
         // Your web app's Firebase configuration
         var firebaseConfig = {
             apiKey: "AIzaSyBsvjuWiZBTEoBJWMvih4q7JHH6gmHF1X0",
@@ -274,7 +275,7 @@
         console.log('loaded firebase');
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
-    <script>
+    <script async>
         var editor;
         var _data = {
             firebase: false,
