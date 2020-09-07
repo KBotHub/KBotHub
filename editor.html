@@ -148,6 +148,7 @@
         <div id="monaco_container"></div>
     </div>
     <script>
+        var delay_var = 500;
         function fitElementToParent(el, padding) {
             var timeout = null;
 
@@ -245,67 +246,159 @@
             init_animation();
 
         })();
-    </script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js" async></script>
-    <script async>setTimeout(function() {document.getElementById('loader_text').innerText="loading analytics"},1000)</script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js" async></script>
-    <script async>setTimeout(function() {document.getElementById('loader_text').innerText="loading auth"},1000)</script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js" async></script>
-    <script async>setTimeout(function() {document.getElementById('loader_text').innerText="loading database"},1000)</script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-database.js" async></script>
-    <script async>setTimeout(function() {document.getElementById('loader_text').innerText="loading preformance"},1000)</script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-performance.js" async></script>
-    <script async>setTimeout(function() {document.getElementById('loader_text').innerText="loading editor"},1000)</script>
-    <script async>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyBsvjuWiZBTEoBJWMvih4q7JHH6gmHF1X0",
-            authDomain: "editor-280309.firebaseapp.com",
-            databaseURL: "https://editor-280309.firebaseio.com",
-            projectId: "editor-280309",
-            storageBucket: "editor-280309.appspot.com",
-            messagingSenderId: "836598450292",
-            appId: "1:836598450292:web:35d0ab7d3e13faf7bba921",
-            measurementId: "G-RJNBM8TLLK"
-        };
+        jQuery.loadScript = function(url, callback) {
+            jQuery.ajax({
+                url: url,
+                dataType: 'script',
+                success: callback,
+                async: true
+            });
+        }
+        $.loadScript("https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js", function() {
+            setTimeout(function() {
+                document.getElementById('loader_text').innerText = "loading analytics";
+                $.loadScript("https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js", function() {
+                    setTimeout(function() {
+                        document.getElementById('loader_text').innerText = "loading auth";
+                        $.loadScript("https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js", function() {
+                            setTimeout(function() {
+                                document.getElementById('loader_text').innerText = "loading database";
+                                $.loadScript("https://www.gstatic.com/firebasejs/7.2.0/firebase-database.js", function() {
+                                    setTimeout(function() {
+                                        document.getElementById('loader_text').innerText = "loading performance";
+                                        $.loadScript("https://www.gstatic.com/firebasejs/7.2.0/firebase-performance.js", function() {
+                                            setTimeout(function() {
+                                                document.getElementById('loader_text').innerText = "loading editor";
+                                                // Your web app's Firebase configuration
+                                                var firebaseConfig = {
+                                                    apiKey: "AIzaSyBsvjuWiZBTEoBJWMvih4q7JHH6gmHF1X0",
+                                                    authDomain: "editor-280309.firebaseapp.com",
+                                                    databaseURL: "https://editor-280309.firebaseio.com",
+                                                    projectId: "editor-280309",
+                                                    storageBucket: "editor-280309.appspot.com",
+                                                    messagingSenderId: "836598450292",
+                                                    appId: "1:836598450292:web:35d0ab7d3e13faf7bba921",
+                                                    measurementId: "G-RJNBM8TLLK"
+                                                };
 
-        firebase.initializeApp(firebaseConfig);
-        firebase.performance();
-        firebase.analytics();
-        console.log('loaded firebase');
+                                                firebase.initializeApp(firebaseConfig);
+                                                firebase.performance();
+                                                firebase.analytics();
+                                                console.log('loaded firebase');
+                                                $.loadScript("https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js", function() {
+                                                    init_all();
+                                                });
+                                            }, delay_var);
+                                        });
+                                    }, delay_var);
+                                });
+                            }, delay_var);
+                        });
+                    }, delay_var);
+                });
+            }, delay_var);
+        });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" async></script>
-    <script async>
-        var editor;
-        var _data = {
-            firebase: false,
-            queueRef: {},
-            cursor: {},
-            'project': {},
-            db: {},
-            user: {},
-            update: {},
-            language: ""
-        };
-        var applyingDeltas = false;
-        var lastRef = Date.now().toString();
-        var lastCursor = Date.now().toString();
-        var lastUser = Date.now().toString();
+    <script>
+        function init_all() {
+            var editor;
+            var _data = {
+                firebase: false,
+                queueRef: {},
+                cursor: {},
+                'project': {},
+                db: {},
+                user: {},
+                update: {},
+                language: ""
+            };
+            var applyingDeltas = false;
+            var lastRef = Date.now().toString();
+            var lastCursor = Date.now().toString();
+            var lastUser = Date.now().toString();
 
-        function init_firebase() {
-            if (window.innerWidth < 800) {
-                alert('mobile not supported');
-                history.back();
-                return;
+            function init_firebase() {
+                if (window.innerWidth < 800) {
+                    alert('mobile not supported');
+                    history.back();
+                    return;
+                }
+                if (!location.href.startsWith('https://kboteditor.kro.kr/editor?id=')) {
+                    _data = {
+                        'project': {
+                            'scriptName': '스크립트 이름'
+                        },
+                    };
+                    _data.value = [
+                        'const scriptName = \"' + _data.project.scriptName + '\";',
+                        '/**',
+                        ' * (string) room',
+                        ' * (string) sender',
+                        ' * (boolean) isGroupChat',
+                        ' * (void) replier.reply(message)',
+                        ' * (boolean) replier.reply(room, message, hideErrorToast = false) // 전송 성공시 true, 실패시 false 반환',
+                        ' * (string) imageDB.getProfileBase64()',
+                        ' * (string) packageName',
+                        ' */',
+                        'function response(room, msg, sender, isGroupChat, replier, imageDB, packageName) {',
+                        '\t//여기에 코드를 입력',
+                        '}',
+                        '',
+                        '//아래 4개의 메소드는 액티비티 화면을 수정할때 사용됩니다.',
+                        'function onCreate(savedInstanceState, activity) {',
+                        '\tvar textView = new android.widget.TextView(activity);',
+                        '\ttextView.setText("Hello, World!");',
+                        '\ttextView.setTextColor(android.graphics.Color.DKGRAY);',
+                        '\tactivity.setContentView(textView);',
+                        '}',
+                        '',
+                        'function onStart(activity) {}',
+                        '',
+                        'function onResume(activity) {}',
+                        '',
+                        'function onPause(activity) {}',
+                        '',
+                        'function onStop(activity) {}'
+                    ].join('\n');
+                    init_editor();
+                } else if (location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split("#")[0].length != 10 || !(!isNaN(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && isFinite(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && Math.floor(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) == location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])) {
+                    _data.value = '/*\ninvalid project id\n*/';
+                    init_editor();
+                } else if (!firebase.database().ref("project_data").child(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])) {
+                    _data.value = '/*\nproject does\'t exist\n*/';
+                    init_editor();
+                } else {
+                    try {
+                        _data.editor_id = location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0];
+                        _data.project.db = firebase.database().ref("project_data").child(_data.editor_id);
+                        _data.project.db.once('value').then(function(d) {
+                            _data.db = d.val();
+                            _data.value = decodeURIComponent(_data.db.content);
+                            document.title = decodeURIComponent(_data.db.title);
+                            if (_data.db.language == "js") {
+                                _data.language = 'javascript';
+                            }
+                            init_editor();
+                        });
+                        _data.firebase = true;
+                        _data.queueRef = _data.project.db.child("queue");
+                        _data.cursor = _data.project.db.child("cursor");
+                    } catch (e) {
+                        _data.value = '/*\nunknown error\n' + e + '\n*/';
+                        init_editor();
+                    }
+                }
             }
-            if (!location.href.startsWith('https://kboteditor.kro.kr/editor?id=')) {
-                _data = {
-                    'project': {
-                        'scriptName': '스크립트 이름'
-                    },
-                };
-                _data.value = [
-                    'const scriptName = \"' + _data.project.scriptName + '\";',
+
+            function init_editor() {
+                var decorations = [];
+                if (_data.firebase) {
+                    _data.project.scriptName = _data.db.title;
+                } else {
+                    _data.project.scriptName = '스크립트 이름';
+                }
+                var default_data = [
+                    'const scriptName = \"' + decodeURIComponent(_data.project.scriptName) + '\";',
                     '/**',
                     ' * (string) room',
                     ' * (string) sender',
@@ -335,149 +428,170 @@
                     '',
                     'function onStop(activity) {}'
                 ].join('\n');
-                init_editor();
-            } else if (location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split("#")[0].length != 10 || !(!isNaN(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && isFinite(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) && Math.floor(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0]) == location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])) {
-                _data.value = '/*\ninvalid project id\n*/';
-                init_editor();
-            } else if (!firebase.database().ref("project_data").child(location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0])) {
-                _data.value = '/*\nproject does\'t exist\n*/';
-                init_editor();
-            } else {
-                try {
-                    _data.editor_id = location.href.substring('https://kboteditor.kro.kr/editor?id='.length).split('#')[0];
-                    _data.project.db = firebase.database().ref("project_data").child(_data.editor_id);
-                    _data.project.db.once('value').then(function(d) {
-                        _data.db = d.val();
-                        _data.value = decodeURIComponent(_data.db.content);
-                        document.title = decodeURIComponent(_data.db.title);
-                        if (_data.db.language == "js") {
-                            _data.language = 'javascript';
-                        }
-                        init_editor();
-                    });
-                    _data.firebase = true;
-                    _data.queueRef = _data.project.db.child("queue");
-                    _data.cursor = _data.project.db.child("cursor");
-                } catch (e) {
-                    _data.value = '/*\nunknown error\n' + e + '\n*/';
-                    init_editor();
+                if (!_data.language) {
+                    _data.language = "javascript";
                 }
-            }
-        }
-
-        function init_editor() {
-            var decorations = [];
-            if (_data.firebase) {
-                _data.project.scriptName = _data.db.title;
-            } else {
-                _data.project.scriptName = '스크립트 이름';
-            }
-            var default_data = [
-                'const scriptName = \"' + decodeURIComponent(_data.project.scriptName) + '\";',
-                '/**',
-                ' * (string) room',
-                ' * (string) sender',
-                ' * (boolean) isGroupChat',
-                ' * (void) replier.reply(message)',
-                ' * (boolean) replier.reply(room, message, hideErrorToast = false) // 전송 성공시 true, 실패시 false 반환',
-                ' * (string) imageDB.getProfileBase64()',
-                ' * (string) packageName',
-                ' */',
-                'function response(room, msg, sender, isGroupChat, replier, imageDB, packageName) {',
-                '\t//여기에 코드를 입력',
-                '}',
-                '',
-                '//아래 4개의 메소드는 액티비티 화면을 수정할때 사용됩니다.',
-                'function onCreate(savedInstanceState, activity) {',
-                '\tvar textView = new android.widget.TextView(activity);',
-                '\ttextView.setText("Hello, World!");',
-                '\ttextView.setTextColor(android.graphics.Color.DKGRAY);',
-                '\tactivity.setContentView(textView);',
-                '}',
-                '',
-                'function onStart(activity) {}',
-                '',
-                'function onResume(activity) {}',
-                '',
-                'function onPause(activity) {}',
-                '',
-                'function onStop(activity) {}'
-            ].join('\n');
-            if (!_data.language) {
-                _data.language = "javascript";
-            }
-            if (['javascript', 'typescript', 'html', 'css'].indexOf(_data.language) != -1) {
-                require.config({
-                    paths: {
-                        'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs'
-                    }
-                });
-                require(['vs/editor/editor.main'], function() {
-                    editor = monaco.editor.create(document.getElementById('monaco_container'), {
-                        value: _data.value,
-                        language: _data.language,
-                        theme: 'vs-dark',
-                        fontFamily: 'JetBrainsMono-Regular',
-                        automaticLayout: true
+                if (['javascript', 'typescript', 'html', 'css'].indexOf(_data.language) != -1) {
+                    require.config({
+                        paths: {
+                            'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs'
+                        }
                     });
-                    editor.createContextKey( /*key name*/ 'beautifier', /*default value*/ true);
-                    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_B, function() {
-                        editor.getAction('editor.action.formatDocument').run()
-                    }, 'beautifier');
-                    editor.createContextKey( /*key name*/ 'DEFAULT-JS', /*default value*/ true);
-                    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_D, function() {
-                        editor.setValue(default_data)
-                    }, 'DEFAULT-JS');
-                    console.log('loaded monaco');
-                    if (_data.firebase) {
+                    require(['vs/editor/editor.main'], function() {
+                        editor = monaco.editor.create(document.getElementById('monaco_container'), {
+                            value: _data.value,
+                            language: _data.language,
+                            theme: 'vs-dark',
+                            fontFamily: 'JetBrainsMono-Regular',
+                            automaticLayout: true
+                        });
+                        editor.createContextKey( /*key name*/ 'beautifier', /*default value*/ true);
+                        editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_B, function() {
+                            editor.getAction('editor.action.formatDocument').run()
+                        }, 'beautifier');
+                        editor.createContextKey( /*key name*/ 'DEFAULT-JS', /*default value*/ true);
+                        editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_D, function() {
+                            editor.setValue(default_data)
+                        }, 'DEFAULT-JS');
+                        console.log('loaded monaco');
+                        if (_data.firebase) {
 
-                        if (location.href.substring(location.href.split('#')[0].length).startsWith('#L') && isFinite(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0])) && !isNaN(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]))) {
-                            //L111 or L1-12 일때 이동, 하이라이팅
-                            if (location.href.substring(location.href.split('#')[0].length + 2).split("-").length == 1) {
-                                editor.revealPositionInCenter({
-                                    lineNumber: Number(location.href.substring(location.href.split('#')[0].length + 2)),
-                                    column: 1
-                                });
-                                editor.deltaDecorations([], [{
-                                    range: new monaco.Range(Number(location.href.substring(location.href.split('#')[0].length + 2)), 1, Number(location.href.substring(location.href.split('#')[0].length + 2)), editor.getValue().split('\n')[Number(location.href.substring(location.href.split('#')[0].length + 2) - 1)].length + 1),
-                                    options: {
-                                        inlineClassName: 'lineHighlight'
+                            if (location.href.substring(location.href.split('#')[0].length).startsWith('#L') && isFinite(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0])) && !isNaN(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]))) {
+                                //L111 or L1-12 일때 이동, 하이라이팅
+                                if (location.href.substring(location.href.split('#')[0].length + 2).split("-").length == 1) {
+                                    editor.revealPositionInCenter({
+                                        lineNumber: Number(location.href.substring(location.href.split('#')[0].length + 2)),
+                                        column: 1
+                                    });
+                                    editor.deltaDecorations([], [{
+                                        range: new monaco.Range(Number(location.href.substring(location.href.split('#')[0].length + 2)), 1, Number(location.href.substring(location.href.split('#')[0].length + 2)), editor.getValue().split('\n')[Number(location.href.substring(location.href.split('#')[0].length + 2) - 1)].length + 1),
+                                        options: {
+                                            inlineClassName: 'lineHighlight'
+                                        }
+                                    }, ]);
+                                } else if (location.href.substring(location.href.split('#')[0].length + 2).split("-").length == 2 && isFinite(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1])) && !isNaN(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]))) {
+                                    if (Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]) < Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1])) {
+                                        editor.revealPositionInCenter({
+                                            lineNumber: Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]),
+                                            column: 1
+                                        });
+                                        editor.deltaDecorations([], [{
+                                            range: new monaco.Range(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]), 1, Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]), editor.getValue().split('\n')[Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]) - 1].length + 1),
+                                            options: {
+                                                inlineClassName: 'lineHighlight'
+                                            }
+                                        }, ]);
+                                    } else {
+                                        editor.revealPositionInCenter({
+                                            lineNumber: Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]),
+                                            column: 1
+                                        });
+                                        editor.deltaDecorations([], [{
+                                            range: new monaco.Range(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]), 1, Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]), editor.getValue().split('\n')[Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]) - 1].length + 1),
+                                            options: {
+                                                inlineClassName: 'lineHighlight'
+                                            }
+                                        }, ]);
                                     }
-                                }, ]);
-                            } else if (location.href.substring(location.href.split('#')[0].length + 2).split("-").length == 2 && isFinite(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1])) && !isNaN(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]))) {
-                                if (Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]) < Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1])) {
-                                    editor.revealPositionInCenter({
-                                        lineNumber: Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]),
-                                        column: 1
-                                    });
-                                    editor.deltaDecorations([], [{
-                                        range: new monaco.Range(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]), 1, Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]), editor.getValue().split('\n')[Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]) - 1].length + 1),
-                                        options: {
-                                            inlineClassName: 'lineHighlight'
-                                        }
-                                    }, ]);
-                                } else {
-                                    editor.revealPositionInCenter({
-                                        lineNumber: Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]),
-                                        column: 1
-                                    });
-                                    editor.deltaDecorations([], [{
-                                        range: new monaco.Range(Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[1]), 1, Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]), editor.getValue().split('\n')[Number(location.href.substring(location.href.split('#')[0].length + 2).split("-")[0]) - 1].length + 1),
-                                        options: {
-                                            inlineClassName: 'lineHighlight'
-                                        }
-                                    }, ]);
                                 }
                             }
-                        }
-                        if (!!firebase.auth().currentUser) {
-                            if (_data.db.type == "private") {
-                                if (!!_data.db.owners[firebase.auth().currentUser.uid]) {
-                                    _data.user = _data.project.db.child("owners");
+                            if (!!firebase.auth().currentUser) {
+                                if (_data.db.type == "private") {
+                                    if (!!_data.db.owners[firebase.auth().currentUser.uid]) {
+                                        _data.user = _data.project.db.child("owners");
 
+                                        _data.project.db.once('value').then(function(d) {
+                                            _data.db = d.val();
+                                            if (_data.db.owners[firebase.auth().currentUser.uid]["online"] == true) {
+                                                alert('동시 접속이 불가능합니다');
+                                                history.back();
+                                            }
+
+                                            _data.user.child(firebase.auth().currentUser.uid).update({
+                                                "online": true,
+                                                "name": firebase.auth().currentUser.displayName,
+                                                "proflie": firebase.auth().currentUser.photoURL,
+                                                "email": firebase.auth().currentUser.email,
+                                                "by": firebase.auth().currentUser.uid
+                                            });
+                                        });
+                                        _data.user.update({
+                                            online: _data.db.owners.online + "," + firebase.auth().currentUser.uid
+                                        });
+                                        editor.onDidChangeModelContent(function(editor_value) {
+                                            if (applyingDeltas) {
+                                                return;
+                                            }
+                                            var timeStamp = Date.now().toString() + ":" + Math.random().toString().slice(2);
+                                            _data.project.db.update({
+                                                content: encodeURIComponent(editor.getValue())
+                                            });
+                                            _data.queueRef.child(timeStamp).set({
+
+                                                //timestamp
+                                                ts: timeStamp,
+                                                // Store the data we get from monaco editor
+                                                event: editor_value,
+                                                // Store the firebase-user id
+                                                by: firebase.auth().currentUser.uid
+                                            }).catch(function(e) {
+                                                // In case of errors, we want to see them in the console
+                                                console.error(e)
+                                            });
+                                        });
+                                        editor.onDidChangeCursorSelection((value) => {
+                                            if (applyingDeltas) {
+                                                return;
+                                            }
+                                            _data.cursor.update({
+                                                //timestamp
+                                                ts: Date.now().toString() + ":" + Math.random().toString().slice(2),
+                                                // Store the data we get from monaco editor
+                                                event: value,
+                                                // Store the editor value
+                                                value: value.selection,
+                                                // Store the firebase-user id
+                                                by: firebase.auth().currentUser.uid
+                                            }).catch(function(e) {
+                                                // In case of errors, we want to see them in the console
+                                                console.error(e)
+                                            });
+                                        });
+                                        window.onbeforeunload = function() {
+                                            _data.user.child(firebase.auth().currentUser.uid).update({
+                                                "online": false
+                                            });
+                                            _data.user.once('value').then(function(d) {
+                                                if (d.val().online.replaceAll("," + firebase.auth().currentUser.uid, "").replaceAll(",", "").replaceAll("undefined", "") == "") {
+                                                    _data.project.db.update({
+                                                        content: encodeURIComponent(editor.getValue())
+                                                    });
+                                                    _data.project.db.update({
+                                                        queue: ""
+                                                    });
+                                                }
+                                                _data.user.update({
+                                                    online: d.val().online.replaceAll("," + firebase.auth().currentUser.uid, "")
+                                                });
+                                            });
+                                        }
+                                    } else {
+                                        editor.setValue("/*\nthis is a private project\n*/");
+                                    }
+                                } else if (_data.db.type == "public") {
+                                    _data.user = _data.project.db.child("users");
+                                    if (!_data.db.users[firebase.auth().currentUser.uid]) {
+                                        _data.user.child(firebase.auth().currentUser.uid).set({
+                                            "online": false,
+                                            "name": firebase.auth().currentUser.displayName,
+                                            "proflie": firebase.auth().currentUser.photoURL,
+                                            "email": firebase.auth().currentUser.email,
+                                            "by": firebase.auth().currentUser.uid
+                                        });
+                                    }
                                     _data.project.db.once('value').then(function(d) {
                                         _data.db = d.val();
-                                        if (_data.db.owners[firebase.auth().currentUser.uid]["online"] == true) {
+                                        if (_data.db.users[firebase.auth().currentUser.uid]["online"] == true) {
                                             alert('동시 접속이 불가능합니다');
                                             history.back();
                                         }
@@ -491,7 +605,7 @@
                                         });
                                     });
                                     _data.user.update({
-                                        online: _data.db.owners.online + "," + firebase.auth().currentUser.uid
+                                        online: _data.db.users.online + "," + firebase.auth().currentUser.uid
                                     });
                                     editor.onDidChangeModelContent(function(editor_value) {
                                         if (applyingDeltas) {
@@ -550,131 +664,10 @@
                                             });
                                         });
                                     }
-                                } else {
-                                    editor.setValue("/*\nthis is a private project\n*/");
                                 }
-                            } else if (_data.db.type == "public") {
-                                _data.user = _data.project.db.child("users");
-                                if (!_data.db.users[firebase.auth().currentUser.uid]) {
-                                    _data.user.child(firebase.auth().currentUser.uid).set({
-                                        "online": false,
-                                        "name": firebase.auth().currentUser.displayName,
-                                        "proflie": firebase.auth().currentUser.photoURL,
-                                        "email": firebase.auth().currentUser.email,
-                                        "by": firebase.auth().currentUser.uid
-                                    });
-                                }
-                                _data.project.db.once('value').then(function(d) {
-                                    _data.db = d.val();
-                                    if (_data.db.users[firebase.auth().currentUser.uid]["online"] == true) {
-                                        alert('동시 접속이 불가능합니다');
-                                        history.back();
-                                    }
-
-                                    _data.user.child(firebase.auth().currentUser.uid).update({
-                                        "online": true,
-                                        "name": firebase.auth().currentUser.displayName,
-                                        "proflie": firebase.auth().currentUser.photoURL,
-                                        "email": firebase.auth().currentUser.email,
-                                        "by": firebase.auth().currentUser.uid
-                                    });
-                                });
-                                _data.user.update({
-                                    online: _data.db.users.online + "," + firebase.auth().currentUser.uid
-                                });
-                                editor.onDidChangeModelContent(function(editor_value) {
-                                    if (applyingDeltas) {
-                                        return;
-                                    }
-                                    var timeStamp = Date.now().toString() + ":" + Math.random().toString().slice(2);
-                                    _data.project.db.update({
-                                        content: encodeURIComponent(editor.getValue())
-                                    });
-                                    _data.queueRef.child(timeStamp).set({
-
-                                        //timestamp
-                                        ts: timeStamp,
-                                        // Store the data we get from monaco editor
-                                        event: editor_value,
-                                        // Store the firebase-user id
-                                        by: firebase.auth().currentUser.uid
-                                    }).catch(function(e) {
-                                        // In case of errors, we want to see them in the console
-                                        console.error(e)
-                                    });
-                                });
-                                editor.onDidChangeCursorSelection((value) => {
-                                    if (applyingDeltas) {
-                                        return;
-                                    }
-                                    _data.cursor.update({
-                                        //timestamp
-                                        ts: Date.now().toString() + ":" + Math.random().toString().slice(2),
-                                        // Store the data we get from monaco editor
-                                        event: value,
-                                        // Store the editor value
-                                        value: value.selection,
-                                        // Store the firebase-user id
-                                        by: firebase.auth().currentUser.uid
-                                    }).catch(function(e) {
-                                        // In case of errors, we want to see them in the console
-                                        console.error(e)
-                                    });
-                                });
-                                window.onbeforeunload = function() {
-                                    _data.user.child(firebase.auth().currentUser.uid).update({
-                                        "online": false
-                                    });
-                                    _data.user.once('value').then(function(d) {
-                                        if (d.val().online.replaceAll("," + firebase.auth().currentUser.uid, "").replaceAll(",", "").replaceAll("undefined", "") == "") {
-                                            _data.project.db.update({
-                                                content: encodeURIComponent(editor.getValue())
-                                            });
-                                            _data.project.db.update({
-                                                queue: ""
-                                            });
-                                        }
-                                        _data.user.update({
-                                            online: d.val().online.replaceAll("," + firebase.auth().currentUser.uid, "")
-                                        });
-                                    });
-                                }
-                            }
-                            _data.queueRef.on("child_added", function(ref) {
-                                // Get the snapshot value
-                                var value = ref.val();
-
-                                // Get the timestamp
-                                var timestamp = value.ts.split(":")[0];
-
-                                // Do not apply changes from the past
-                                if (lastCursor > timestamp) {
-                                    return;
-                                }
-
-                                // In case it's me who changed the value, I am
-                                // not interested to see twice what I'm writing.
-                                // So, if the update is made by me, it doesn't
-                                // make sense to apply the update
-                                if (value.by == firebase.auth().currentUser.uid) {
-                                    return;
-                                }
-
-                                // We're going to apply the changes by somebody else in our editor
-                                //  1. We turn applyingDeltas on
-                                applyingDeltas = true;
-                                //  2. Update the editor value with the event data
-                                editor.executeEdits("", [value.event.changes[0]]);
-                                //  3. Turn off the applyingDeltas
-                                applyingDeltas = false;
-                                //  4. Log the event to console
-
-                                lastRef = Date.now().toString();
-                            });
-
-                            _data.cursor.on("child_changed", function(ref) {
-                                _data.cursor.once('value').then(function(d) {
-                                    var value = d.val();
+                                _data.queueRef.on("child_added", function(ref) {
+                                    // Get the snapshot value
+                                    var value = ref.val();
 
                                     // Get the timestamp
                                     var timestamp = value.ts.split(":")[0];
@@ -688,7 +681,7 @@
                                     // not interested to see twice what I'm writing.
                                     // So, if the update is made by me, it doesn't
                                     // make sense to apply the update
-                                    if (value.by === firebase.auth().currentUser.uid) {
+                                    if (value.by == firebase.auth().currentUser.uid) {
                                         return;
                                     }
 
@@ -696,103 +689,136 @@
                                     //  1. We turn applyingDeltas on
                                     applyingDeltas = true;
                                     //  2. Update the editor value with the event data
-                                    decorations = editor.deltaDecorations(decorations, [{
-                                        range: new monaco.Range(1, 1, 1, 1),
-                                        options: {
-                                            inlineClassName: 'userDecoration'
-                                        }
-                                    }]);
-                                    if (value.value.startLineNumber < value.value.endLineNumber) {
-                                        decorations = editor.deltaDecorations(decorations, [
-                                            //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
-                                            {
-                                                range: new monaco.Range(value.value.startLineNumber, value.value.startColumn, value.value.endLineNumber, value.value.endColumn),
-                                                options: {
-                                                    inlineClassName: 'userDecoration'
-                                                }
-                                            },
-                                            //    2. show cursor at value.value.positionLineNumber, value.value.positionColumn
-                                            {
-                                                range: new monaco.Range(value.value.positionLineNumber, value.value.positionColumn, value.value.positionLineNumber, value.value.positionColumn),
-                                                options: {
-                                                    className: 'other-cursor'
-                                                }
-                                            },
-                                            //    3. show a name tag over it when it moves
-                                        ]);
-                                    } else {
-                                        decorations = editor.deltaDecorations(decorations, [
-                                            //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
-                                            {
-                                                range: new monaco.Range(value.value.endLineNumber, value.value.endColumn, value.value.startLineNumber, value.value.startColumn),
-                                                options: {
-                                                    inlineClassName: 'userDecoration'
-                                                }
-                                            },
-                                            //    2. show cursor at value.value.positionLineNumber, value.value.positionColumn
-                                            {
-                                                range: new monaco.Range(value.value.positionLineNumber, value.value.positionColumn, value.value.positionLineNumber, value.value.positionColumn),
-                                                options: {
-                                                    className: 'other-cursor'
-                                                }
-                                            },
-                                            //    3. show a name tag over it when it moves
-                                        ]);
-                                    }
+                                    editor.executeEdits("", [value.event.changes[0]]);
                                     //  3. Turn off the applyingDeltas
                                     applyingDeltas = false;
                                     //  4. Log the event to console
-                                    console.log(value.event);
 
-                                    lastCursor = Date.now().toString();
+                                    lastRef = Date.now().toString();
                                 });
-                            });
-                            if (!!_data.user) {
-                                _data.user.on("child_changed", function(ref) {
 
-                                    // Get the timestamp
-                                    var timestamp = ref.key.split(":")[0];
+                                _data.cursor.on("child_changed", function(ref) {
+                                    _data.cursor.once('value').then(function(d) {
+                                        var value = d.val();
 
-                                    // Do not apply changes from the past
-                                    if (lastUser > timestamp) {
-                                        return;
-                                    }
+                                        // Get the timestamp
+                                        var timestamp = value.ts.split(":")[0];
 
-                                    // Get the snapshot value
-                                    var value = ref.val();
+                                        // Do not apply changes from the past
+                                        if (lastCursor > timestamp) {
+                                            return;
+                                        }
 
-                                    // In case it's me who changed the value, I am
-                                    // not interested to see twice what I'm writing.
-                                    // So, if the update is made by me, it doesn't
-                                    // make sense to apply the update
-                                    if (value.by === firebase.auth().currentUser.uid) {
-                                        return;
-                                    }
+                                        // In case it's me who changed the value, I am
+                                        // not interested to see twice what I'm writing.
+                                        // So, if the update is made by me, it doesn't
+                                        // make sense to apply the update
+                                        if (value.by === firebase.auth().currentUser.uid) {
+                                            return;
+                                        }
 
-                                    if (value.online == true) {
-                                        new Toast({
-                                            message: value.name + " joined"
-                                        })
-                                    } else if (value.online == false) {
-                                        new Toast({
-                                            message: value.name + " left"
-                                        })
-                                    }
+                                        // We're going to apply the changes by somebody else in our editor
+                                        //  1. We turn applyingDeltas on
+                                        applyingDeltas = true;
+                                        //  2. Update the editor value with the event data
+                                        decorations = editor.deltaDecorations(decorations, [{
+                                            range: new monaco.Range(1, 1, 1, 1),
+                                            options: {
+                                                inlineClassName: 'userDecoration'
+                                            }
+                                        }]);
+                                        if (value.value.startLineNumber < value.value.endLineNumber) {
+                                            decorations = editor.deltaDecorations(decorations, [
+                                                //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
+                                                {
+                                                    range: new monaco.Range(value.value.startLineNumber, value.value.startColumn, value.value.endLineNumber, value.value.endColumn),
+                                                    options: {
+                                                        inlineClassName: 'userDecoration'
+                                                    }
+                                                },
+                                                //    2. show cursor at value.value.positionLineNumber, value.value.positionColumn
+                                                {
+                                                    range: new monaco.Range(value.value.positionLineNumber, value.value.positionColumn, value.value.positionLineNumber, value.value.positionColumn),
+                                                    options: {
+                                                        className: 'other-cursor'
+                                                    }
+                                                },
+                                                //    3. show a name tag over it when it moves
+                                            ]);
+                                        } else {
+                                            decorations = editor.deltaDecorations(decorations, [
+                                                //    1. highlight value.value.startLineNumber, value.value.startColumn to value.value.endLineNumber, value.value.endColumn with orange,green, etc.
+                                                {
+                                                    range: new monaco.Range(value.value.endLineNumber, value.value.endColumn, value.value.startLineNumber, value.value.startColumn),
+                                                    options: {
+                                                        inlineClassName: 'userDecoration'
+                                                    }
+                                                },
+                                                //    2. show cursor at value.value.positionLineNumber, value.value.positionColumn
+                                                {
+                                                    range: new monaco.Range(value.value.positionLineNumber, value.value.positionColumn, value.value.positionLineNumber, value.value.positionColumn),
+                                                    options: {
+                                                        className: 'other-cursor'
+                                                    }
+                                                },
+                                                //    3. show a name tag over it when it moves
+                                            ]);
+                                        }
+                                        //  3. Turn off the applyingDeltas
+                                        applyingDeltas = false;
+                                        //  4. Log the event to console
+                                        console.log(value.event);
 
-                                    console.log(value)
-                                    lastUser = Date.now().toString()
+                                        lastCursor = Date.now().toString();
+                                    });
                                 });
+                                if (!!_data.user) {
+                                    _data.user.on("child_changed", function(ref) {
+
+                                        // Get the timestamp
+                                        var timestamp = ref.key.split(":")[0];
+
+                                        // Do not apply changes from the past
+                                        if (lastUser > timestamp) {
+                                            return;
+                                        }
+
+                                        // Get the snapshot value
+                                        var value = ref.val();
+
+                                        // In case it's me who changed the value, I am
+                                        // not interested to see twice what I'm writing.
+                                        // So, if the update is made by me, it doesn't
+                                        // make sense to apply the update
+                                        if (value.by === firebase.auth().currentUser.uid) {
+                                            return;
+                                        }
+
+                                        if (value.online == true) {
+                                            new Toast({
+                                                message: value.name + " joined"
+                                            })
+                                        } else if (value.online == false) {
+                                            new Toast({
+                                                message: value.name + " left"
+                                            })
+                                        }
+
+                                        console.log(value)
+                                        lastUser = Date.now().toString()
+                                    });
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                }
+                document.getElementById('loader_text').innerText = "almost done...";
+                $("#loader").fadeOut()
+                $("#main").fadeIn()
+                //document.getElementById("main").style.display = "block";
             }
-            document.getElementById('loader_text').innerText="almost done...";
-            $("#loader").fadeOut()
-            $("#main").fadeIn()
-            //document.getElementById("main").style.display = "block";
+            init_firebase()
         }
-        init_firebase()
     </script>
 </body>
 
