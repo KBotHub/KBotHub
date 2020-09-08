@@ -141,7 +141,6 @@
         </div>
         <br>
         <h3 id="loader_text">loading firebase</h3>
-        <p id="hints">1234</p>
     </div>
     <div id="main" display: none;>
         <div id="monaco_container"></div>
@@ -150,7 +149,7 @@
         function init_ready() {
             var hints = ["Ctrl + B to beaytify", "Ctrl + D to get default", "realtime editing supported"];
             var delay_var = 2000;
-            var fade_var = 1000;
+            var fade_var = 500;
 
             function fitElementToParent(el, padding) {
                 var timeout = null;
@@ -260,27 +259,27 @@
             $.loadScript("https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js", function() {
                 setTimeout(function() {
                     $("#loader_text").fadeOut(fade_var)
-                    document.getElementById('loader_text').innerText = "loading analytics";
+                    document.getElementById('loader_text').innerText = "loading analytics"+"".repeat(50)+hints[Math.floor(Math.random()*hints.length)];
                     $("#loader_text").fadeIn(fade_var)
                     $.loadScript("https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js", function() {
                         setTimeout(function() {
                             $("#loader_text").fadeOut(fade_var)
-                            document.getElementById('loader_text').innerText = "loading auth";
+                            document.getElementById('loader_text').innerText = "loading auth"+"".repeat(50)+hints[Math.floor(Math.random()*hints.length)];
                             $("#loader_text").fadeIn(fade_var)
                             $.loadScript("https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js", function() {
                                 setTimeout(function() {
                                     $("#loader_text").fadeOut(fade_var)
-                                    document.getElementById('loader_text').innerText = "loading database";
+                                    document.getElementById('loader_text').innerText = "loading database"+"".repeat(50)+hints[Math.floor(Math.random()*hints.length)];
                                     $("#loader_text").fadeIn(fade_var)
                                     $.loadScript("https://www.gstatic.com/firebasejs/7.2.0/firebase-database.js", function() {
                                         setTimeout(function() {
                                             $("#loader_text").fadeOut(fade_var)
-                                            document.getElementById('loader_text').innerText = "loading performance";
+                                            document.getElementById('loader_text').innerText = "loading performance"+"".repeat(50)+hints[Math.floor(Math.random()*hints.length)];
                                             $("#loader_text").fadeIn(fade_var)
                                             $.loadScript("https://www.gstatic.com/firebasejs/7.2.0/firebase-performance.js", function() {
                                                 setTimeout(function() {
                                                     $("#loader_text").fadeOut(fade_var)
-                                                    document.getElementById('loader_text').innerText = "loading editor";
+                                                    document.getElementById('loader_text').innerText = "loading editor"+"".repeat(50)+hints[Math.floor(Math.random()*hints.length)];
                                                     $("#loader_text").fadeIn(fade_var)
                                                     // Your web app's Firebase configuration
                                                     var firebaseConfig = {
