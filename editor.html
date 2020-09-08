@@ -104,7 +104,7 @@
     <div class="toastjs-container" role="alert" aria-hidden="true">
         <div class="toastjs"></div>
     </div>
-    <div id="loader" display: block;>
+    <div id="loader">
         <div class="animation-wrapper">
             <div class="sphere-animation">
                 <svg class="sphere" viewBox="0 0 440 440" stroke="rgba(80,80,80,.35)">
@@ -142,10 +142,12 @@
         <br>
         <h3 id="loader_text">loading firebase</h3>
     </div>
-    <div id="main" display: none;>
+    <div id="main">
         <div id="monaco_container"></div>
     </div>
     <script>
+        document.getElementById("loader").style.display = "block";
+        document.getElementById("main").style.display = "none";
         function init_ready() {
             var delay_var = 1500;
             var fade_var = 200;
