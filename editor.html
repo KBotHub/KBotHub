@@ -544,7 +544,7 @@
                                                     _data.queueRef.set({length:d.val().length+1})
                                                     if(typeof d.val().length != undefined){
                                                         if(d.val().length>20){
-                                                            _data.project.db.update({queue:{length:0}})
+                                                            _data.queueRef.update({length:0})
                                                         }
                                                     }else{
                                                         _data.queueRef.set({length:0})
@@ -643,7 +643,7 @@
                                                  _data.queueRef.set({length:d.val().length+1})
                                                  if(typeof d.val().length != undefined){
                                                      if(d.val().length>20){
-                                                         _data.project.db.update({queue:{length:0}})
+                                                         _data.queueRef.update({length:0})
                                                      }
                                                  }else{
                                                      _data.queueRef.set({length:0})
