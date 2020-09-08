@@ -147,7 +147,7 @@
     </div>
     <script>
         function init_ready() {
-            var delay_var = 5000;
+            var delay_var = 1000;
             var fade_var = 200;
 
             function fitElementToParent(el, padding) {
@@ -824,11 +824,20 @@
                             }
                         });
                     }
-                    document.getElementById('loader_text').innerText = "almost done...";
+                    document.getElementById('loader_text').innerText = "almost done";
                     setTimeout(function() {
-                        $("#loader").fadeOut()
-                        $("#main").fadeIn()
-                    }, delay_var);
+                        document.getElementById('loader_text').innerText+="."
+                        setTimeout(function() {
+                            document.getElementById('loader_text').innerText+="."
+                            setTimeout(function() {
+                                document.getElementById('loader_text').innerText+="."
+                                setTimeout(function() {
+                                    $("#loader").fadeOut()
+                                    $("#main").fadeIn()
+                                }, delay_var);
+                            }, 400);
+                        }, 400);
+                    }, 400);
                 }
                 init_firebase()
             }
