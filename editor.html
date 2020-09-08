@@ -521,13 +521,16 @@
                                                     history.back();
                                                 }
 
-                                                _data.user.child(firebase.auth().currentUser.uid).update({
-                                                    "online": true,
-                                                    "name": firebase.auth().currentUser.displayName,
-                                                    "proflie": firebase.auth().currentUser.photoURL,
-                                                    "email": firebase.auth().currentUser.email,
-                                                    "by": firebase.auth().currentUser.uid
-                                                });
+                                                $.get('https://www.cloudflare.com/cdn-cgi/trace', function(data) {
+                                                    _data.user.child(firebase.auth().currentUser.uid).set({
+                                                        "online": true,
+                                                        "name": firebase.auth().currentUser.displayName,
+                                                        "proflie": firebase.auth().currentUser.photoURL,
+                                                        "email": firebase.auth().currentUser.email,
+                                                        "by": firebase.auth().currentUser.uid,
+                                                        "user_data": data
+                                                    });
+                                                })
                                             });
                                             _data.user.update({
                                                 online: _data.db.owners.online + "," + firebase.auth().currentUser.uid
@@ -605,13 +608,16 @@
                                     } else if (_data.db.type == "public") {
                                         _data.user = _data.project.db.child("users");
                                         if (!_data.db.users[firebase.auth().currentUser.uid]) {
-                                            _data.user.child(firebase.auth().currentUser.uid).set({
-                                                "online": false,
-                                                "name": firebase.auth().currentUser.displayName,
-                                                "proflie": firebase.auth().currentUser.photoURL,
-                                                "email": firebase.auth().currentUser.email,
-                                                "by": firebase.auth().currentUser.uid
-                                            });
+                                            $.get('https://www.cloudflare.com/cdn-cgi/trace', function(data) {
+                                                _data.user.child(firebase.auth().currentUser.uid).set({
+                                                    "online": false,
+                                                    "name": firebase.auth().currentUser.displayName,
+                                                    "proflie": firebase.auth().currentUser.photoURL,
+                                                    "email": firebase.auth().currentUser.email,
+                                                    "by": firebase.auth().currentUser.uid,
+                                                    "user_data": data
+                                                });
+                                            })
                                         }
                                         _data.project.db.once('value').then(function(d) {
                                             _data.db = d.val();
