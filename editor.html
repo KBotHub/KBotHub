@@ -557,15 +557,17 @@
                                                         })
                                                     }
 
-                                                    _data.project.db.set(queueRef: d.val().queueRef.push({
+                                                    _data.project.db.set({
+                                                        queueRef: d.val().queueRef.push({
 
-                                                        //timestamp
-                                                        ts: timeStamp,
-                                                        // Store the data we get from monaco editor
-                                                        event: editor_value,
-                                                        // Store the firebase-user id
-                                                        by: firebase.auth().currentUser.uid
-                                                    })).catch(function(e) {
+                                                            //timestamp
+                                                            ts: timeStamp,
+                                                            // Store the data we get from monaco editor
+                                                            event: editor_value,
+                                                            // Store the firebase-user id
+                                                            by: firebase.auth().currentUser.uid
+                                                        })
+                                                    }).catch(function(e) {
                                                         // In case of errors, we want to see them in the console
                                                         console.error(e)
                                                     });
@@ -666,15 +668,17 @@
                                                     })
                                                 }
 
-                                                _data.project.db.set(queueRef: d.val().queueRef.push({
+                                                _data.project.db.set({
+                                                    queueRef: d.val().queueRef.push({
 
-                                                    //timestamp
-                                                    ts: timeStamp,
-                                                    // Store the data we get from monaco editor
-                                                    event: editor_value,
-                                                    // Store the firebase-user id
-                                                    by: firebase.auth().currentUser.uid
-                                                })).catch(function(e) {
+                                                        //timestamp
+                                                        ts: timeStamp,
+                                                        // Store the data we get from monaco editor
+                                                        event: editor_value,
+                                                        // Store the firebase-user id
+                                                        by: firebase.auth().currentUser.uid
+                                                    })
+                                                }).catch(function(e) {
                                                     // In case of errors, we want to see them in the console
                                                     console.error(e)
                                                 });
