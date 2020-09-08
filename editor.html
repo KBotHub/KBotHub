@@ -540,6 +540,15 @@
                                                 _data.project.db.update({
                                                     content: encodeURIComponent(editor.getValue())
                                                 });
+                                                _data.queueRef..once('value').then(function(d) {
+                                                    if(d.val().length){
+                                                        if(d.val().length>20){
+                                                            _data.project.db.update({queue:{length:0}})
+                                                        }
+                                                    }else{
+                                                        _data.queueRef.set({length:0})
+                                                    }
+                                                })
                                                 _data.queueRef.child(timeStamp).set({
 
                                                     //timestamp
@@ -629,6 +638,15 @@
                                             _data.project.db.update({
                                                 content: encodeURIComponent(editor.getValue())
                                             });
+                                             _data.queueRef..once('value').then(function(d) {
+                                                 if(d.val().length){
+                                                     if(d.val().length>20){
+                                                         _data.project.db.update({queue:{length:0}})
+                                                     }
+                                                 }else{
+                                                     _data.queueRef.set({length:0})
+                                                 }
+                                             })
                                             _data.queueRef.child(timeStamp).set({
 
                                                 //timestamp
@@ -709,6 +727,7 @@
                                         //  4. Log the event to console
 
                                         lastRef = Date.now().toString();
+                                        
                                     });
 
                                     _data.cursor.on("child_changed", function(ref) {
