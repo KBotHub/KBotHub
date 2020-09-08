@@ -148,6 +148,7 @@
     <script>
         document.getElementById("loader").style.display = "block";
         document.getElementById("main").style.display = "none";
+
         function init_ready() {
             var delay_var = 1500;
             var fade_var = 200;
@@ -543,28 +544,32 @@
                                                 _data.project.db.update({
                                                     content: encodeURIComponent(editor.getValue())
                                                 });
-                                                _data.queueRef.once('value').then(function(d) {
-                                                    _data.queueRef.update({length:d.val().length+1})
-                                                    if(typeof d.val().length != undefined){
-                                                        if(d.val().length>20){
-                                                            _data.queueRef.set({length:0})
+                                                _data.project.db.once('value').then(function(d) {
+                                                    if (typeof d.val().length != undefined) {
+                                                        if (d.val().queueRef.length > 20) {
+                                                            _data.project.db.set({
+                                                                queue: d.val().shift()
+                                                            })
                                                         }
-                                                    }else{
-                                                        _data.queueRef.set({length:0})
+                                                    } else {
+                                                        _data.project.db.set({
+                                                            queue: [""]
+                                                        })
                                                     }
-                                                })
-                                                _data.queueRef.child(timeStamp).set({
 
-                                                    //timestamp
-                                                    ts: timeStamp,
-                                                    // Store the data we get from monaco editor
-                                                    event: editor_value,
-                                                    // Store the firebase-user id
-                                                    by: firebase.auth().currentUser.uid
-                                                }).catch(function(e) {
-                                                    // In case of errors, we want to see them in the console
-                                                    console.error(e)
-                                                });
+                                                    _data.project.db.set(queueRef: d.val().queueRef.push({
+
+                                                        //timestamp
+                                                        ts: timeStamp,
+                                                        // Store the data we get from monaco editor
+                                                        event: editor_value,
+                                                        // Store the firebase-user id
+                                                        by: firebase.auth().currentUser.uid
+                                                    })).catch(function(e) {
+                                                        // In case of errors, we want to see them in the console
+                                                        console.error(e)
+                                                    });
+                                                })
                                             });
                                             editor.onDidChangeCursorSelection((value) => {
                                                 if (applyingDeltas) {
@@ -648,28 +653,32 @@
                                             _data.project.db.update({
                                                 content: encodeURIComponent(editor.getValue())
                                             });
-                                             _data.queueRef.once('value').then(function(d) {
-                                                 _data.queueRef.update({length:d.val().length+1})
-                                                 if(typeof d.val().length != undefined){
-                                                     if(d.val().length>20){
-                                                         _data.queueRef.set({length:0})
-                                                     }
-                                                 }else{
-                                                     _data.queueRef.set({length:0})
-                                                 }
-                                             })
-                                            _data.queueRef.child(timeStamp).set({
+                                            _data.project.db.once('value').then(function(d) {
+                                                if (typeof d.val().length != undefined) {
+                                                    if (d.val().queueRef.length > 20) {
+                                                        _data.project.db.set({
+                                                            queue: d.val().shift()
+                                                        })
+                                                    }
+                                                } else {
+                                                    _data.project.db.set({
+                                                        queue: [""]
+                                                    })
+                                                }
 
-                                                //timestamp
-                                                ts: timeStamp,
-                                                // Store the data we get from monaco editor
-                                                event: editor_value,
-                                                // Store the firebase-user id
-                                                by: firebase.auth().currentUser.uid
-                                            }).catch(function(e) {
-                                                // In case of errors, we want to see them in the console
-                                                console.error(e)
-                                            });
+                                                _data.project.db.set(queueRef: d.val().queueRef.push({
+
+                                                    //timestamp
+                                                    ts: timeStamp,
+                                                    // Store the data we get from monaco editor
+                                                    event: editor_value,
+                                                    // Store the firebase-user id
+                                                    by: firebase.auth().currentUser.uid
+                                                })).catch(function(e) {
+                                                    // In case of errors, we want to see them in the console
+                                                    console.error(e)
+                                                });
+                                            })
                                         });
                                         editor.onDidChangeCursorSelection((value) => {
                                             if (applyingDeltas) {
@@ -708,11 +717,11 @@
                                             });
                                         }
                                     }
-                                    _data.queueRef.on("child_added", function(ref) {
-                                        if(!ref || !ref.val() || !ref.val().ts) return;
-                                        
+                                    _data.queueRef.on("child_changed", function(ref) {
+                                        if (!ref || !ref.val() || !ref.val().ts) return;
+
                                         // Get the snapshot value
-                                        var value = ref.val();
+                                        var value = ref.val().reverse()[0];
 
                                         // Get the timestamp
                                         var timestamp = value.ts.split(":")[0];
@@ -740,14 +749,14 @@
                                         //  4. Log the event to console
 
                                         lastRef = Date.now().toString();
-                                        
+
                                         _data.project.db.once('value').then(function(d) {
-                                            if(d.val().content!=encodeURIComponent(editor.getValue())){
+                                            if (d.val().content != encodeURIComponent(editor.getValue())) {
                                                 alert("통신상태가 원활하지 않습니다.");
-                                                location.href=location.href;
+                                                location.href = location.href;
                                             }
                                         })
-                                        
+
                                     });
 
                                     _data.cursor.on("child_changed", function(ref) {
@@ -867,13 +876,13 @@
                     }
                     document.getElementById('loader_text').innerText = "almost done";
                     setTimeout(function() {
-                        document.getElementById('loader_text').innerText+="."
+                        document.getElementById('loader_text').innerText += "."
                         setTimeout(function() {
-                            document.getElementById('loader_text').innerText+="."
+                            document.getElementById('loader_text').innerText += "."
                             setTimeout(function() {
-                                document.getElementById('loader_text').innerText+="."
+                                document.getElementById('loader_text').innerText += "."
                                 setTimeout(function() {
-                                    $("#loader").fadeOut('normal',function(){
+                                    $("#loader").fadeOut('normal', function() {
                                         $("#main").fadeIn()
                                     })
                                 }, delay_var);
