@@ -541,7 +541,7 @@
                                                     content: encodeURIComponent(editor.getValue())
                                                 });
                                                 _data.queueRef.once('value').then(function(d) {
-                                                    if(d.val().length){
+                                                    if(typeof d.val().length != undefined){
                                                         if(d.val().length>20){
                                                             _data.project.db.update({queue:{length:0}})
                                                         }
@@ -639,7 +639,7 @@
                                                 content: encodeURIComponent(editor.getValue())
                                             });
                                              _data.queueRef.once('value').then(function(d) {
-                                                 if(d.val().length){
+                                                 if(typeof d.val().length != undefined){
                                                      if(d.val().length>20){
                                                          _data.project.db.update({queue:{length:0}})
                                                      }
