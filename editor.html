@@ -834,8 +834,9 @@
                             setTimeout(function() {
                                 document.getElementById('loader_text').innerText+="."
                                 setTimeout(function() {
-                                    $("#loader").fadeOut()
-                                    $("#main").fadeIn()
+                                    $("#loader").fadeOut(,function(){
+                                        $("#main").fadeIn()
+                                    })
                                 }, delay_var);
                             }, 750);
                         }, 750);
