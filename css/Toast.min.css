@@ -8,10 +8,12 @@
     transform:translateX(-150%);
     transition:transform 1s;
     z-index:100;
+    color:black;
 }
 
 .toastjs-container[aria-hidden=false]{
     transform:translateX(0);
+    color:black;
 }
 
 .toastjs{
@@ -21,6 +23,7 @@
     border-left-width:5px;
     border-radius:4px;
     box-shadow:0 2px 5px 0 rgba(0,0,0,.2);
+    color:black;
 }
 
 .toastjs.default{
