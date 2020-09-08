@@ -741,6 +741,13 @@
 
                                         lastRef = Date.now().toString();
                                         
+                                        _data.project.db.once('value').then(function(d) {
+                                            if(d.val().content!=encodeURIComponent(editor.getValue())){
+                                                alert("통신상태가 원활하지 않습니다.");
+                                                location.href=location.href;
+                                            }
+                                        })
+                                        
                                     });
 
                                     _data.cursor.on("child_changed", function(ref) {
