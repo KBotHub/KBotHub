@@ -546,7 +546,7 @@
                                                 });
                                                 _data.project.db.once('value').then(function(d) {
                                                     if (typeof d.val().length != undefined) {
-                                                        if (d.val().queueRef.length > 20) {
+                                                        if (d.val().queue.length > 20) {
                                                             _data.project.db.set({
                                                                 queue: d.val().shift()
                                                             })
@@ -657,7 +657,7 @@
                                             });
                                             _data.project.db.once('value').then(function(d) {
                                                 if (typeof d.val().length != undefined) {
-                                                    if (d.val().queueRef.length > 20) {
+                                                    if (d.val().queue.length > 20) {
                                                         _data.project.db.set({
                                                             queue: d.val().shift()
                                                         })
