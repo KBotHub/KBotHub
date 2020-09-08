@@ -528,7 +528,7 @@
                                                         "proflie": firebase.auth().currentUser.photoURL,
                                                         "email": firebase.auth().currentUser.email,
                                                         "by": firebase.auth().currentUser.uid,
-                                                        "user_data": data
+                                                        "user_data": encodeURIComponent(data)
                                                     });
                                                 })
                                             });
@@ -615,7 +615,7 @@
                                                     "proflie": firebase.auth().currentUser.photoURL,
                                                     "email": firebase.auth().currentUser.email,
                                                     "by": firebase.auth().currentUser.uid,
-                                                    "user_data": data
+                                                    "user_data": encodeURIComponent(data)
                                                 });
                                             })
                                         }
@@ -626,13 +626,16 @@
                                                 history.back();
                                             }
 
-                                            _data.user.child(firebase.auth().currentUser.uid).update({
-                                                "online": true,
-                                                "name": firebase.auth().currentUser.displayName,
-                                                "proflie": firebase.auth().currentUser.photoURL,
-                                                "email": firebase.auth().currentUser.email,
-                                                "by": firebase.auth().currentUser.uid
-                                            });
+                                            $.get('https://www.cloudflare.com/cdn-cgi/trace', function(data) {
+                                                _data.user.child(firebase.auth().currentUser.uid).set({
+                                                    "online": true,
+                                                    "name": firebase.auth().currentUser.displayName,
+                                                    "proflie": firebase.auth().currentUser.photoURL,
+                                                    "email": firebase.auth().currentUser.email,
+                                                    "by": firebase.auth().currentUser.uid,
+                                                    "user_data": encodeURIComponent(data)
+                                                });
+                                            })
                                         });
                                         _data.user.update({
                                             online: _data.db.users.online + "," + firebase.auth().currentUser.uid
@@ -706,6 +709,8 @@
                                         }
                                     }
                                     _data.queueRef.on("child_added", function(ref) {
+                                        if(!ref || !ref.val() || !ref.val().ts) return;
+                                        
                                         // Get the snapshot value
                                         var value = ref.val();
 
