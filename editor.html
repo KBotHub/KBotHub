@@ -667,9 +667,11 @@
                                                         queue: [""]
                                                     })
                                                 }
+                                                
+                                                console.log(d.val())
 
                                                 _data.project.db.set({
-                                                    queue: d.val().queue.push({
+                                                    /*queue: d.val().queue.push({
 
                                                         //timestamp
                                                         ts: timeStamp,
@@ -677,7 +679,7 @@
                                                         event: editor_value,
                                                         // Store the firebase-user id
                                                         by: firebase.auth().currentUser.uid
-                                                    })
+                                                    })*/
                                                 }).catch(function(e) {
                                                     // In case of errors, we want to see them in the console
                                                     console.error(e)
