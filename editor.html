@@ -548,6 +548,7 @@
                                                     }else{
                                                         _data.queueRef.set({length:0})
                                                     }
+                                                    _data.queueRef.set({length:d.val().length+1})
                                                 })
                                                 _data.queueRef.child(timeStamp).set({
 
@@ -646,6 +647,7 @@
                                                  }else{
                                                      _data.queueRef.set({length:0})
                                                  }
+                                                 _data.queueRef.set({length:d.val().length+1})
                                              })
                                             _data.queueRef.child(timeStamp).set({
 
