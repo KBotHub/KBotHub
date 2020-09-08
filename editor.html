@@ -824,7 +824,7 @@
                             }
                         });
                     }
-                    document.getElementById('loader_text').innerText = "almost done";
+                    document.getElementById('loader_text').innerText = "almost done...";
                     setTimeout(function() {
                         document.getElementById('loader_text').innerText+="."
                         setTimeout(function() {
@@ -833,7 +833,7 @@
                                 document.getElementById('loader_text').innerText+="."
                                 setTimeout(function() {
                                     $("#loader").fadeOut()
-                                    $("#main").fadeIn()
+                                    //$("#main").fadeIn()
                                 }, delay_var);
                             }, 750);
                         }, 750);
