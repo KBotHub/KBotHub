@@ -468,6 +468,7 @@
                             editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_D, function() {
                                 editor.setValue(default_data)
                             }, 'DEFAULT-JS');
+                            editor.focus();
                             console.log('loaded monaco');
                             if (_data.firebase) {
 
@@ -547,17 +548,17 @@
                                                 _data.project.db.once('value').then(function(d) {
                                                     if (typeof d.val().length != undefined) {
                                                         if (d.val().queue.length > 20) {
-                                                            _data.project.db.set({
+                                                            _data.project.db.update({
                                                                 queue: d.val().shift()
                                                             })
                                                         }
                                                     } else {
-                                                        _data.project.db.set({
+                                                        _data.project.db.update({
                                                             queue: [""]
                                                         })
                                                     }
 
-                                                    _data.project.db.set({
+                                                    _data.project.db.update({
                                                         queue: d.val().queue.push({
 
                                                             //timestamp
@@ -658,19 +659,19 @@
                                             _data.project.db.once('value').then(function(d) {
                                                 if (typeof d.val().length != undefined) {
                                                     if (d.val().queue.length > 20) {
-                                                        _data.project.db.set({
+                                                        _data.project.db.update({
                                                             queue: d.val().shift()
                                                         })
                                                     }
                                                 } else {
-                                                    _data.project.db.set({
+                                                    _data.project.db.update({
                                                         queue: [""]
                                                     })
                                                 }
                                                 
                                                 console.log(d.val())
 
-                                                _data.project.db.set({
+                                                _data.project.db.update({
                                                     /*queue: d.val().queue.push({
 
                                                         //timestamp
