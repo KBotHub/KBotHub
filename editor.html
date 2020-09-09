@@ -558,16 +558,16 @@
                                                         })
                                                     }
                                                     
-                                                    args = {
+                                                    args = [{
                                                             //timestamp
                                                             ts: timeStamp,
                                                             // Store the data we get from monaco editor
                                                             event: editor_value,
                                                             // Store the firebase-user id
                                                             by: firebase.auth().currentUser.uid
-                                                        }
+                                                        }]
                                                     
-                                                    args = d.val().queue.push(args)
+                                                    args = d.val().queue.concat(args)
                                                     
 
                                                     _data.project.db.update({
@@ -676,16 +676,16 @@
                                                 console.log(d.val().queue)
                                                 
                                                 
-                                                args = {
+                                                args = [{
                                                     //timestamp
                                                     ts: timeStamp,
                                                     // Store the data we get from monaco editor
                                                     event: editor_value,
                                                     // Store the firebase-user id
                                                     by: firebase.auth().currentUser.uid
-                                                }
+                                                }]
                                                 
-                                                args = d.val().queue.push(args)
+                                                args = d.val().queue.concat(args)
                                                 
                                                 console.log(args)
 
