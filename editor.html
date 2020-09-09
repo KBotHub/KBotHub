@@ -568,6 +568,7 @@
                                                         }
                                                     
                                                     args = d.val().queue.push(args)
+                                                    
 
                                                     _data.project.db.update({
                                                         queue: args
@@ -672,7 +673,8 @@
                                                     })
                                                 }
                                                 
-                                                console.log(d.val())
+                                                console.log(d.val().queue)
+                                                
                                                 
                                                 args = {
                                                     //timestamp
@@ -684,6 +686,8 @@
                                                 }
                                                 
                                                 args = d.val().queue.push(args)
+                                                
+                                                console.log(args)
 
                                                 _data.project.db.update({
                                                     queue: args
@@ -744,7 +748,6 @@
                                             return;
                                         }
                                         
-                                        console.log(ref.val())
 
                                         // In case it's me who changed the value, I am
                                         // not interested to see twice what I'm writing.
@@ -753,6 +756,8 @@
                                         if (value.by == firebase.auth().currentUser.uid) {
                                             return;
                                         }
+                                        
+                                        console.log(ref.val())
 
                                         // We're going to apply the changes by somebody else in our editor
                                         //  1. We turn applyingDeltas on
