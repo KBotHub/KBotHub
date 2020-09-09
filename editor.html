@@ -739,6 +739,8 @@
 
                                         // Get the snapshot value
                                         var value = ref.val().pop();
+                                        
+                                        console.log(value)
 
                                         // Get the timestamp
                                         var timestamp = value.ts.split(":")[0];
@@ -848,7 +850,6 @@
                                             //  3. Turn off the applyingDeltas
                                             applyingDeltas = false;
                                             //  4. Log the event to console
-                                            console.log(value.event);
 
                                             lastCursor = Date.now().toString();
                                         });
