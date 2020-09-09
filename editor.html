@@ -735,7 +735,10 @@
                                         }
                                     }
                                     _data.queueRef.on("child_changed", function(ref) {
+                                        console.log(ref.val())
+                                        
                                         if (!ref || !ref.val() || !ref.val().ts) return;
+                                        
 
                                         // Get the snapshot value
                                         var value = ref.val().reverse()[0];
