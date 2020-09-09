@@ -546,10 +546,12 @@
                                                     content: encodeURIComponent(editor.getValue())
                                                 });
                                                 _data.project.db.once('value').then(function(d) {
-                                                    if (typeof d.val().length != undefined) {
+                                                    if (d.val().queue.length != undefined) {
                                                         if (d.val().queue.length > 20) {
+                                                            var x = d.val().queue
+                                                            x.shift()
                                                             _data.project.db.update({
-                                                                queue: d.val().queue.shift()
+                                                                queue: x
                                                             })
                                                         }
                                                     } else {
@@ -663,8 +665,10 @@
                                             _data.project.db.once('value').then(function(d) {
                                                 if (typeof d.val().length != undefined) {
                                                     if (d.val().queue.length > 20) {
+                                                        var x = d.val().queue;
+                                                        x.shift();
                                                         _data.project.db.update({
-                                                            queue: d.val().queue.shift()
+                                                            queue: x
                                                         })
                                                     }
                                                 } else {
