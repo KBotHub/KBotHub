@@ -673,7 +673,6 @@
                                                     })
                                                 }
                                                 
-                                                console.log(d.val().queue)
                                                 
                                                 
                                                 args = [{
@@ -687,7 +686,6 @@
                                                 
                                                 args = d.val().queue.concat(args)
                                                 
-                                                console.log(args)
 
                                                 _data.project.db.update({
                                                     queue: args
@@ -735,13 +733,12 @@
                                         }
                                     }
                                     _data.queueRef.on("child_changed", function(ref) {
-                                        console.log(ref.val())
                                         
                                         if (!ref || !ref.val() || !ref.val().ts) return;
                                         
 
                                         // Get the snapshot value
-                                        var value = ref.val().reverse()[0];
+                                        var value = ref.val().pop();
 
                                         // Get the timestamp
                                         var timestamp = value.ts.split(":")[0];
@@ -760,7 +757,6 @@
                                             return;
                                         }
                                         
-                                        console.log(ref.val())
 
                                         // We're going to apply the changes by somebody else in our editor
                                         //  1. We turn applyingDeltas on
