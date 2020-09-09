@@ -738,7 +738,11 @@
                                         
 
                                         // Get the snapshot value
-                                        var value = ref.val().pop();
+                                        var value = ref.val();
+                                        
+                                        console.log(value)
+                                        
+                                        value = value.pop();
                                         
                                         console.log(value)
 
