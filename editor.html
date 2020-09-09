@@ -549,7 +549,7 @@
                                                     if (typeof d.val().length != undefined) {
                                                         if (d.val().queue.length > 20) {
                                                             _data.project.db.update({
-                                                                queue: d.val().shift()
+                                                                queue: d.val().queue.shift()
                                                             })
                                                         }
                                                     } else {
@@ -557,17 +557,20 @@
                                                             queue: [""]
                                                         })
                                                     }
-
-                                                    _data.project.db.update({
-                                                        queue: d.val().queue.push({
-
+                                                    
+                                                    args = {
                                                             //timestamp
                                                             ts: timeStamp,
                                                             // Store the data we get from monaco editor
                                                             event: editor_value,
                                                             // Store the firebase-user id
                                                             by: firebase.auth().currentUser.uid
-                                                        })
+                                                        }
+                                                    
+                                                    args = d.val().queue.push(args)
+
+                                                    _data.project.db.update({
+                                                        queue: args
                                                     }).catch(function(e) {
                                                         // In case of errors, we want to see them in the console
                                                         console.error(e)
@@ -660,7 +663,7 @@
                                                 if (typeof d.val().length != undefined) {
                                                     if (d.val().queue.length > 20) {
                                                         _data.project.db.update({
-                                                            queue: d.val().shift()
+                                                            queue: d.val().queue.shift()
                                                         })
                                                     }
                                                 } else {
@@ -670,17 +673,20 @@
                                                 }
                                                 
                                                 console.log(d.val())
+                                                
+                                                args = {
+                                                    //timestamp
+                                                    ts: timeStamp,
+                                                    // Store the data we get from monaco editor
+                                                    event: editor_value,
+                                                    // Store the firebase-user id
+                                                    by: firebase.auth().currentUser.uid
+                                                }
+                                                
+                                                args = d.val().queue.push(args)
 
                                                 _data.project.db.update({
-                                                    queue: d.val().queue.push({
-
-                                                        //timestamp
-                                                        ts: timeStamp,
-                                                        // Store the data we get from monaco editor
-                                                        event: editor_value,
-                                                        // Store the firebase-user id
-                                                        by: firebase.auth().currentUser.uid
-                                                    })
+                                                    queue: args
                                                 }).catch(function(e) {
                                                     // In case of errors, we want to see them in the console
                                                     console.error(e)
@@ -737,6 +743,8 @@
                                         if (lastCursor > timestamp) {
                                             return;
                                         }
+                                        
+                                        console.log(ref.val())
 
                                         // In case it's me who changed the value, I am
                                         // not interested to see twice what I'm writing.
