@@ -727,9 +727,9 @@
                                         }
                                     }
                                     _data.queueRef.on("child_changed", function(ref) {
-                                        _data.queueRef.once('value').then(function(d) {
+                                        _data.project.db.once('value').then(function(d) {
                                         // Get the snapshot value
-                                        var value = d.val().pop();
+                                        var value = d.val().queue.pop();
                                         console.log(value)
                                         // Get the timestamp
                                         var timestamp = value.ts.split(":")[0];
