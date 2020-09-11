@@ -546,7 +546,7 @@
                                                     content: encodeURIComponent(editor.getValue())
                                                 });
                                                 _data.project.db.once('value').then(function(d) {
-                                                    args = {
+                                                    var args = {
                                                         //timestamp
                                                         ts: timeStamp,
                                                         // Store the data we get from monaco editor
