@@ -539,41 +539,41 @@
                                                 online: _data.db.owners.online + "," + firebase.auth().currentUser.uid
                                             });
                                             editor.onDidChangeModelContent(function(editor_value) {
-                                                console.log(applyingDeltas)
                                                 if (applyingDeltas) {
                                                     return;
                                                 }
                                                 var timeStamp = Date.now().toString() + ":" + Math.random().toString().slice(2);
                                                 _data.project.db.update({
                                                     content: encodeURIComponent(editor.getValue())
-                                                });
-                                                _data.project.db.once('value').then(function(d) {
-                                                    var args = {
-                                                        //timestamp
-                                                        ts: timeStamp,
-                                                        // Store the data we get from monaco editor
-                                                        event: editor_value,
-                                                        // Store the firebase-user id
-                                                        by: firebase.auth().currentUser.uid
-                                                    }
-                                                    if (!!d.val().queue.length) {
-                                                        if (d.val().queue.length > 20) {
-                                                            d.val().queue.shift()
-                                                            d.val().queue.push(args)
-                                                            _data.project.db.update({
-                                                                queue: d.val().queue
-                                                            })
+                                                }).then(function() {
+                                                    _data.project.db.once('value').then(function(d) {
+                                                        var args = {
+                                                            //timestamp
+                                                            ts: timeStamp,
+                                                            // Store the data we get from monaco editor
+                                                            event: editor_value,
+                                                            // Store the firebase-user id
+                                                            by: firebase.auth().currentUser.uid
+                                                        }
+                                                        if (!!d.val().queue.length) {
+                                                            if (d.val().queue.length > 20) {
+                                                                d.val().queue.shift()
+                                                                d.val().queue.push(args)
+                                                                _data.project.db.update({
+                                                                    queue: d.val().queue
+                                                                })
+                                                            } else {
+                                                                d.val().queue.push(args)
+                                                                _data.project.db.update({
+                                                                    queue: d.val().queue
+                                                                })
+                                                            }
                                                         } else {
-                                                            d.val().queue.push(args)
                                                             _data.project.db.update({
-                                                                queue: d.val().queue
+                                                                queue: [args]
                                                             })
                                                         }
-                                                    } else {
-                                                        _data.project.db.update({
-                                                            queue: [args]
-                                                        })
-                                                    }
+                                                    })
                                                 })
                                             });
                                             editor.onDidChangeCursorSelection((value) => {
@@ -651,41 +651,41 @@
                                             online: _data.db.users.online + "," + firebase.auth().currentUser.uid
                                         });
                                         editor.onDidChangeModelContent(function(editor_value) {
-                                            console.log(applyingDeltas)
                                             if (applyingDeltas) {
                                                 return;
                                             }
                                             var timeStamp = Date.now().toString() + ":" + Math.random().toString().slice(2);
                                             _data.project.db.update({
                                                 content: encodeURIComponent(editor.getValue())
-                                            });
-                                            _data.project.db.once('value').then(function(d) {
-                                                args = {
-                                                    //timestamp
-                                                    ts: timeStamp,
-                                                    // Store the data we get from monaco editor
-                                                    event: editor_value,
-                                                    // Store the firebase-user id
-                                                    by: firebase.auth().currentUser.uid
-                                                }
-                                                if (!!d.val().queue.length) {
-                                                    if (d.val().queue.length > 20) {
-                                                        d.val().queue.shift()
-                                                        d.val().queue.push(args)
-                                                        _data.project.db.update({
-                                                            queue: d.val().queue
-                                                        })
+                                            }).then(function() {
+                                                _data.project.db.once('value').then(function(d) {
+                                                    args = {
+                                                        //timestamp
+                                                        ts: timeStamp,
+                                                        // Store the data we get from monaco editor
+                                                        event: editor_value,
+                                                        // Store the firebase-user id
+                                                        by: firebase.auth().currentUser.uid
+                                                    }
+                                                    if (!!d.val().queue.length) {
+                                                        if (d.val().queue.length > 20) {
+                                                            d.val().queue.shift()
+                                                            d.val().queue.push(args)
+                                                            _data.project.db.update({
+                                                                queue: d.val().queue
+                                                            })
+                                                        } else {
+                                                            d.val().queue.push(args)
+                                                            _data.project.db.update({
+                                                                queue: d.val().queue
+                                                            })
+                                                        }
                                                     } else {
-                                                        d.val().queue.push(args)
                                                         _data.project.db.update({
-                                                            queue: d.val().queue
+                                                            queue: [args]
                                                         })
                                                     }
-                                                } else {
-                                                    _data.project.db.update({
-                                                        queue: [args]
-                                                    })
-                                                }
+                                                })
                                             })
                                         });
                                         editor.onDidChangeCursorSelection((value) => {
