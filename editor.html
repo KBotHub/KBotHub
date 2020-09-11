@@ -650,7 +650,7 @@
                                         _data.user.update({
                                             online: _data.db.users.online + "," + firebase.auth().currentUser.uid
                                         });
-                                        editor.onDidChangeModelContent(function(ev) 
+                                        editor.onDidChangeModelContent(function(ev) {
                                             console.log(ev);
                                             if (applyingDeltas) {
                                                 return;
