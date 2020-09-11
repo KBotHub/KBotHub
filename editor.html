@@ -317,15 +317,15 @@
 
             function init_all() {
                 var _data = {
-                    firebase: false,
-                    queueRef: {},
-                    cursor: {},
+                    'firebase': false,
+                    'queueRef': {},
+                    'cursor': {},
                     'project': {},
-                    db: {},
-                    user: {},
-                    update: {},
-                    language: "",
-                    editor_id: ''
+                    'db': {},
+                    'user': {},
+                    'update': {},
+                    'language': "",
+                    'editor_id': ''
                 };
                 var applyingCDeltas = false;
                 var applyingDeltas = false;
@@ -340,11 +340,7 @@
                         return;
                     }
                     if (!location.href.startsWith('https://kboteditor.kro.kr/editor?id=')) {
-                        _data = {
-                            'project': {
-                                'scriptName': '스크립트 이름'
-                            },
-                        };
+                        _data.project.scriptName='스크립트 이름'
                         _data.value = [
                             'const scriptName = \"' + _data.project.scriptName + '\";',
                             '/**',
