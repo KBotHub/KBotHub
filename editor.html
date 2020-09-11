@@ -559,17 +559,17 @@
                                                                 d.val().queue.shift()
                                                                 d.val().queue.push(args)
                                                                 _data.project.db.update({
-                                                                    queue: d.val().queue
+                                                                    "queue": d.val().queue
                                                                 })
                                                             } else {
                                                                 d.val().queue.push(args)
                                                                 _data.project.db.update({
-                                                                    queue: d.val().queue
+                                                                    "queue": d.val().queue
                                                                 })
                                                             }
                                                         } else {
                                                             _data.project.db.update({
-                                                                queue: [args]
+                                                                "queue": [args]
                                                             })
                                                         }
                                                     })
@@ -603,7 +603,7 @@
                                                             content: encodeURIComponent(editor.getValue())
                                                         });
                                                         _data.project.db.update({
-                                                            queue: [""]
+                                                            "queue": [""]
                                                         });
                                                     }
                                                     _data.user.update({
@@ -671,17 +671,17 @@
                                                             d.val().queue.shift()
                                                             d.val().queue.push(args)
                                                             _data.project.db.update({
-                                                                queue: d.val().queue
+                                                                "queue": d.val().queue
                                                             })
                                                         } else {
                                                             d.val().queue.push(args)
                                                             _data.project.db.update({
-                                                                queue: d.val().queue
+                                                                "queue": d.val().queue
                                                             })
                                                         }
                                                     } else {
                                                         _data.project.db.update({
-                                                            queue: [args]
+                                                            "queue": [args]
                                                         })
                                                     }
                                                 })
