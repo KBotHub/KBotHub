@@ -148,7 +148,7 @@
     <script>
         document.getElementById("loader").style.display = "block";
         document.getElementById("main").style.display = "none";
-        var editor={};
+        var editor;
         function init_ready() {
             var delay_var = 1500;
             var fade_var = 200;
@@ -316,7 +316,6 @@
             });
 
             function init_all() {
-                var editor;
                 var _data = {
                     firebase: false,
                     queueRef: {},
