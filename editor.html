@@ -538,6 +538,7 @@
                                                 online: _data.db.owners.online + "," + firebase.auth().currentUser.uid
                                             });
                                             editor.onDidChangeModelContent(function(editor_value) {
+                                                console.log(editor_value);
                                                 if (applyingDeltas) {
                                                     return;
                                                 }
@@ -649,7 +650,8 @@
                                         _data.user.update({
                                             online: _data.db.users.online + "," + firebase.auth().currentUser.uid
                                         });
-                                        editor.onDidChangeModelContent(function(editor_value) {
+                                        editor.onDidChangeModelContent(function(editor_value) 
+                                            console.log(editor_value);
                                             if (applyingDeltas) {
                                                 return;
                                             }
