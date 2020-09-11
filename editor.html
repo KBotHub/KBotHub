@@ -726,11 +726,9 @@
                                         }
                                     }
                                     _data.queueRef.on("child_changed", function(ref) {
-
-
-
+                                        _data.queueRef.once('value').then(function(d) {
                                         // Get the snapshot value
-                                        var value = ref.val();
+                                        var value = d.val().pop();
                                         console.log(value)
                                         // Get the timestamp
                                         var timestamp = value.ts.split(":")[0];
@@ -766,6 +764,7 @@
                                                 alert("통신상태가 원활하지 않습니다.");
                                                 location.href = location.href;
                                             }
+                                        })
                                         })
                                     });
 
