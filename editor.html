@@ -546,38 +546,32 @@
                                                     content: encodeURIComponent(editor.getValue())
                                                 });
                                                 _data.project.db.once('value').then(function(d) {
-                                                    if (d.val().queue.length != undefined) {
+                                                    args = {
+                                                        //timestamp
+                                                        ts: timeStamp,
+                                                        // Store the data we get from monaco editor
+                                                        event: editor_value,
+                                                        // Store the firebase-user id
+                                                        by: firebase.auth().currentUser.uid
+                                                    }
+                                                    if (!!d.val().queue.length) {
                                                         if (d.val().queue.length > 20) {
-                                                            var x = d.val().queue
-                                                            x.shift()
+                                                            d.val().queue.shift()
+                                                            d.val().queue.push(args)
                                                             _data.project.db.update({
-                                                                queue: x
+                                                                queue: d.val().queue
+                                                            })
+                                                        } else {
+                                                            d.val().queue.push(args)
+                                                            _data.project.db.update({
+                                                                queue: d.val().queue
                                                             })
                                                         }
                                                     } else {
                                                         _data.project.db.update({
-                                                            queue: [""]
+                                                            queue: [args]
                                                         })
                                                     }
-                                                    
-                                                    args = [{
-                                                            //timestamp
-                                                            ts: timeStamp,
-                                                            // Store the data we get from monaco editor
-                                                            event: editor_value,
-                                                            // Store the firebase-user id
-                                                            by: firebase.auth().currentUser.uid
-                                                        }]
-                                                    
-                                                    args = d.val().queue.concat(args)
-                                                    
-
-                                                    _data.project.db.update({
-                                                        queue: args
-                                                    }).catch(function(e) {
-                                                        // In case of errors, we want to see them in the console
-                                                        console.error(e)
-                                                    });
                                                 })
                                             });
                                             editor.onDidChangeCursorSelection((value) => {
@@ -663,40 +657,32 @@
                                                 content: encodeURIComponent(editor.getValue())
                                             });
                                             _data.project.db.once('value').then(function(d) {
-                                                if (typeof d.val().length != undefined) {
-                                                    if (d.val().queue.length > 20) {
-                                                        var x = d.val().queue;
-                                                        x.shift();
-                                                        _data.project.db.update({
-                                                            queue: x
-                                                        })
-                                                    }
-                                                } else {
-                                                    _data.project.db.update({
-                                                        queue: [""]
-                                                    })
-                                                }
-                                                
-                                                
-                                                
-                                                args = [{
+                                                args = {
                                                     //timestamp
                                                     ts: timeStamp,
                                                     // Store the data we get from monaco editor
                                                     event: editor_value,
                                                     // Store the firebase-user id
                                                     by: firebase.auth().currentUser.uid
-                                                }]
-                                                
-                                                args = d.val().queue.concat(args)
-                                                
-
-                                                _data.project.db.update({
-                                                    queue: args
-                                                }).catch(function(e) {
-                                                    // In case of errors, we want to see them in the console
-                                                    console.error(e)
-                                                });
+                                                }
+                                                if (!!d.val().queue.length) {
+                                                    if (d.val().queue.length > 20) {
+                                                        d.val().queue.shift()
+                                                        d.val().queue.push(args)
+                                                        _data.project.db.update({
+                                                            queue: d.val().queue
+                                                        })
+                                                    } else {
+                                                        d.val().queue.push(args)
+                                                        _data.project.db.update({
+                                                            queue: d.val().queue
+                                                        })
+                                                    }
+                                                } else {
+                                                    _data.project.db.update({
+                                                        queue: [args]
+                                                    })
+                                                }
                                             })
                                         });
                                         editor.onDidChangeCursorSelection((value) => {
@@ -737,16 +723,16 @@
                                         }
                                     }
                                     _data.queueRef.on("child_changed", function(ref) {
-                                        
-                                        
+
+
 
                                         // Get the snapshot value
                                         var value = ref.val();
-                                        
 
-                                        
-                                        value = value[value.length-1];
-                                        
+                                        console.log(value)
+
+                                        value = value[value.length - 1];
+
                                         console.log(value)
 
                                         // Get the timestamp
@@ -756,7 +742,7 @@
                                         if (lastCursor > timestamp) {
                                             return;
                                         }
-                                        
+
 
                                         // In case it's me who changed the value, I am
                                         // not interested to see twice what I'm writing.
@@ -765,7 +751,7 @@
                                         if (value.by == firebase.auth().currentUser.uid) {
                                             return;
                                         }
-                                        
+
 
                                         // We're going to apply the changes by somebody else in our editor
                                         //  1. We turn applyingDeltas on
