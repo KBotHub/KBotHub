@@ -539,6 +539,7 @@
                                                 online: _data.db.owners.online + "," + firebase.auth().currentUser.uid
                                             });
                                             editor.onDidChangeModelContent(function(editor_value) {
+                                                console.log(applyingDeltas)
                                                 if (applyingDeltas) {
                                                     return;
                                                 }
