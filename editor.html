@@ -575,7 +575,7 @@
                                                 })
                                             });
                                             editor.onDidChangeCursorSelection((value) => {
-                                                if (applyingDeltas) {
+                                                if (applyingCDeltas) {
                                                     return;
                                                 }
                                                 _data.cursor.update({
@@ -686,7 +686,7 @@
                                             })
                                         });
                                         editor.onDidChangeCursorSelection((value) => {
-                                            if (applyingDeltas) {
+                                            if (applyingCDeltas) {
                                                 return;
                                             }
                                             _data.cursor.update({
@@ -795,7 +795,7 @@
 
                                             // We're going to apply the changes by somebody else in our editor
                                             //  1. We turn applyingDeltas on
-                                            applyingDeltas = true;
+                                            applyingCDeltas = true;
                                             //  2. Update the editor value with the event data
                                             decorations = editor.deltaDecorations(decorations, [{
                                                 range: new monaco.Range(1, 1, 1, 1),
@@ -841,7 +841,7 @@
                                                 ]);
                                             }
                                             //  3. Turn off the applyingDeltas
-                                            applyingDeltas = false;
+                                            applyingCDeltas = false;
                                             //  4. Log the event to console
 
                                             lastCursor = Date.now().toString();
