@@ -537,8 +537,8 @@
                                             _data.user.update({
                                                 online: _data.db.owners.online + "," + firebase.auth().currentUser.uid
                                             });
-                                            editor.onDidChangeModelContent(function(editor_value) {
-                                                console.log(editor_value);
+                                            editor.onDidChangeModelContent(function(ev) {
+                                                console.log(ev);
                                                 if (applyingDeltas) {
                                                     return;
                                                 }
@@ -551,7 +551,7 @@
                                                             //timestamp
                                                             ts: timeStamp,
                                                             // Store the data we get from monaco editor
-                                                            event: editor_value,
+                                                            event: ev,
                                                             // Store the firebase-user id
                                                             by: firebase.auth().currentUser.uid
                                                         }
@@ -650,8 +650,8 @@
                                         _data.user.update({
                                             online: _data.db.users.online + "," + firebase.auth().currentUser.uid
                                         });
-                                        editor.onDidChangeModelContent(function(editor_value) 
-                                            console.log(editor_value);
+                                        editor.onDidChangeModelContent(function(ev) 
+                                            console.log(ev);
                                             if (applyingDeltas) {
                                                 return;
                                             }
@@ -664,7 +664,7 @@
                                                         //timestamp
                                                         ts: timeStamp,
                                                         // Store the data we get from monaco editor
-                                                        event: editor_value,
+                                                        event: ev,
                                                         // Store the firebase-user id
                                                         by: firebase.auth().currentUser.uid
                                                     }
