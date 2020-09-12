@@ -72,7 +72,6 @@
             function trans() {
                 const data = $("#accel_form").serialize(); // 
                 $.ajax({
-                    headers: {  'Access-Control-Allow-Origin': 'https://kboteditor.kro.kr' },
                     crossDomain: true,
                     type: "POST", //전송방식
                     url: "https://bnd.kboteditor.kro.kr/papago.php", //호출 URL
