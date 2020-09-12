@@ -73,7 +73,7 @@
                 const data = $("#accel_form").serialize(); // 
                 $.ajax({
                     type: "POST", //전송방식
-                    url: "https://bnd.kboteditor.kro.kr/papago_test.php", //호출 URL
+                    url: "https://bnd.kboteditor.kro.kr/papago.php", //호출 URL
                     data: data, //넘겨줄 데이터
                     success: function(args) {
                         $("#result_string").html(args); //통신에 성공했을시 실행되는 함수  
