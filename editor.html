@@ -30,21 +30,6 @@
 
 <body>
     <style>
-        html,
-        body,
-        #monaco_container,
-        #loader,
-        #main {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-
         body {
             display: flex;
             justify-content: center;
@@ -121,7 +106,7 @@
         div#toolBar * {
             z-index: 10000000000000000000000000000000000000000000000;
         }
-/*
+
         ul {
             font-family: 'Nanum Gothic';
             font-size: 0.9rem;
@@ -213,7 +198,23 @@
         div#tabs>div>p {
             position: absolute;
             top: 10rem !important;
-        }*/
+        }
+        
+        html,
+        body,
+        #monaco_container,
+        #loader,
+        #main {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
     </style>
     <div class="toastjs-container" role="alert" aria-hidden="true">
         <div class="toastjs"></div>
