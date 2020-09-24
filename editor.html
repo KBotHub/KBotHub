@@ -107,7 +107,7 @@
             z-index: 10000000000000000000000000000000000000000000000;
         }
 
-        ul {
+        #toolBar ul {
             font-family: 'Nanum Gothic';
             font-size: 0.9rem;
             color: white;
@@ -115,20 +115,19 @@
             margin-top: 0.7em;
         }
 
-        ul,
-        li {
+        #toolBar ul, #toolBar li {
             list-style: none;
             margin: 0;
             padding: 0;
         }
 
-        ul>li[id] {
+        #toolBar ul>li[id] {
             display: inline-block;
             padding: 0.2em 0.5em;
             height: 1em;
         }
 
-        li[id] li {
+        #toolBar li[id] li {
             background-color: #333333;
             display: none;
             padding-left: 1em;
@@ -137,15 +136,15 @@
             width: 20em !important;
         }
 
-        li[id] li:first-child {
+        #toolBar li[id] li:first-child {
             margin-top: 0.7em;
         }
 
-        li[id] li:last-child {
+        #toolBar li[id] li:last-child {
             padding-bottom: 0.8em;
         }
 
-        li[id]:hover {
+        #toolBar li[id]:hover {
             background-color: #797979;
             cursor: default;
         }
