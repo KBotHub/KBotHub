@@ -13,11 +13,19 @@
     <meta property="og:image" content="https://kboteditor.kro.kr/img/grp_img.jpg">
     <meta name="description" content="봇 허브 입니다">
     <meta name="keywords" content="온라인 메신저봇">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="https://kboteditor.kro.kr/fonts/fonts.css">
     <link rel="stylesheet" href="https://kboteditor.kro.kr/css/Toast.min.css">
     <script src="https://kboteditor.kro.kr/js/Toast.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js" integrity="sha512-LfB+BcvR3zBt7ebVskhSWiSbEUiG3p5EcCprkieldsKhBeR6wpnLi0VpWC2GNgVGWP2n/skO8Bx2oKNjUhXCkw==" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            $("#tabs").tabs();
+        });
+    </script>
 </head>
 
 <body>
@@ -61,8 +69,10 @@
             animation: blink-animation 1s steps(5, start) infinite;
             -webkit-animation: blink-animation 1s steps(5, start) infinite;
         }
-        
-        span.mtk7.mtki, span.mtk10.mtki{ /*mtk7 mtki: 주석, mtk10 mtki: 키워드*/
+
+        span.mtk7.mtki,
+        span.mtk10.mtki {
+            /*mtk7 mtki: 주석, mtk10 mtki: 키워드*/
             font-family: 'JetBrainsMono-Italic' !important;
         }
 
@@ -147,12 +157,218 @@
         <h3 id="loader_text">loading firebase</h3>
     </div>
     <div id="main">
-        <div id="monaco_container"></div>
+        <div id="toolBar">
+            <ul id="toolBar">
+                <li id="tb_file">파일(F)
+                    <ul>
+                        <li>새로 만들기</li>
+                        <li>열기</li>
+                    </ul>
+                </li>
+                <li id="tb_edit">편집(E)
+                    <ul>
+                        <li>실행 취소</li>
+                        <li>다시 실행</li>
+                    </ul>
+                </li>
+                <li id="tb_view">보기(V)
+                    <ul>
+                        <li>확대</li>
+                        <li>축소</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">Nunc tincidunt</a></li>
+            </ul>
+            <div id="tabs-1">
+                <div class="inTab" id="monaco_container"></div>
+            </div>
+        </div>
+
     </div>
-    <script>
+    <style>
+        * {
+            color: white;
+        }
+
+        body>div {
+            display: block !important;
+        }
+
+        div#toolBar * {
+            z-index: 10000000000000000000000000000000000000000000000;
+        }
+
+        html {
+            background-color: #4b4b4b;
+        }
+
+        ul {
+            font-family: 'Nanum Gothic';
+            font-size: 0.9rem;
+            color: white;
+            position: absolute;
+            margin-top: 0.7em;
+        }
+
+        ul,
+        li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        ul>li[id] {
+            display: inline-block;
+            padding: 0.2em 0.5em;
+            height: 1em;
+        }
+
+        li[id] li {
+            background-color: #333333;
+            display: none;
+            padding-left: 1em;
+            padding-top: 0.8em;
+            padding-bottom: 0.8em;
+            width: 20em !important;
+        }
+
+        li[id] li:first-child {
+            margin-top: 0.7em;
+        }
+
+        li[id] li:last-child {
+            padding-bottom: 0.8em;
+        }
+
+        li[id]:hover {
+            background-color: #797979;
+            cursor: default;
+        }
+
+        div#tab {
+            position: absolute;
+            width: 100%;
+            height: 96%;
+            bottom: 0 !important;
+        }
+
+        div#top>span {
+            border-width: 3px;
+            border-style: solid;
+            border-color: white;
+        }
+
+        div#tab>div#top>span>p {
+            display: inline !important;
+        }
+
+        div#content>div {
+            background-color: black;
+        }
+
+        p.cancel {
+            cursor: pointer;
+        }
+
+        div#tabs {
+            position: absolute;
+            top: 7rem;
+            background-color: #333333;
+            border: none;
+        }
+
+        div#tabs ul {
+            position: absolute;
+            top: -2.6rem;
+            background-color: #333333;
+            border: none;
+        }
+
+        div#tabs a {
+            background-color: #4b4b4b;
+            color: white !important;
+        }
+
+        div#tabs>div,
+        div#tabs>div>p {
+            position: ansolute;
+            top: 10rem !important;
+        }
+    </style>
+    <script type="text/javascript">
+        try {
+            let isVisible = {
+                "tb_file": false,
+                "tb_edit": false,
+                "tb_view": false
+            };
+            let lgt = 1;
+            let tab = [2, 0, 0, 0, 0];
+            for (let w = 0; w < tab.length; w++) {
+                if (tab[w] == 0 || tab[w] == 1) {
+                    $('div#content div#' + String(w + 1)).css('display', 'none');
+                } else if (tab[w] == 2) {
+                    $('div#content div#' + String(w + 1)).css({
+                        'display': 'block',
+                        'vidibility': 'visible'
+                    });
+                }
+            }
+
+            $('*').not('li[id]').click(function() {
+                $('li[id] *').css({
+                    "display": "none"
+                });
+                isVisible['tb_file'] = false;
+                isVisible['tb_edit'] = false;
+                isVisible['tb_view'] = false;
+            });
+
+            $('li[id]').click(function(event) {
+                event.stopPropagation();
+                let id = $(this).attr('id');
+
+                if (isVisible[id] === false) {
+                    for (let i in isVisible) {
+                        isVisible[i] = false;
+                        $('li#' + i + " *").css({
+                            "display": "none"
+                        });
+                    }
+                    $('li#' + id + " *").css({
+                        "display": "block",
+                        "vidibility": "visible"
+                    });
+                    isVisible[id] = true;
+                } else {
+                    $('li#' + id + " *").css({
+                        "display": "none"
+                    });
+                    isVisible[id] = false;
+                }
+            });
+
+            $('li[id] li').mouseover(function(event) {
+                event.stopPropagation();
+                $(this).css('background-color', "black");
+            });
+
+            $('li[id] li').mouseleave(function(event) {
+                event.stopPropagation();
+                $(this).css('background-color', "#333333");
+            });
+        } catch (e) {
+            alert(e);
+        }
+
         document.getElementById("loader").style.display = "block";
         document.getElementById("main").style.display = "none";
         var editor;
+
         function init_ready() {
             var delay_var = 1500;
             var fade_var = 200;
@@ -344,7 +560,7 @@
                         return;
                     }
                     if (!location.href.startsWith('https://kboteditor.kro.kr/editor?id=')) {
-                        _data.project.scriptName='스크립트 이름'
+                        _data.project.scriptName = '스크립트 이름'
                         _data.value = [
                             'const scriptName = \"' + _data.project.scriptName + '\";',
                             '/**',
@@ -458,33 +674,104 @@
                                 base: 'vs-dark',
                                 type: 'Dark',
                                 inherit: false,
-                                rules: [
-                                    { token: '', foreground: 'BDBDBD', background: '333333' },
-                                    { token: 'invalid', foreground: 'cd3131' },
-                                    { token: 'emphasis', fontStyle: 'italic' },
-                                    { token: 'strong', fontStyle: 'bold' },
+                                rules: [{
+                                        token: '',
+                                        foreground: 'BDBDBD',
+                                        background: '333333'
+                                    },
+                                    {
+                                        token: 'invalid',
+                                        foreground: 'cd3131'
+                                    },
+                                    {
+                                        token: 'emphasis',
+                                        fontStyle: 'italic'
+                                    },
+                                    {
+                                        token: 'strong',
+                                        fontStyle: 'bold'
+                                    },
 
-                                    { token: 'variable', foreground: 'BDBDBD' },
-                                    { token: 'variable.predefined', foreground: 'BDBDBD' },
-                                    { token: 'constant', foreground: '00ffff' },
-                                    { token: 'comment', foreground: '636363', 'fontStyle': 'italic' },
-                                    { token: 'number', foreground: 'D400FF' },
-                                    { token: 'number.hex', foreground: '3030c0' },
-                                    { token: 'regexp', foreground: '00ffff' },
-                                    { token: 'annotation', foreground: '808080' },
-                                    { token: 'type', foreground: 'ffc400' },
-                                    { token: 'delimiter', foreground: 'BDBDBD' },
-                                    { token: 'key', foreground: 'ff00b3' },
-                                    { token: 'string.key.json', foreground: 'ff00b3' },
-                                    { token: 'string.value.json', foreground: 'ffc400' },
-                                    { token: 'attribute.name', foreground: 'FF0000' },
-                                    { token: 'attribute.value', foreground: '0451A5' },
-                                    { token: 'attribute.value.number', foreground: '09885A' },
-                                    { token: 'attribute.value.unit', foreground: '09885A' },
-                                    { token: 'string', foreground: '59ffc8' },
-                                    { token: 'keyword', foreground: 'ff00b3', fontStyle: 'italic' },
-                                 ],
-                                 colors: {
+                                    {
+                                        token: 'variable',
+                                        foreground: 'BDBDBD'
+                                    },
+                                    {
+                                        token: 'variable.predefined',
+                                        foreground: 'BDBDBD'
+                                    },
+                                    {
+                                        token: 'constant',
+                                        foreground: '00ffff'
+                                    },
+                                    {
+                                        token: 'comment',
+                                        foreground: '636363',
+                                        'fontStyle': 'italic'
+                                    },
+                                    {
+                                        token: 'number',
+                                        foreground: 'D400FF'
+                                    },
+                                    {
+                                        token: 'number.hex',
+                                        foreground: '3030c0'
+                                    },
+                                    {
+                                        token: 'regexp',
+                                        foreground: '00ffff'
+                                    },
+                                    {
+                                        token: 'annotation',
+                                        foreground: '808080'
+                                    },
+                                    {
+                                        token: 'type',
+                                        foreground: 'ffc400'
+                                    },
+                                    {
+                                        token: 'delimiter',
+                                        foreground: 'BDBDBD'
+                                    },
+                                    {
+                                        token: 'key',
+                                        foreground: 'ff00b3'
+                                    },
+                                    {
+                                        token: 'string.key.json',
+                                        foreground: 'ff00b3'
+                                    },
+                                    {
+                                        token: 'string.value.json',
+                                        foreground: 'ffc400'
+                                    },
+                                    {
+                                        token: 'attribute.name',
+                                        foreground: 'FF0000'
+                                    },
+                                    {
+                                        token: 'attribute.value',
+                                        foreground: '0451A5'
+                                    },
+                                    {
+                                        token: 'attribute.value.number',
+                                        foreground: '09885A'
+                                    },
+                                    {
+                                        token: 'attribute.value.unit',
+                                        foreground: '09885A'
+                                    },
+                                    {
+                                        token: 'string',
+                                        foreground: '59ffc8'
+                                    },
+                                    {
+                                        token: 'keyword',
+                                        foreground: 'ff00b3',
+                                        fontStyle: 'italic'
+                                    },
+                                ],
+                                colors: {
                                     'editorBackground': '#333333',
                                     'editorForeground': '#BDBDBD',
                                     'editorGuide': '#141414',
@@ -509,8 +796,8 @@
                                     'editorFindInputBackground': '#171717',
                                     'editorFindCheckedBorders': '#5555FF',
                                     'editorMarkerNavigationBackground': '#141414'
-                                 }
-                              });
+                                }
+                            });
                             editor = monaco.editor.create(document.getElementById('monaco_container'), {
                                 value: _data.value,
                                 language: _data.language,
@@ -786,44 +1073,44 @@
                                     }
                                     _data.queueRef.on("child_changed", function(ref) {
                                         _data.project.db.once('value').then(function(d) {
-                                        // Get the snapshot value
-                                        var value = d.val().queue.pop();
-                                        console.log(value)
-                                        // Get the timestamp
-                                        var timestamp = value.ts.split(":")[0];
+                                            // Get the snapshot value
+                                            var value = d.val().queue.pop();
+                                            console.log(value)
+                                            // Get the timestamp
+                                            var timestamp = value.ts.split(":")[0];
 
-                                        // Do not apply changes from the past
-                                        if (lastCursor > timestamp) {
-                                            return;
-                                        }
-
-
-                                        // In case it's me who changed the value, I am
-                                        // not interested to see twice what I'm writing.
-                                        // So, if the update is made by me, it doesn't
-                                        // make sense to apply the update
-                                        if (value.by == firebase.auth().currentUser.uid) {
-                                            return;
-                                        }
-
-
-                                        // We're going to apply the changes by somebody else in our editor
-                                        //  1. We turn applyingDeltas on
-                                        applyingDeltas = true;
-                                        //  2. Update the editor value with the event data
-                                        editor.executeEdits("", [value.event.changes[0]]);
-                                        //  3. Turn off the applyingDeltas
-                                        applyingDeltas = false;
-                                        //  4. Log the event to console
-
-                                        lastRef = Date.now().toString();
-
-                                        _data.project.db.once('value').then(function(d) {
-                                            if (d.val().content != encodeURIComponent(editor.getValue())) {
-                                                alert("통신상태가 원활하지 않습니다.");
-                                                location.href = location.href;
+                                            // Do not apply changes from the past
+                                            if (lastCursor > timestamp) {
+                                                return;
                                             }
-                                        })
+
+
+                                            // In case it's me who changed the value, I am
+                                            // not interested to see twice what I'm writing.
+                                            // So, if the update is made by me, it doesn't
+                                            // make sense to apply the update
+                                            if (value.by == firebase.auth().currentUser.uid) {
+                                                return;
+                                            }
+
+
+                                            // We're going to apply the changes by somebody else in our editor
+                                            //  1. We turn applyingDeltas on
+                                            applyingDeltas = true;
+                                            //  2. Update the editor value with the event data
+                                            editor.executeEdits("", [value.event.changes[0]]);
+                                            //  3. Turn off the applyingDeltas
+                                            applyingDeltas = false;
+                                            //  4. Log the event to console
+
+                                            lastRef = Date.now().toString();
+
+                                            _data.project.db.once('value').then(function(d) {
+                                                if (d.val().content != encodeURIComponent(editor.getValue())) {
+                                                    alert("통신상태가 원활하지 않습니다.");
+                                                    location.href = location.href;
+                                                }
+                                            })
                                         })
                                     });
 
