@@ -290,6 +290,8 @@
 
     </div>
     <script type="text/javascript">
+        document.getElementById("loader").style.display = "block";
+        document.getElementById("main").style.display = "none";
         try {
             let isVisible = {
                 "tb_file": false,
@@ -354,9 +356,6 @@
         } catch (e) {
             alert(e);
         }
-
-        document.getElementById("loader").style.display = "block";
-        document.getElementById("main").style.display = "none";
         var editor;
 
         function init_ready() {
