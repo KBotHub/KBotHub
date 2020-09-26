@@ -155,13 +155,13 @@
             background-color: #333333;
             border: none;
             width: 100%;
-            height: 70%;
+            height: 100%;
             padding: 0 !important;
         }
 
         div#tabs ul {
             top: -2.6rem;
-            background-color: #333333;
+            background-color: #252525;
             border: none;
             margin-block-start: 0;
             margin-block-end: 0;
@@ -171,8 +171,9 @@
         }
 
         div#tabs a {
-            background-color: #4b4b4b;
-            color: white !important;
+            background-color: rgb(95 95 95);
+            color: rgb(255 255 255) !important;
+            border-radius: 5px;
         }
 
         div#tabs>div,
@@ -219,6 +220,13 @@
         .inTab.showUnused{
             position: relative;
             top: 0 !important;
+        }
+        
+        .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+            border: 1px solid rgb(0 62 255 / 0%);
+            background: rgb(0 127 255 / 0%);
+            font-weight: normal;
+            color: rgb(255 255 255);
         }
 
     </style>
@@ -288,11 +296,13 @@
         </div>
         <div id="tabs">
             <ul>
-                <li><a href="#tabs-1">Nunc tincidunt</a></li>
+                <li><a href="#tabs-1">Editor</a></li>
+                <li><a href="#tabs-2">Settings</a></li>
             </ul>
             <div id="tabs-1">
                 <div class="inTab" id="monaco_container"></div>
             </div>
+            <div id="tabs-2"></div>
         </div>
 
     </div>
