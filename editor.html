@@ -99,6 +99,7 @@
                 stroke-width: .4px;
             }
         }
+
         * {
             color: white;
         }
@@ -115,7 +116,8 @@
             margin-top: 0.7em;
         }
 
-        #toolBar ul, #toolBar li {
+        #toolBar ul,
+        #toolBar li {
             list-style: none;
             margin: 0;
             padding: 0;
@@ -166,7 +168,8 @@
             margin-block-start: 0;
             margin-block-end: 0;
         }
-        div#tabs ul li{
+
+        div#tabs ul li {
             display: inline;
         }
 
@@ -180,7 +183,7 @@
         div#tabs>div>p {
             top: 3rem !important;
         }
-        
+
         html,
         body,
         #monaco_container,
@@ -194,8 +197,8 @@
             padding: 0;
             overflow: hidden;
         }
-        
-        #tabs-1{
+
+        #tabs-1 {
             position: absolute;
             left: 0;
             top: 0 !important;
@@ -205,44 +208,60 @@
             padding: 0;
             overflow: hidden;
         }
-        
-        .ui-tabs-panel.ui-corner-bottom.ui-widget-content{
+
+        .ui-tabs-panel.ui-corner-bottom.ui-widget-content {
             margin: 0 !important;
         }
-        
-        #monaco_container{
+
+        #monaco_container {
             position: relative;
             bottom: 5rem;
             width: 100% !important;
             margin: 0 !important;
         }
-        
-        .inTab.showUnused{
+
+        .inTab.showUnused {
             position: relative;
             top: 0 !important;
         }
-        
-        .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+
+        .ui-state-active,
+        .ui-widget-content .ui-state-active,
+        .ui-widget-header .ui-state-active,
+        a.ui-button:active,
+        .ui-button:active,
+        .ui-button.ui-state-active:hover {
             border: 1px solid rgb(0 62 255 / 0%);
             background: rgb(0 127 255 / 0%);
             font-weight: normal;
             color: rgb(255 255 255);
         }
-        
-        .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+
+        .ui-state-default,
+        .ui-widget-content .ui-state-default,
+        .ui-widget-header .ui-state-default,
+        .ui-button,
+        html .ui-button.ui-state-disabled:hover,
+        html .ui-button.ui-state-disabled:active {
             border: 1px solid rgb(197 197 197 / 0%);
             background: rgb(255 255 255 / 0%);
             font-weight: normal;
             color: rgb(69 69 69);
         }
-        
-        .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus, .ui-button:hover, .ui-button:focus {
+
+        .ui-state-hover,
+        .ui-widget-content .ui-state-hover,
+        .ui-widget-header .ui-state-hover,
+        .ui-state-focus,
+        .ui-widget-content .ui-state-focus,
+        .ui-widget-header .ui-state-focus,
+        .ui-button:hover,
+        .ui-button:focus {
             border: 1px solid rgb(204 204 204 / 0%);
             background: rgb(237 237 237 / 0%);
             font-weight: normal;
             color: rgb(43 43 43);
         }
-
     </style>
     <div class="toastjs-container" role="alert" aria-hidden="true">
         <div class="toastjs"></div>
@@ -285,40 +304,39 @@
         <br>
         <h3 id="loader_text">loading firebase</h3>
     </div>
-    <div id="main">
-        <div id="tabs">
-            <ul>
-                <li><a href="#tabs-1">Editor</a></li>
-                <li><a href="#tabs-2">Settings</a></li>
-            </ul>
-            <div id="tabs-1">
-                <div id="toolBar">
-                    <ul id="toolBar">
-                        <li id="tb_file">파일(F)
-                            <ul>
-                                <li>새로 만들기</li>
-                                <li>열기</li>
-                            </ul>
-                        </li>
-                        <li id="tb_edit">편집(E)
-                            <ul>
-                                <li onClick="editor.trigger(editor,\"undo\")">실행 취소</li>
-                                <li onClick="editor.trigger(editor,\"redo\")">다시 실행</li>
-                            </ul>
-                        </li>
-                        <li id="tb_view">보기(V)
-                            <ul>
-                                <li onClick="editor.trigger(editor,\"editor.action.fontZoomIn\")">확대</li>
-                                <li onClick="editor.trigger(editor,\"editor.action.fontZoomOut\")">축소</li>
-                                <li onClick="editor.trigger(editor,\"editor.action.fontZoomReset\")">초기화</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <div class="inTab" id="monaco_container"></div>
-            </div>
-            <div id="tabs-2"></div>
+    <div id="toolBar">
+        <ul id="toolBar">
+            <li id="tb_file">파일(F)
+                <ul>
+                    <li>새로 만들기</li>
+                    <li>열기</li>
+                </ul>
+            </li>
+            <li id="tb_edit">편집(E)
+                <ul>
+                    <li onClick="editor.trigger(editor,\" undo\")">실행 취소</li>
+                    <li onClick="editor.trigger(editor,\" redo\")">다시 실행</li>
+                </ul>
+            </li>
+            <li id="tb_view">보기(V)
+                <ul>
+                    <li onClick="editor.trigger(editor,\" editor.action.fontZoomIn\")">확대</li>
+                    <li onClick="editor.trigger(editor,\" editor.action.fontZoomOut\")">축소</li>
+                    <li onClick="editor.trigger(editor,\" editor.action.fontZoomReset\")">초기화</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Editor</a></li>
+            <li><a href="#tabs-2">Settings</a></li>
+        </ul>
+        <div id="tabs-1">
+            <div class="inTab" id="monaco_container"></div>
         </div>
+        <div id="tabs-2"></div>
+    </div>
 
     </div>
     <script type="text/javascript">
