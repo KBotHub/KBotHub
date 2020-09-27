@@ -314,15 +314,15 @@
             </li>
             <li id="tb_edit">편집(E)
                 <ul>
-                    <li onClick="editor.trigger(editor,\" undo\")">실행 취소</li>
-                    <li onClick="editor.trigger(editor,\" redo\")">다시 실행</li>
+                    <li onClick="editor.trigger(editor,'undo')">실행 취소</li>
+                    <li onClick="editor.trigger(editor,'redo')">다시 실행</li>
                 </ul>
             </li>
             <li id="tb_view">보기(V)
                 <ul>
-                    <li onClick="editor.trigger(editor,\" editor.action.fontZoomIn\")">확대</li>
-                    <li onClick="editor.trigger(editor,\" editor.action.fontZoomOut\")">축소</li>
-                    <li onClick="editor.trigger(editor,\" editor.action.fontZoomReset\")">초기화</li>
+                    <li onClick="editor.trigger(editor,'editor.action.fontZoomIn')">확대</li>
+                    <li onClick="editor.trigger(editor,'editor.action.fontZoomOut')">축소</li>
+                    <li onClick="editor.trigger(editor,'editor.action.fontZoomReset')">초기화</li>
                 </ul>
             </li>
         </ul>
