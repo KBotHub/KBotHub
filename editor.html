@@ -272,7 +272,8 @@
     </style>
     <script>
         $(function(){
-            $('iframe#docs').height($('div#tabs').height() - $('ul[role = tablist]').height());
+            alert($('div#tabs').height()+', '$('div#tabs > ul').height())
+            $('iframe#docs').height($('div#tabs').height() - $('div#tabs > ul').height());
         });
     </script>
     <div class="toastjs-container" role="alert" aria-hidden="true">
