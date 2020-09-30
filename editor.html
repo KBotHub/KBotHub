@@ -1290,6 +1290,8 @@
                                 setTimeout(function() {
                                     $("#loader").fadeOut('normal', function() {
                                         $("#main").fadeIn()
+                                        alert($('div#tabs').height()+', '+$('div#tabs > ul').height());
+                                        $('iframe#docs').height($('div#tabs').height() - $('div#tabs > ul').height());
                                     })
                                 }, delay_var);
                             }, 750);
@@ -1300,10 +1302,6 @@
             }
         }
         init_ready();
-        $(function(){
-            alert($('div#tabs').height()+', '+$('div#tabs > ul').height());
-            $('iframe#docs').height($('div#tabs').height() - $('div#tabs > ul').height());
-        });
     </script>
 </body>
 
