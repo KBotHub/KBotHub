@@ -1291,7 +1291,7 @@
                                     $("#loader").fadeOut('normal', function() {
                                         $("#main").fadeIn()
                                         alert($('div#tabs').height()+', '+$('div#tabs > ul').height());
-                                        $('iframe#docs').height($('div#tabs').height() - $('div#tabs > ul').height());
+                                        $('iframe#docs').height($('div#tabs').height() - $('div#tabs > ul').height() - 48);
                                     })
                                 }, delay_var);
                             }, 750);
