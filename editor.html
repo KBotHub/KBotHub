@@ -272,7 +272,7 @@
     </style>
     <script>
         $(function(){
-            $('iframe#docs').height($('#monaco_container').height());
+            $('iframe#docs').height($('div#tabs').height() - $('ul[role = tablist]').height());
         });
     </script>
     <div class="toastjs-container" role="alert" aria-hidden="true">
