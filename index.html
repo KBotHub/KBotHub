@@ -1,115 +1,19 @@
 <!DOCTYPE html>
-<html lang="kr"><head>
-	<meta charset="utf-8">
-	<title>KBotHub</title>
-	<link rel="shortcut icon" type="image/jpg" href="https://kboteditor.kro.kr/img/output-onlinepngtools.ico">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta property="og:type" content="website">
-	<meta property="og:url" content="https://kboteditor.kro.kr/">
-	<meta property="og:title" content="KakaotalkBot Hub">
-	<meta property="og:description" content="카카오톡 봇 허브입니다.">
-	<meta property="og:image" content="https://kboteditor.kro.kr/img/grp_img.jpg">
-	<meta name="description" content="봇 허브 입니다">
-	<meta name="keywords" content="온라인 메신저봇">
-	<script src="https://kboteditor.kro.kr/js/Toast.min.js"></script>
-	<link rel="stylesheet" href="https://kboteditor.kro.kr/css/Toast.min.css">
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<link rel="stylesheet" href="https://kboteditor.kro.kr/fonts/fonts.css">
-	<link rel="stylesheet" href="https://uicdn.toast.com/tui.chart/latest/tui-chart.min.css">
-	<script src="https://uicdn.toast.com/tui.chart/latest/tui-chart-all.min.js"></script>
-	<script src="https://uicdn.toast.com/tui.chart/latest/maps/china.js"></script>
-	<script src="https://uicdn.toast.com/tui.chart/latest/maps/japan.js"></script>
-	<script src="https://uicdn.toast.com/tui.chart/latest/maps/singapore.js"></script>
-	<script src="https://uicdn.toast.com/tui.chart/latest/maps/south-korea.js"></script>
-	<script src="https://uicdn.toast.com/tui.chart/latest/maps/taiwan.js"></script>
-	<script src="https://uicdn.toast.com/tui.chart/latest/maps/thailand.js"></script>
-	<script src="https://uicdn.toast.com/tui.chart/latest/maps/usa.js"></script>
-	<script src="https://uicdn.toast.com/tui.chart/latest/maps/world.js"></script>
-	<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
-	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="img/mainImg/new_hub.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+    <script type="text/javascript" src="script/jquery.js"></script>
+    <script type="text/javascript" src="script/animation.js"></script>
+    <title>KBotHub | 카카오톡 봇 허브</title>
 </head>
 <body>
-	<div class="toastjs-container" role="alert" aria-hidden="true"><div class="toastjs"></div></div>
-	<!-- The core Firebase JS SDK is always required and must be listed first -->
-	<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
-
-	<!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries -->
-	<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-analytics.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-auth.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-firestore.js"></script>
-
-	<script>
-	  // Your web app's Firebase configuration
-	  var firebaseConfig = {
-	    apiKey: "AIzaSyBsvjuWiZBTEoBJWMvih4q7JHH6gmHF1X0",
-	    authDomain: "editor-280309.firebaseapp.com",
-	    databaseURL: "https://editor-280309.firebaseio.com",
-	    projectId: "editor-280309",
-	    storageBucket: "editor-280309.appspot.com",
-	    messagingSenderId: "836598450292",
-	    appId: "1:836598450292:web:35d0ab7d3e13faf7bba921",
-	    measurementId: "G-RJNBM8TLLK"
-	  };
-	  // Initialize Firebase
-	  firebase.initializeApp(firebaseConfig);
-	
-	  firebase.analytics();
-	  firebase.auth();
-	  // Initialize the FirebaseUI Widget using Firebase.
-	  var ui = new firebaseui.auth.AuthUI(firebase.auth());
-	</script>
-	<style>
-div#typedtext {
-    font-family: "JetBrainsMono-Bold";
-    text-align: center;
-    font-size: xxx-large;
-    color: rgb(255 255 255);
-
-}
-body {
-    background: rgb(0 0 0);
-}
-</style>
-<body>
-  <div id="typedtext"></div>
-</body>
-<script>
-// set up text to print, each item in array is new line
-var aText = "happy coding :)\n-KBotHub".split("\n");
-var iSpeed = 100; // time delay of print out
-var iIndex = 0; // start printing array at this posision
-var iArrLength = aText[0].length; // the length of the text array
-var iScrollAt = 20; // start scrolling up at this many lines
- 
-var iTextPos = 0; // initialise text position
-var sContents = ''; // initialise contents variable
-var iRow; // initialise current row
- 
-function typewriter()
-{
- sContents =  ' ';
- iRow = Math.max(0, iIndex-iScrollAt);
- var destination = document.getElementById("typedtext");
- 
- while ( iRow < iIndex ) {
-  sContents += aText[iRow++] + '<br />';
- }
- destination.innerHTML = sContents + aText[iIndex].substring(0, iTextPos);
- if ( iTextPos++ == iArrLength ) {
-  iTextPos = 0;
-  iIndex++;
-  if ( iIndex != aText.length ) {
-   iArrLength = aText[iIndex].length;
-   setTimeout("typewriter()", 500);
-  }
- } else {
-  setTimeout("typewriter()", iSpeed);
- }
-}
-
-
-typewriter();
-
-</script>
+    <header>
+        <img id="main" src="img/mainImg/new_hub.png">
+    </header>
 </body>
 </html>
